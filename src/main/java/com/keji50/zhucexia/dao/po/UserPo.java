@@ -29,5 +29,9 @@ public class UserPo {
     
     // 邮箱
     private String email;
+    
+    public static void main() {
+        new UserPo().setEmail("test@sina.com");
+    }
 }
 
