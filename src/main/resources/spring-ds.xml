@@ -33,7 +33,7 @@
 		<property name="filters" value="${ds.filters}" />
 	</bean>
 
-	<bean id="dataSource" class="com.howbuy.ftxconsole.dao.dataSource.CustomerRoutingDataSource">
+	<bean id="dataSource" class="com.keji50.zhucexia.dao.datasource.CustomerRoutingDataSource">
 		<!-- 这个targetDataSource是必须要注入的 -->
 		<property name="targetDataSources">
 			<map key-type="java.lang.String">

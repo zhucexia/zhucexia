@@ -1,5 +1,9 @@
 package com.keji50.zhucexia.dao.po;
 
+import com.keji50.zhucexia.dao.mapper.UserPoMapper;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import lombok.Data;
 
 /**
@@ -30,8 +34,16 @@ public class UserPo {
     // 邮箱
     private String email;
     
-    public static void main() {
-        new UserPo().setEmail("test@sina.com");
+    public static void main(String[] args) {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-context.xml");
+        UserPoMapper userPoMapper = (UserPoMapper) applicationContext.getBean("userPoMapper");
+        
+        UserPo user = new UserPo();
+        user.setUsername("testuser");
+        user.setPassword("userpassword");
+        user.setEmail("l@1.live.com");
+        user.setPhoneNumber("13503030303");
+        userPoMapper.insert(user);
     }
 }
 
