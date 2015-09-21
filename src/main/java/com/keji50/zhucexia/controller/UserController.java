@@ -20,7 +20,7 @@ public class UserController {
 
     @RequestMapping(value = "/index")
     public String index() {
-        return "/user/index";
+        return "user/index";
     }
 
 }
