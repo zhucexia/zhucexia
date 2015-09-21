@@ -33,6 +33,6 @@ public interface UserPoMapper {
      * @param user
      *            会员对象
      */
-    void insert(UserPo user);
+    int insert(UserPo user);
 
 }

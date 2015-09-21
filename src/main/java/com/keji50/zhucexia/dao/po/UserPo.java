@@ -43,7 +43,7 @@ public class UserPo {
         user.setPassword("userpassword");
         user.setEmail("l@1.live.com");
         user.setPhoneNumber("13503030303");
-        userPoMapper.insert(user);
+        System.out.println(userPoMapper.insert(user));
     }
 }
 
