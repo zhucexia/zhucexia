@@ -26,7 +26,7 @@
 	    <appender-ref ref="FILE" />
 	</appender>
 
-	<logger name="com.leslie.beauty" additivity="false" level="info">
+	<logger name="com.keji50.zhucexia" additivity="false" level="info">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	

@@ -13,8 +13,9 @@
   </sql>
   
   <!-- 新增会员 -->
-  <select id="insert" parameterType="com.keji50.zhucexia.dao.po.UserPo" resultType="int">
+  <insert id="insert" parameterType="com.keji50.zhucexia.dao.po.UserPo">
     insert into user(username, password, phone_number, email)
     values(#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
-  </select>
+  </insert>
+
 </mapper>
