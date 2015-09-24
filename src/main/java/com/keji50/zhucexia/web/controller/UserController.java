@@ -1,4 +1,4 @@
-package com.keji50.zhucexia.controller;
+package com.keji50.zhucexia.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
