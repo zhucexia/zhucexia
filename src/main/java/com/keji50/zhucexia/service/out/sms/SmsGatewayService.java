@@ -73,7 +73,7 @@ public class SmsGatewayService {
 
 		SmsPo sms = new SmsPo();
 		sms.setContent("您的验证码是：1234。请不要把验证码泄露给其他人。");
-		sms.setPhoneNumber("15618971727");
+		sms.setPhoneNumber("13801769749");
 
 		System.out.println(smsService.sendSms(sms));
 	}
