@@ -25,10 +25,12 @@
 		<javax.validation.version>1.1.0.Final</javax.validation.version>
 		<org.hibernate.version>4.1.0.Final</org.hibernate.version>
 		<org.codehaus.jackson.version>1.9.13</org.codehaus.jackson.version>
-		<commons-fileupload.version>1.2</commons-fileupload.version>  
-		<fastjson.version>1.1.41</fastjson.version> 
+		<commons-fileupload.version>1.2</commons-fileupload.version>
+		<fastjson.version>1.1.41</fastjson.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<logback.version>1.0.8</logback.version>
+		<httpclient.version>4.5</httpclient.version>
+		<dom4j.version>1.6.1</dom4j.version>
 	</properties>
 	<dependencies>
 
@@ -156,22 +158,22 @@
 		</dependency>
 
 		<dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>${commons-fileupload.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        
-        <!-- log -->
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- log -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -206,7 +208,17 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
-		</dependency>  
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>${dom4j.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

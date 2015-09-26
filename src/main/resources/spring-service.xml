@@ -44,5 +44,17 @@
 			<tx:method name="*" propagation="SUPPORTS" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-
+	
+	<bean id="httpClientService" class="com.keji50.zhucexia.service.out.http.HttpClientService">
+		<property name="socketTimeout" value="${httpclient.socketTimeout}" />
+		<property name="connectTimeout" value="${httpclient.connectTimeout}" />
+		<property name="connectionRequestTimeout" value="${httpclient.connectionRequestTimeout}" />
+	</bean>
+	
+	<bean id="smsGatewayService" class="com.keji50.zhucexia.service.out.sms.SmsGatewayService">
+		<property name="smsUrl" value="${sms.url}" />
+		<property name="account" value="${sms.account}" />
+		<property name="password" value="${sms.password}" />
+		<property name="httpClientService" ref="httpClientService" />
+	</bean>
 </beans>
