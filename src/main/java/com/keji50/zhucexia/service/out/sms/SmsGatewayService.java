@@ -31,12 +31,12 @@ public class SmsGatewayService {
 	@Setter @Getter
 	private HttpClientService httpClientService;
 
-	private SmsGatewayPo sendSms(SmsPo sms) {
+	public SmsGatewayPo sendSms(SmsPo sms) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("account", getAccount());
 		params.put("password", getPassword());
-		params.put("mobile", sms.getPhoneNumber());
-		params.put("content", sms.getContent());
+		params.put("mobile", sms.getMobile());
+		params.put("content", sms.getSmsContent());
 
 		String smsResult = null;
 		try {
@@ -71,10 +71,7 @@ public class SmsGatewayService {
 		SmsGatewayService smsService = (SmsGatewayService) applicationContext
 				.getBean("smsGatewayService");
 
-		SmsPo sms = new SmsPo();
-		sms.setContent("您的验证码是：1234。请不要把验证码泄露给其他人。");
-		sms.setPhoneNumber("13801769749");
-
+		SmsPo sms = new SmsPo("13801769749", SmsTemplate.VALIDATION_TEMPLATE.getType(), "1234");
 		System.out.println(smsService.sendSms(sms));
 	}
 }

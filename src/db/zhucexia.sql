@@ -83,6 +83,28 @@ CREATE TABLE `sys_user` (
   KEY `sys_user_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统管理员信息表';
 
+
+
+-------------------------------
+-- short message table
+-------------------------------
+DROP TABLE IF EXISTS `sms`;
+CREATE TABLE `sms` (
+	`id` int(11) unsigned auto_increment NOT NULL,
+  	`type` varchar(32) DEFAULT '0' COMMENT '0: phone bind',
+  	`mobile` varchar(11) NOT NULL COMMENT 'phone number',
+  	`content` varchar(32) NOT NULL COMMENT 'sms content',
+  	`ip` varchar(32) COMMENT 'customer ip address',
+  	`validation_expire` DATE NOT NULL COMMENT '',
+  	`smsid` varchar(32) COMMENT 'customer ip address',
+  	`create_by` varchar(64) DEFAULT 'system' COMMENT '创建人',
+  	`create_time` datetime DEFAULT now() COMMENT '创建时间',
+  	`update_by` varchar(64) DEFAULT 'system' COMMENT '修改人',
+  	`update_time` datetime DEFAULT now() COMMENT '修改时间',
+  	PRIMARY KEY (`id`),
+  	KEY `sms_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='sms';
+
 -- ----------------------------
 -- 客户信息表
 -- ----------------------------
