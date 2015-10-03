@@ -1,10 +1,10 @@
 package com.keji50.zhucexia.dao.mapper;
 
-import com.keji50.zhucexia.dao.po.SmsPo;
+import com.keji50.zhucexia.dao.po.CustomerSmsPo;
 
 public interface SmsPoMapper {
 	
-	int insert(SmsPo sms);
+	int insert(CustomerSmsPo sms);
 	
-	SmsPo selectById(int id, String mobile);
+	CustomerSmsPo selectById(int id, String mobile);
 }
