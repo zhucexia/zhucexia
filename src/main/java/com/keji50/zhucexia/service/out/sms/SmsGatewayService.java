@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.keji50.zhucexia.dao.po.SmsPo;
+import com.keji50.zhucexia.dao.po.CustomerSmsPo;
 import com.keji50.zhucexia.service.out.http.HttpClientService;
 
 public class SmsGatewayService {
@@ -31,7 +31,7 @@ public class SmsGatewayService {
 	@Setter @Getter
 	private HttpClientService httpClientService;
 
-	public SmsGatewayPo sendSms(SmsPo sms) {
+	public SmsGatewayPo sendSms(CustomerSmsPo sms) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("account", getAccount());
 		params.put("password", getPassword());
@@ -71,7 +71,7 @@ public class SmsGatewayService {
 		SmsGatewayService smsService = (SmsGatewayService) applicationContext
 				.getBean("smsGatewayService");
 
-		SmsPo sms = new SmsPo("13801769749", SmsTemplate.VALIDATION_TEMPLATE.getType(), "1234");
+		CustomerSmsPo sms = new CustomerSmsPo("13801769749", SmsTemplate.VALIDATION_TEMPLATE.getType(), "1234");
 		System.out.println(smsService.sendSms(sms));
 	}
 }

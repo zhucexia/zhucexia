@@ -83,28 +83,6 @@ CREATE TABLE `sys_user` (
   KEY `sys_user_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统管理员信息表';
 
-
-
--------------------------------
--- short message table
--------------------------------
-DROP TABLE IF EXISTS `sms`;
-CREATE TABLE `sms` (
-	`id` int(11) unsigned auto_increment NOT NULL,
-  	`type` varchar(32) DEFAULT '0' COMMENT '0: phone bind',
-  	`mobile` varchar(11) NOT NULL COMMENT 'phone number',
-  	`content` varchar(32) NOT NULL COMMENT 'sms content',
-  	`ip` varchar(32) COMMENT 'customer ip address',
-  	`validation_expire` DATE NOT NULL COMMENT '',
-  	`smsid` varchar(32) COMMENT 'customer ip address',
-  	`create_by` varchar(64) DEFAULT 'system' COMMENT '创建人',
-  	`create_time` datetime DEFAULT now() COMMENT '创建时间',
-  	`update_by` varchar(64) DEFAULT 'system' COMMENT '修改人',
-  	`update_time` datetime DEFAULT now() COMMENT '修改时间',
-  	PRIMARY KEY (`id`),
-  	KEY `sms_id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='sms';
-
 -- ----------------------------
 -- 客户信息表
 -- ----------------------------
@@ -138,6 +116,47 @@ CREATE TABLE `customer` (
   PRIMARY KEY (`id`),
   KEY `customer_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户信息表';
+
+-------------------------------
+-- 客户短信信息表 
+-------------------------------
+DROP TABLE IF EXISTS `customer_sms`;
+CREATE TABLE `customer_sms` (
+	`id` int(11) unsigned auto_increment NOT NULL,
+  	`type` varchar(32) DEFAULT '0' COMMENT '0: 手机号绑定',
+  	`mobile` varchar(11) NOT NULL COMMENT '手机号',
+  	`validation_code` varchar(32) NOT NULL COMMENT '验证码',
+  	`validation_expire` DATE NOT NULL COMMENT '验证内容有效时间',
+  	`ip` varchar(32) COMMENT '客户ip地址',
+  	`smsid` varchar(32) COMMENT '短信厂商回执id',
+  	`create_by` varchar(64) DEFAULT 'system' COMMENT '创建人',
+  	`create_time` datetime DEFAULT now() COMMENT '创建时间',
+  	`update_by` varchar(64) DEFAULT 'system' COMMENT '修改人',
+  	`update_time` datetime DEFAULT now() COMMENT '修改时间',
+  	PRIMARY KEY (`id`),
+  	KEY `customer_sms_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户短信信息表';
+
+-------------------------------
+-- 客户邮箱验证信息表 
+-------------------------------
+DROP TABLE IF EXISTS `customer_email`;
+CREATE TABLE `customer_email` (
+	`id` int(11) unsigned auto_increment NOT NULL,
+  	`type` varchar(32) DEFAULT '0' COMMENT '0: 邮箱绑定，  1:重置密码',
+  	`customer_id` int(11) NOT NULL COMMENT '客户id',
+  	`email` varchar(100) NOT NULL COMMENT '邮箱地址',
+  	`validation_code` varchar(32) NOT NULL COMMENT '验证码',
+  	`validation_expire` DATE NOT NULL COMMENT '验证内容有效时间',
+  	`ip` varchar(32) COMMENT '客户ip地址',
+  	`state` varchar(1) DEFAULT '0' COMMENT '数据状态  0:未验证， 1:已验证',
+  	`create_by` varchar(64) DEFAULT 'system' COMMENT '创建人',
+  	`create_time` datetime DEFAULT now() COMMENT '创建时间',
+  	`update_by` varchar(64) DEFAULT 'system' COMMENT '修改人',
+  	`update_time` datetime DEFAULT now() COMMENT '修改时间',
+  	PRIMARY KEY (`id`),
+  	KEY `customer_email_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户邮箱验证信息表 ';
 
 -- ----------------------------
 -- 客户收货地址信息表
@@ -208,7 +227,7 @@ CREATE TABLE `good_type` (
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人id',
   `update_time` datetime DEFAULT now() COMMENT '修改时间',
   `state` varchar(1) DEFAULT 's' COMMENT '数据状态 c:草稿 s;已审核 d:删除',
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`),f
   KEY `good_type_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商品类型信息表';
 
