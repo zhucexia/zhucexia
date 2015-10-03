@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.keji50.zhucexia.dao.mapper.SmsPoMapper;
@@ -22,14 +23,17 @@ public class SmsValidationService {
 	@Resource(name = "smsPoMapper")
 	private SmsPoMapper smsPoMapper;
 	
-	/**
+	/** 
+	 * 发送验证短信
 	 * 
-	 * @param mobile
-	 * @param ip
-	 * @return
+	 * @param mobile  手机号
+	 * @param ip	  ip地址
+	 * @return 
+	 * 		短信对象， 包括当前短信id
 	 */
 	public SmsPo sendValidationSms(String mobile, String ip) {
 		SmsPo sms = new SmsPo(mobile, SmsTemplate.VALIDATION_TEMPLATE.getType(), getRandomSms());
+		// 调用短信网关发送验证短信
 		SmsGatewayPo smsGatewayPo = smsGatewayService.sendSms(sms);
 		
 		if (smsGatewayPo != null && smsGatewayPo.isSuccess()) {
@@ -46,11 +50,13 @@ public class SmsValidationService {
 	} 
 	
 	/**
+	 * 验证短信验证码是否正确
 	 * 
-	 * @param id
-	 * @param mobile
-	 * @param content
-	 * @return
+	 * @param id		当前短信验证码id
+	 * @param mobile	手机号
+	 * @param content	验证码内容
+	 * @return	
+	 * 		验证是否成功    0成功   -1验证码不正确   -2验证码已过期
 	 */
 	public int validateSms(int id, String mobile, String content) {
 		SmsPo sms = smsPoMapper.selectById(id, mobile);
@@ -69,11 +75,17 @@ public class SmsValidationService {
 		return 0;
 	}
 	
+	/**
+	 * 获取4位随机数字验证码
+	 */
 	private String getRandomSms() {
 		int random = (int) Math.random() * 9999;
-		return String.valueOf(random);
+		return StringUtils.leftPad(String.valueOf(random), 4, '0');
 	}
 	
+	/**
+	 * 短信验证有效时间， 默认三分钟
+	 */
 	private Date getValidationExpire() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MINUTE, 3); // expire in 3 minutes
