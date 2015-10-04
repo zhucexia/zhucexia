@@ -9,6 +9,10 @@ import lombok.Data;
 @Data
 public class CustomerSmsPo extends BasePo {
 
+	public CustomerSmsPo() {
+
+	}
+	
 	public CustomerSmsPo(String mobile, String type, String validationCode) {
 		this.mobile = mobile;
 		this.type = type;

@@ -1,20 +1,18 @@
 package com.keji50.zhucexia.service;
 
+import com.keji50.zhucexia.dao.mapper.CustomerSmsPoMapper;
+import com.keji50.zhucexia.dao.po.CustomerSmsPo;
+import com.keji50.zhucexia.service.out.sms.SmsGatewayService;
+import com.keji50.zhucexia.service.out.sms.SmsTemplate;
 import java.util.Calendar;
 import java.util.Date;
-
 import javax.annotation.Resource;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.keji50.zhucexia.dao.mapper.CustomerSmsPoMapper;
-import com.keji50.zhucexia.dao.po.CustomerSmsPo;
-import com.keji50.zhucexia.service.out.sms.SmsGatewayPo;
-import com.keji50.zhucexia.service.out.sms.SmsGatewayService;
-import com.keji50.zhucexia.service.out.sms.SmsTemplate;
+
 
 @Service(value = "customerSmsValidationService")
 public class CustomerSmsValidationService {
@@ -36,18 +34,13 @@ public class CustomerSmsValidationService {
 	 */
 	public CustomerSmsPo sendValidationSms(String mobile, String ip) {
 		CustomerSmsPo sms = new CustomerSmsPo(mobile, SmsTemplate.VALIDATION_TEMPLATE.getType(), getRandomValidationCode());
-		// 调用短信网关发送验证短信
-		SmsGatewayPo smsGatewayPo = smsGatewayService.sendSms(sms);
+		sms.setValidationExpire(getValidationExpire());
+		sms.setIp(ip);
 
-		if (smsGatewayPo != null && smsGatewayPo.isSuccess()) {
-			sms.setValidationExpire(getValidationExpire());
-			sms.setIp(ip);
-			sms.setSmsId(smsGatewayPo.getSmsid());
-
-			int id = customerSmsPoMapper.insert(sms);
-			if (id > 0) {
-				sms.setId(id);
-			}
+		int count = customerSmsPoMapper.insert(sms);
+		if (count > 0) {
+			// 异步发送验证短信
+			smsGatewayService.sendSms(sms);
 		}
 		return sms;
 	}
@@ -104,6 +97,7 @@ public class CustomerSmsValidationService {
 		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
 				.getBean("customerSmsValidationService");
 
-		service.sendValidationSms("13501635413", "192.168.1.1");
+		System.out.println(service.sendValidationSms("13501635413", "192.168.1.1"));
+		//System.out.println(service.validateSms(5, "13501635413", "3605"));
 	}
 }

@@ -1,7 +1,11 @@
 package com.keji50.zhucexia.service.out.sms;
 
+import com.keji50.zhucexia.dao.po.CustomerSmsPo;
+import com.keji50.zhucexia.service.out.http.HttpClientService;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import lombok.Getter;
 import lombok.Setter;
 import org.dom4j.Document;
@@ -10,12 +14,14 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.keji50.zhucexia.dao.po.CustomerSmsPo;
-import com.keji50.zhucexia.service.out.http.HttpClientService;
+import org.springframework.beans.factory.DisposableBean;
 
-public class SmsGatewayService {
+/**
+ * 短信网关服务，  异步发送短信验证码
+ * @author chao.li
+ *
+ */
+public class SmsGatewayService implements DisposableBean {
 
 	private static final Logger log = LoggerFactory.getLogger(SmsGatewayService.class);
 
@@ -30,22 +36,32 @@ public class SmsGatewayService {
 
 	@Setter @Getter
 	private HttpClientService httpClientService;
+	
+	// 处理线程池， 短信网关异步发送短信
+	private ExecutorService pool = Executors.newCachedThreadPool();
 
-	public SmsGatewayPo sendSms(CustomerSmsPo sms) {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("account", getAccount());
-		params.put("password", getPassword());
-		params.put("mobile", sms.getMobile());
-		params.put("content", sms.getSmsContent());
+	/**
+	 * 异步发送短信验证码
+	 * @param sms
+	 */
+	public void sendSms(final CustomerSmsPo sms) {
+		pool.execute(new Runnable() {
+			@Override
+			public void run() {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("account", getAccount());
+				params.put("password", getPassword());
+				params.put("mobile", sms.getMobile());
+				params.put("content", sms.getSmsContent());
 
-		String smsResult = null;
-		try {
-			smsResult = getHttpClientService().post(getSmsUrl(), params);
-			return toBean(smsResult);
-		} catch (Exception e) {
-			log.error("fail to send sms", e);
-			return null;
-		}
+				try {
+					getHttpClientService().post(getSmsUrl(), params);
+				} catch (Exception e) {
+					log.error("fail to send sms", e);
+				}
+			}
+		});
+		
 	}
 
 	private SmsGatewayPo toBean(String xml) throws DocumentException {
@@ -65,13 +81,10 @@ public class SmsGatewayService {
 		return po;
 	}
 
-	public static void main(String[] args) {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-				"spring-context.xml");
-		SmsGatewayService smsService = (SmsGatewayService) applicationContext
-				.getBean("smsGatewayService");
-
-		CustomerSmsPo sms = new CustomerSmsPo("13801769749", SmsTemplate.VALIDATION_TEMPLATE.getType(), "1234");
-		System.out.println(smsService.sendSms(sms));
+	@Override
+	public void destroy() throws Exception {
+		if (pool != null) {
+			pool.shutdown();
+		}
 	}
 }
