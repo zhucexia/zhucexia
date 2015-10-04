@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keji50.zhucexia.dao.mapper.CustomerSmsPoMapper" >
+  <resultMap id="BaseResultMap" type="com.keji50.zhucexia.dao.po.CustomerSmsPo" >
+    <id column="id" property="id" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="validation_code" property="validationCode" jdbcType="VARCHAR" />
+    <result column="validation_expire" property="validationExpire" jdbcType="TIMESTAMP" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="smsid" property="smsId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, validation_code, validation_expire, ip, smsid
+  </sql>
+  
+  <!-- 新增短信-->
+  <insert id="insert" parameterType="com.keji50.zhucexia.dao.po.CustomerSmsPo">
+    insert into customer_sms(type, mobile, validation_code, validation_expire, ip, smsid)
+    values(#{type,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{validationCode,jdbcType=VARCHAR}, #{validationExpire,jdbcType=TIMESTAMP}, #{ip,jdbcType=VARCHAR}, #{smsId,jdbcType=VARCHAR})
+  	<selectKey resultType="java.lang.Integer" keyProperty="id">
+  		select LAST_INSERT_ID() 
+  	</selectKey>
+  </insert>
+  
+  <!-- 查询短信内容 -->
+  <select id="selectById" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> from customer_sms 
+  	where id = #{id,jdbcType=DECIMAL} and mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

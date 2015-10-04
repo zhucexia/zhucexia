@@ -6,9 +6,11 @@ import java.util.Date;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.keji50.zhucexia.dao.mapper.SmsPoMapper;
+import com.keji50.zhucexia.dao.mapper.CustomerSmsPoMapper;
 import com.keji50.zhucexia.dao.po.CustomerSmsPo;
 import com.keji50.zhucexia.service.out.sms.SmsGatewayPo;
 import com.keji50.zhucexia.service.out.sms.SmsGatewayService;
@@ -20,8 +22,8 @@ public class CustomerSmsValidationService {
 	@Resource(name = "smsGatewayService")
 	private SmsGatewayService smsGatewayService;
 
-	@Resource(name = "smsPoMapper")
-	private SmsPoMapper smsPoMapper;
+	@Resource(name = "customerSmsPoMapper")
+	private CustomerSmsPoMapper customerSmsPoMapper;
 
 	/**
 	 * 发送验证短信
@@ -42,7 +44,7 @@ public class CustomerSmsValidationService {
 			sms.setIp(ip);
 			sms.setSmsId(smsGatewayPo.getSmsid());
 
-			int id = smsPoMapper.insert(sms);
+			int id = customerSmsPoMapper.insert(sms);
 			if (id > 0) {
 				sms.setId(id);
 			}
@@ -62,7 +64,7 @@ public class CustomerSmsValidationService {
 	 * @return 验证是否成功 0成功 -1验证码不正确 -2验证码已过期
 	 */
 	public int validateSms(int id, String mobile, String validationCode) {
-		CustomerSmsPo sms = smsPoMapper.selectById(id, mobile);
+		CustomerSmsPo sms = customerSmsPoMapper.selectById(id, mobile);
 		// 短信验证是否存在
 		if (sms == null) {
 			return -1;
@@ -83,7 +85,7 @@ public class CustomerSmsValidationService {
 	 * 获取4位随机数字验证码
 	 */
 	private String getRandomValidationCode() {
-		int random = (int) Math.random() * 9999;
+		int random = (int) (Math.random() * 9999);
 		return StringUtils.leftPad(String.valueOf(random), 4, '0');
 	}
 
@@ -94,5 +96,14 @@ public class CustomerSmsValidationService {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.MINUTE, 3); // expire in 3 minutes
 		return calendar.getTime();
+	}
+	
+	public static void main(String[] args) {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+				"spring-context.xml");
+		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
+				.getBean("customerSmsValidationService");
+
+		service.sendValidationSms("13501635413", "192.168.1.1");
 	}
 }
