@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +20,20 @@ public class SmsGatewayService implements DisposableBean {
 
 	private static final Logger log = LoggerFactory.getLogger(SmsGatewayService.class);
 
-	@Setter @Getter
+	@Setter
 	private String smsUrl;
 
-	@Setter @Getter
+	@Setter
 	private String account;
 
-	@Setter @Getter
+	@Setter
 	private String password;
 
-	@Setter @Getter
+	@Setter
 	private HttpClientService httpClientService;
-	
+
 	// 处理线程池， 短信网关异步发送短信
-	private ExecutorService pool = Executors.newCachedThreadPool();
+	private ExecutorService pool = Executors.newFixedThreadPool(10);
 
 	/**
 	 * 异步发送短信验证码
@@ -45,13 +44,13 @@ public class SmsGatewayService implements DisposableBean {
 			@Override
 			public void run() {
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("account", getAccount());
-				params.put("password", getPassword());
+				params.put("account", account);
+				params.put("password", password);
 				params.put("mobile", sms.getMobile());
 				params.put("content", sms.getSmsContent());
 
 				try {
-					getHttpClientService().post(getSmsUrl(), params);
+					httpClientService.post(smsUrl, params);
 				} catch (Exception e) {
 					log.error("fail to send sms", e);
 				}

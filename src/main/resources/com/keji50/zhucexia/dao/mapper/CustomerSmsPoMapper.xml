@@ -11,7 +11,7 @@
     <result column="smsid" property="smsId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, type, validation_code, validation_expire, ip, smsid
+    id, type, mobile, validation_code, validation_expire, ip, smsid
   </sql>
   
   <!-- 新增短信-->

@@ -57,4 +57,23 @@
 		<property name="password" value="${sms.password}" />
 		<property name="httpClientService" ref="httpClientService" />
 	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${email.host}" /> 
+		<property name="username" value="${email.username}" />  
+		<property name="password" value="${email.password}" />
+		<property name="javaMailProperties">  
+	    	<props>  
+	        	<prop key="mail.smtp.auth">true</prop>  
+	        	<prop key="mail.smtp.from">${email.from}</prop>  
+	        	<prop key="mail.debug">true</prop>  
+	    	</props>  
+		</property>
+	</bean>
+	
+	<bean id="emailGatewayService" class="com.keji50.zhucexia.service.out.email.EmailGatewayService">
+		<property name="baseValidationUrl" value="${email.validation.url}" />
+		<property name="mailFrom" value="${email.from}" />
+		<property name="mailSender" ref="mailSender" />
+	</bean>
 </beans>

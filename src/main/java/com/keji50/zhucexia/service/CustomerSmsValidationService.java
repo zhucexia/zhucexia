@@ -12,10 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
-
-
 @Service(value = "customerSmsValidationService")
-public class CustomerSmsValidationService {
+public class CustomerSmsValidationService extends AbstractValidationService {
 
 	@Resource(name = "smsGatewayService")
 	private SmsGatewayService smsGatewayService;
@@ -32,11 +30,13 @@ public class CustomerSmsValidationService {
 	 *            ip地址
 	 * @return 短信对象， 包括当前短信id
 	 */
-	public CustomerSmsPo sendValidationSms(String mobile, String ip) {
-		CustomerSmsPo sms = new CustomerSmsPo(mobile, SmsTemplate.VALIDATION_TEMPLATE.getType(), getRandomValidationCode());
-		sms.setValidationExpire(getValidationExpire());
+	public CustomerSmsPo sendValidationSms(String mobile, String ip, SmsTemplate template) {
+		CustomerSmsPo sms = new CustomerSmsPo(mobile, template.getType());
+		sms.setValidationCode(getRandomValidationCode());
+		sms.setValidationExpire(getValidationExpire(Calendar.MINUTE, 3)); //有效时间三分钟
 		sms.setIp(ip);
 
+		// 插入验证记录到数据表， 如插入成功， 调用短信网关发送验证短信
 		int count = customerSmsPoMapper.insert(sms);
 		if (count > 0) {
 			// 异步发送验证短信
@@ -74,30 +74,13 @@ public class CustomerSmsValidationService {
 		return 0;
 	}
 
-	/**
-	 * 获取4位随机数字验证码
-	 */
-	private String getRandomValidationCode() {
-		int random = (int) (Math.random() * 9999);
-		return StringUtils.leftPad(String.valueOf(random), 4, '0');
-	}
-
-	/**
-	 * 短信验证有效时间， 默认三分钟
-	 */
-	private Date getValidationExpire() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.MINUTE, 3); // expire in 3 minutes
-		return calendar.getTime();
-	}
-	
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"spring-context.xml");
 		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
 				.getBean("customerSmsValidationService");
 
-		System.out.println(service.sendValidationSms("13501635413", "192.168.1.1"));
+		System.out.println(service.sendValidationSms("13501635413", "192.168.1.1", SmsTemplate.VALIDATION_TEMPLATE));
 		//System.out.println(service.validateSms(5, "13501635413", "3605"));
 	}
 }

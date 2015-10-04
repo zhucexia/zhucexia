@@ -8,17 +8,16 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class CustomerSmsPo extends BasePo {
 
 	public CustomerSmsPo() {
 
 	}
-	
-	public CustomerSmsPo(String mobile, String type, String validationCode) {
+
+	public CustomerSmsPo(String mobile, String type) {
 		this.mobile = mobile;
 		this.type = type;
-		this.validationCode = validationCode;
 	}
 
 	private int id;

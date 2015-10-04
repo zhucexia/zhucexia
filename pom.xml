@@ -32,6 +32,7 @@
 		<logback.version>1.0.8</logback.version>
 		<httpclient.version>4.5</httpclient.version>
 		<dom4j.version>1.6.1</dom4j.version>
+		<javax.mail.version>1.4.3</javax.mail.version>
 	</properties>
 	<dependencies>
 
@@ -225,6 +226,11 @@
 			<artifactId>commons-lang</artifactId>
 			<version>${commons-lang.version}</version>
 		</dependency>
+		<dependency>  
+            <groupId>javax.mail</groupId>  
+            <artifactId>mail</artifactId>  
+            <version>${javax.mail.version}</version>  
+        </dependency> 
 	</dependencies>
 
 	<build>
