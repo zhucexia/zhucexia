@@ -8,10 +8,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import lombok.Getter;
 import lombok.Setter;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -64,22 +60,22 @@ public class SmsGatewayService implements DisposableBean {
 		
 	}
 
-	private SmsGatewayPo toBean(String xml) throws DocumentException {
-		Document doc = DocumentHelper.parseText(xml);
-		Element root = doc.getRootElement();
-
-		SmsGatewayPo po = new SmsGatewayPo();
-		if (root.element("code") != null) {
-			po.setCode(root.elementText("code"));
-		}
-		if (root.element("msg") != null) {
-			po.setMsg(root.elementText("msg"));
-		}
-		if (root.element("smsid") != null) {
-			po.setSmsid(root.elementText("smsid"));
-		}
-		return po;
-	}
+//	private SmsGatewayPo toBean(String xml) throws DocumentException {
+//		Document doc = DocumentHelper.parseText(xml);
+//		Element root = doc.getRootElement();
+//
+//		SmsGatewayPo po = new SmsGatewayPo();
+//		if (root.element("code") != null) {
+//			po.setCode(root.elementText("code"));
+//		}
+//		if (root.element("msg") != null) {
+//			po.setMsg(root.elementText("msg"));
+//		}
+//		if (root.element("smsid") != null) {
+//			po.setSmsid(root.elementText("smsid"));
+//		}
+//		return po;
+//	}
 
 	@Override
 	public void destroy() throws Exception {

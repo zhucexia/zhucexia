@@ -1,10 +1,14 @@
 package com.keji50.zhucexia.dao.po;
 
-import com.keji50.zhucexia.service.out.email.EmailTemplate;
 import java.util.Date;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import com.keji50.zhucexia.service.out.email.EmailTemplate;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class CustomerEmailPo extends BasePo {
 
 	public CustomerEmailPo(String email, String type, String validationCode) {

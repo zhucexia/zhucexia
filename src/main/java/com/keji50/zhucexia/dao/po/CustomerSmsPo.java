@@ -5,8 +5,10 @@ import java.util.Date;
 import com.keji50.zhucexia.service.out.sms.SmsTemplate;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class CustomerSmsPo extends BasePo {
 
 	public CustomerSmsPo() {
