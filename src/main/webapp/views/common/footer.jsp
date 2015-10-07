@@ -23,6 +23,10 @@
 				<span class="ml5 mr5">|</span><a href="" target="_blank">后台登录入口</a>
 		</div>
 		<div class="gov" style="text-align: center"></div>
+		<div class="qrcode">
+			<img alt="" src="${root }/static/images/common/qrcode.png" /><br/>
+			<span>微信服务号</span>
+		</div>
 	</div>
 </div>
 </div>
