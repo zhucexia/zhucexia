@@ -93,6 +93,7 @@ public class CustomerEmailValidationService extends AbstractValidationService {
 	}
 	
 	public static void main(String[] args) {
+		@SuppressWarnings("resource")
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"spring-context.xml");
 		CustomerEmailValidationService service = (CustomerEmailValidationService) applicationContext.getBean("customerEmailValidationService");

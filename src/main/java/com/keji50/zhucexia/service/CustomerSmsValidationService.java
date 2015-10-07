@@ -4,9 +4,12 @@ import com.keji50.zhucexia.dao.mapper.CustomerSmsPoMapper;
 import com.keji50.zhucexia.dao.po.CustomerSmsPo;
 import com.keji50.zhucexia.service.out.sms.SmsGatewayService;
 import com.keji50.zhucexia.service.out.sms.SmsTemplate;
+
 import java.util.Calendar;
 import java.util.Date;
+
 import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -75,6 +78,7 @@ public class CustomerSmsValidationService extends AbstractValidationService {
 	}
 
 	public static void main(String[] args) {
+		@SuppressWarnings("resource")
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"spring-context.xml");
 		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
