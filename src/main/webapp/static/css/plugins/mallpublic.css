@@ -1,0 +1,33 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.pro-name { font-size:16px;border-bottom: 1px dotted #cccccc;color: #595959;font-size: 16px;line-height: 30px;margin-bottom: 10px;padding: 0 0 10px;}
+
+
+/* 详情页产品规格 */
+.property-wrap:after {content:".";display:block;height:0;clear:both;visibility:hidden;}
+.pro-sft{padding:10px; /*background: #fffcf5; border: 2px solid #edd28b;*/ overflow:hidden;}
+.pro-sft-nobg { background:none; border:0;}
+.pro-sft dl{padding: 5px 0;}
+.pro-sft dl dt{float: left; width: 72px;height:24px; line-height:24px;}
+.pro-sft dl dd{width:240px; float:left;/*height:22px; line-height:22px;*/}
+.pro-sft dl dd .item{float: left; margin: 2px 8px 2px 0;}
+.pro-sft dl dd .item a{float: left; padding: 4px 6px; background: #fff; border: 1px solid #ccc;}
+.pro-sft dl dd .item a:hover,.pro-sft dl dd .item.curr a{border: 2px solid #e4393c; padding: 3px 5px; text-decoration:none;}
+.pro-sft dl dd .item.curr{position: relative; zoom: 1;}
+.pro-sft dl dd .item.curr b{background: url(../imgs/shopnewicon.png) no-repeat -202px -224px; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; overflow: hidden; display:block;}
+.pro-sft dl dd .item.no a{cursor: not-allowed; color:#ccc;}
+.pro-sft dl dd .item.no a:hover{padding: 4px 6px; border: 1px solid #ccc;}
+.pro-sft dl.number dd{height:35px; line-height:35px;}
+.pro-sft dl.number dd input,button{vertical-align:middle;}
+.pro-sft dl.number dd span{float: left; border: 1px solid #ccc; width: 66px; height: 19px; margin-top:7px;}
+.pro-sft dl.number dd span input{width: 40px; height: 19px; color: #666; border: none 0; text-align: center; line-height: 19px; font-size: 12px; float:left;}
+.pro-sft dl.number dd span button{text-decoration: none; width: 13px; height: 19px; background: #eee; line-height: 19px; font-size: 9px; text-align: center; cursor: pointer; float:left; border:0;}
+
+.pro-price {color: #666666;line-height: 32px;margin-bottom: 20px;overflow: hidden;}
+.pro-price dt {float: left;width: 68px;}
+.pro-price dd span {color: #f44d4d;font-size: 18px;font-weight: bold;padding: 0 5px 0 0;}
+.pro-price dd del {color: #999999;}
+
+/* 促销活动标签 */
+.discount_btn { background:#C33; color:#fff; padding:2px 5px; font-size:12px; border-radius:3px; margin-left:5px;}

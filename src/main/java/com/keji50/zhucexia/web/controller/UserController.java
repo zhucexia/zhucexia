@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/")
 public class UserController {
 
-    @RequestMapping(value = "/index")
-    public String index() {
-        return "user/index";
+    @RequestMapping(value = "/about")
+    public String about() {
+        return "about";
     }
 
 }
