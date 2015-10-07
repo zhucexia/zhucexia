@@ -1,0 +1,139 @@
+.main{
+	padding-top: 45px;
+}
+.cart-box{
+	margin-bottom: 55px;
+}
+.cart-title h3{
+	position: relative;
+	display: inline-block;
+	width: 125px;
+	height: 50px;
+	font-size: 19px;
+	font-weight: normal;
+	color: #fff;
+	text-align: center;
+	line-height: 50px;
+}
+.cart-title .cart-arrow{
+	position: absolute;
+	width: 0;
+	height: 0;
+	display: block;
+	border: 36px solid transparent;
+	border-top: 0;
+	border-left: 0;
+	border-bottom-width: 50px;
+	top: 0;
+    right: -36px;
+} 
+.dark-blue{
+	background-color: #1c2287;
+}
+.dark-blue .cart-arrow{
+	border-bottom-color: #141e56
+}
+.fake-red{
+	background-color: #e73234;
+}
+.fake-red .cart-arrow{
+	border-bottom-color: #a42322;
+}
+.real-blue{
+	background-color: #00a1ea;
+}
+.real-blue .cart-arrow{
+	border-bottom-color: #1079ab;
+}
+.cart-table{
+	width: 100%;
+}
+.cart-table th{
+	background-color: #00a1ea;
+	font-size: 18px;
+    font-weight: normal;
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+}
+.cart-table td{
+	height: 155px;
+	vertical-align: middle;
+	font-size: 14px;
+	background-color: #fff;
+	text-align: center;
+}
+.cart-table tr{
+	border-bottom: 1px solid #b7b7b7;
+}
+.cart-table tr:last-child{
+	border: 0;
+}
+.cart-table td.tal{
+	text-align: left;
+}
+.product-text{
+	margin-left: 30px;
+}
+.cart-btn{
+	display: inline-block;
+	width: 92px;
+	height: 30px;
+	color: #fff;
+	text-align: center;
+	background-color: #e73234;
+	line-height: 30px;
+}
+.cart-btn:hover{
+	text-decoration: none;
+}
+.cart-table tfoot td{
+	background-color: #00a1ea;
+	height: 50px;
+	color: #fff;
+}
+.cart-table tfoot .cart-btn{
+	width: 65px;
+	height: 36px;
+	line-height: 36px;
+}
+.cart-list li{
+	float: left;
+	width: 199px;
+	padding-top: 20px;
+	border-right: 1px solid #ddd;
+	height: 248px;
+	text-align: center;
+	background-color: #fff;
+}
+.cart-list li:last-child{
+	border-right: 0;
+}
+.cart-list span{
+	font-size: 14px;
+	color: #999;
+}
+.cart-list b{
+	font-size: 16px;
+	font-weight: normal;
+	margin-top: 25px;
+	color: #221a13;
+}
+.cart-list .cash{
+	color: #f5aa01;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 19px;
+    display: inline-block;
+}
+.pay-btn{
+	color: #fff;
+	display: inline-block;
+	width: 92px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #f5aa01;
+}
+.pay-btn:hover{
+	text-decoration: none;
+}

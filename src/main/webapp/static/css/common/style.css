@@ -97,7 +97,7 @@ ul,li{list-style-type: none;}
 .page_link li.active a,.page_link li a:hover{background-color:#777;text-decoration: none;color: #FFF;border-color:#777;}
 /*----------body--------------------------------------------------------------------------------------------------------------------------*/
 .bodydiv{min-width:1200px;background:#efefef; }
-.container,.main {margin:0 auto; width:1000px;}
+.container,.main {margin:0 auto; width:1000px;position:relative;}
 
 /*-------------index focus---------------------*/
 .fullSlide {width:1000px;position:relative;height:328px;z-index:10;padding:20px 0 0px 0;margin:0 auto;}
@@ -355,7 +355,8 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 .index_ser ul li h5{ }
 .index_ser ul li h5 a{color: #000;font-size:18px;font-weight:normal;}
 .index_ser ul li p {padding:8px 0;}
-
+.qrcode {position:absolute; top:15px; right:50px;text-align:center;}
+.qrcode img {width:50px;}
 
 /*-------------index_imageset---------------*/
 .index_imageset{height: 326px;width: 1050px; margin-left:-25px;}
