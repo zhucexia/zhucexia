@@ -36,14 +36,12 @@
 				</div>
 				<div class="prorr">
 					<div class="buy_content_button">
-						<a class="btn" href="＃"
-							target="_blank">加入订单</a><a class="btn"
-							href="＃" target="_blank">QQ咨询</a>
+						<a class="btn" href="＃" target="_blank">加入订单</a>
+						<a class="btn wrap_btn2" href="＃" target="_blank">在线咨询</a>
 					</div>
 				</div>
 				<script src="${root }/static/js/detail/shop_common.js"></script>
-				<link href="${root }/static/css/plugins/mallpublic.css" type="text/css"
-					rel="stylesheet">
+				<link href="${root }/static/css/plugins/mallpublic.css" type="text/css" rel="stylesheet"/>
 			</div>
 		</div>
 	</div>
