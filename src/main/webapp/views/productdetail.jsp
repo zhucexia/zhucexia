@@ -21,12 +21,18 @@
 			<div class="pro-left-txts clearfix">
 				<div class="proll">
 					<div class="pro-name">${go.name}</div>
-					<div class="pro-price"></div>
-					<div class="pro-attr">
-						<dl>
-							<dt>注册时长：</dt>
+						<div class="clearfix price-wrap">
+						<dl class="pro-price">
+							<dt>价格</dt>
+							<dd><span>￥1500</span><del>￥1800</del></dd>
+						</dl>
+						<dl class="pro-price">
+							<dt>注册时长</dt>
 							<dd>${go.register_cost}</dd>
 						</dl>
+						<em class="line"></em>	
+					</div>					
+					<div class="pro-attr">
 						<dl>
 							<dt>${go.names }：</dt>
 							<dd>${go.option_value }</dd>
@@ -39,8 +45,12 @@
 				</div>
 				<div class="prorr">
 					<div class="buy_content_button">
-						<a class="btn" href="＃" target="_blank">加入订单</a>
+					<!-- 	<a class="btn" href="＃" target="_blank">加入订单</a>
 						<a class="btn wrap_btn2" href="＃" target="_blank">在线咨询</a>
+ -->						<a class="" href="＃" target="_blank">加入订单</a>
+						<a class="wrap_btn2" href="＃" target="_blank">在线咨询</a>
+						<span>?购买须知</span>
+					
 					</div>
 				</div>
 				<script src="${root }/static/js/detail/shop_common.js"></script>
