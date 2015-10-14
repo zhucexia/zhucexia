@@ -1,26 +1,36 @@
 package com.keji50.zhucexia.web.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.keji50.zhucexia.dao.po.GoodPo;
+import com.keji50.zhucexia.service.GoodService;
+
 /**
- * 网站会员控制器
+ * 
+ * @author hc
  *
- * @author chao.li
- * @version
- * @since Ver 1.1
- * @Date 2015年9月18日 下午4:43:23
- *
- * @see
  */
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/index")
 public class UserController {
 
-    @RequestMapping(value = "/about")
-    public String about() {
-        return "about";
+	@Resource(name="goodService")
+	private GoodService goodService;
+	
+    @RequestMapping(value = "/show")
+    public String index(HttpServletRequest request) {
+    	List<GoodPo> goodlist=goodService.showindexgood();
+    	List<GoodPo> serverlist=goodService.showindexserver();
+    	request.setAttribute("goodlist",goodlist);
+    	request.setAttribute("serverlist", serverlist);
+    	return "/index";
     }
 
 }
