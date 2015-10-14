@@ -99,7 +99,7 @@ public class CustomerEmailValidationService extends AbstractValidationService {
 		CustomerEmailValidationService service = (CustomerEmailValidationService) applicationContext.getBean("customerEmailValidationService");
 		CustomerPo customer = new CustomerPo();
 		customer.setId(1);
-		customer.setEmail("295884742@qq.com");
+		customer.setEmail("1769702010@qq.com");
 		service.sendEmail(customer, "192.168.1.1", EmailTemplate.VALIDATION_TEMPLATE);
 	}
 
