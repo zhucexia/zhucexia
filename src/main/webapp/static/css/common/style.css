@@ -391,7 +391,7 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 .pro-left-txts { float:left;width:680px;background:#fff;font-size:16px;color:#a0a0a0;}
 
 .proll { float:left;padding:20px; width:425px;}
-.pro-attr{line-height: 24px; overflow:hidden; padding:5px 0;}
+.pro-attr{line-height: 30px; overflow:hidden; padding:5px 0;}
 .pro-attr dt{width:100px; float:left;}
 .pro-attr dd span{font-size: 18px; font-weight: bold; padding: 0 5px 0 0; color: #a0a0a0;}
 .pro-attr dd del{color: #999;}
@@ -400,10 +400,16 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 .pro-left-txts .pro-name { font-size:24px;}
 
 .prorr { float:left;}
-.buy_content_button {position:absolute; top:50%; margin-top:-64px; margin-left:20px;}
-.buy_content_button a {display:block;width:120px; height:50px; line-height:50px; text-align:center;background:#e83135;color:#fff;margin-bottom:8px;}
+.buy_content_button {position:absolute; top:44%; margin-top:-64px; margin-left:20px;text-align:center;}
+.buy_content_button a {display:block;width:120px; height:50px; line-height:50px; text-align:center;background:#e83135;color:#fff;margin-bottom:8px;font-weight:normal;}
+.buy_content_button a:hover{text-decoration:none;}
 .buy_content_button a.wrap_btn2 {background:#00a0ea;}
 
+.pro-price{width:50%;float:left;}
+.pro-price dd{
+	font-size:18px;
+	color:#e83135;
+}
 .pro-main {padding:20px 0 40px 0;}
 .pro-left {background:#fff;}
 .proInfo .hd {font-size:24px;color:#555;text-align:center;line-height:40px;}

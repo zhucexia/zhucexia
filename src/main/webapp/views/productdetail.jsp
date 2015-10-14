@@ -18,15 +18,22 @@
 			<div class="pro-left-txts clearfix">
 				<div class="proll">
 					<div class="pro-name">虹口定制套餐</div>
-					<div class="pro-price"></div>
-					<div class="pro-attr">
-						<dl>
-							<dt>注册时长：</dt>
+					<div class="clearfix price-wrap">
+						<dl class="pro-price">
+							<dt>价格</dt>
+							<dd><span>￥1500</span><del>￥1800</del></dd>
+						</dl>
+						<dl class="pro-price">
+							<dt>注册时长</dt>
 							<dd>40天</dd>
 						</dl>
+						<em class="line"></em>	
+					</div>
+					
+					<div class="pro-attr">
 						<dl>
 							<dt>可选地区：</dt>
-							<dd>虹口区，杨浦区</dd>
+							<dd><em class="dist"><input type="checkbox" ><i>虹口区</i></em><em class="dist"><input type="checkbox" ><i>静安区</i></em></dd>
 						</dl>
 						<dl>
 							<dt>申请条件：</dt>
@@ -36,8 +43,9 @@
 				</div>
 				<div class="prorr">
 					<div class="buy_content_button">
-						<a class="btn" href="＃" target="_blank">加入订单</a>
-						<a class="btn wrap_btn2" href="＃" target="_blank">在线咨询</a>
+						<a class="" href="＃" target="_blank">加入订单</a>
+						<a class="wrap_btn2" href="＃" target="_blank">在线咨询</a>
+						<span>?购买须知</span>
 					</div>
 				</div>
 				<script src="${root }/static/js/detail/shop_common.js"></script>
