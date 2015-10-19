@@ -20,8 +20,7 @@
 		id, username, password, mobile, email,qq,is_pinlessmobile,is_pinlessemail, create_by, create_time, update_by, update_time
 	</sql>
 	<select id="login" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
-		select <include refid="Base_Column_List" /> from customer where  1=1 and username=#{username,jdbcType=VARCHAR} or mobile=#{mobile,jdbcType=VARCHAR}
-		and password=#{password,jdbcType=VARCHAR}   
+		select <include refid="Base_Column_List" /> from customer where password=#{password,jdbcType=VARCHAR} and (mobile=#{mobile,jdbcType=VARCHAR} OR username=#{username,jdbcType=VARCHAR})
 	</select>
 	<select id="validate" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
 		select <include refid="Base_Column_List" /> from customer where  1=1 and username=#{username,jdbcType=VARCHAR} 
@@ -29,8 +28,14 @@
 	<select id="validatephone" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
 		select <include refid="Base_Column_List" /> from customer where  1=1 and mobile=#{mobile,jdbcType=VARCHAR} 
 	</select>
+	<select id="validatelost" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
+		select <include refid="Base_Column_List" /> from customer where  1=1 and mobile=#{mobile,jdbcType=VARCHAR}
+	</select>
 	<insert id="insertreg" parameterType="com.keji50.zhucexia.dao.po.CustomerSmsPo">
     insert into customer(username, password, mobile, email, create_time)
-    values(#{username,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{email,jdbcType=TIMESTAMP},now())
+    values(#{username,jdbcType=VARCHAR},  #{password,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR}, #{email,jdbcType=TIMESTAMP},now())
   </insert>
+  <update id="updatepass" parameterType="com.keji50.zhucexia.dao.po.CustomerSmsPo">
+  		update customer set password=#{password,jdbcType=VARCHAR} where 1=1 and mobile=#{mobile,jdbcType=VARCHAR}
+  </update>
 </mapper>

@@ -52,6 +52,17 @@ public class CustomerService {
 		int result=customerPoMapper.insertreg(cust);
 		return result;
 	}
+
+	public CustomerPo validatelost(CustomerPo c) {
+		// TODO Auto-generated method stub
+		CustomerPo customer=customerPoMapper.validatelost(c);
+		return customer;
+	}
+
+	public int updatepass(CustomerPo c) {
+		// TODO Auto-generated method stub
+		return customerPoMapper.updatepass(c);
+	}
 	
 
 

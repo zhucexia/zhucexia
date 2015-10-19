@@ -10,5 +10,9 @@ public interface CustomerPoMapper {
 	CustomerPo validatephone(CustomerPo c);
 
 	int insertreg(CustomerPo cust);
+
+	CustomerPo validatelost(CustomerPo c);
+
+	int updatepass(CustomerPo c);
 	
 }

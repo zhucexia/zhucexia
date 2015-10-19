@@ -15,26 +15,38 @@ import com.keji50.zhucexia.dao.po.CustomerSmsPo;
 import com.keji50.zhucexia.service.CustomerService;
 import com.keji50.zhucexia.service.CustomerSmsValidationService;
 import com.keji50.zhucexia.service.out.sms.SmsTemplate;
-
+/**
+ * 
+ * @author hc
+ * 客户信息控制器
+ */
 @Controller
 @RequestMapping(value = "/customer")
 public class CustomerController {
 
+	/**
+	 * 客户信息业务逻辑
+	 */
 	@Resource(name="customerService")
 	private CustomerService customerService;
 	
-	
+	/**
+	 * 客户登录
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/login")
 	@ResponseBody
 	public String login(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进入了sysuserController的方法--login");
-		//判断用户是否存在
+		System.out.println("进入客户登录方法--login");
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
 		CustomerPo c=new CustomerPo();
 		c.setUsername(username);
 		c.setPassword(password);
 		c.setMobile(username);
+		System.out.println("--"+c);
 		CustomerPo customer=customerService.login(c);
 		String json="";
 		if(customer!=null){
@@ -50,14 +62,18 @@ public class CustomerController {
 		System.out.println(json);
 		return json;
 	}
-	
+	/**
+	 * 客户发送短信
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/mess")
 	@ResponseBody
 	public String mess(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进入了sysuserController的方法--login");
+		System.out.println("进入发短信方法");
 		String phone=request.getParameter("phonenum");
 		System.out.println("----"+phone);
-		
 		@SuppressWarnings("resource")
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
 				"spring-context.xml");
@@ -66,6 +82,7 @@ public class CustomerController {
 		CustomerSmsPo sms=service.sendValidationSms(phone, "192.168.1.1", SmsTemplate.VALIDATION_TEMPLATE);
 		String json="";
 		if(sms!=null){
+			request.getSession().setAttribute("customersms", sms);
 			json="{'message':'发送成功','names':'"+sms.getValidationCode()+"'}";
 		}else {
 			json="{'message':'发送失败'}";
@@ -74,7 +91,12 @@ public class CustomerController {
 		return json;
 	}
 	
-	
+	/**
+	 * 客户注销清除session值
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/clearsession")
 	@ResponseBody
 	public String clearsession(HttpServletRequest request, HttpServletResponse response){
@@ -84,60 +106,196 @@ public class CustomerController {
 		return json;
 	}
 	
+	/**
+	 * 验证客户短信验证码
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/validateyzm")
+	@ResponseBody
+	public String validateyzm(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("验证客户短信验证码方法");
+		String code=request.getParameter("yzm");
+		String json="";
+		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
+		if(s==null){
+			json="{'message':'未发送短信'}";
+		}else{
+			if(!s.getValidationCode().equals(code)){
+				json="{'message':'输入错误'}";
+			}else{
+				json="{'message':'输入正确'}";
+			}
+		}
+		System.out.println("短信验证结果"+json);
+		return json;
+	}
+	/**
+	 * 验证用户是否注册过
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/validateuser")
 	@ResponseBody
 	public String validateuser(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进入了验证用户方法");
-		//判断用户是否存在
+		System.out.println("验证用户是否注册过方法");
 		String username=request.getParameter("username");
 		CustomerPo c=new CustomerPo();
 		c.setUsername(username);
 		CustomerPo customer=customerService.validate(c);
 		String json="";
 		if(customer!=null){
-			json="{'message':'已经被占用','names':'"+customer.getUsername()+"'}";
+			json="{'message':'该用户已占用','names':'"+customer.getUsername()+"'}";
 		}else {
-			json="{'message':'可以使用'}";
+			json="{'message':'该用户未占用'}";
 		}
 		System.out.println(json);
 		return json;
 	}
 	
+	/**
+	 * 验证手机是否注册过
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/validatephone")
 	@ResponseBody
 	public String validatephone(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进入了验证手机方法");
-		//判断用户是否存在
 		String mobile=request.getParameter("phonenum");
 		CustomerPo c=new CustomerPo();
 		c.setMobile(mobile);
 		CustomerPo customer=customerService.validatephone(c);
 		String json="";
 		if(customer!=null){
-			json="{'message':'该号已占用','names':'"+customer.getMobile()+"'}";
+			json="{'message':'该手机已占用','names':'"+customer.getMobile()+"'}";
 		}else {
-			json="{'message':'可以使用'}";
+			json="{'message':'该手机未占用'}";
 		}
 		System.out.println(json);
 		return json;
 	}
 	
+	/**
+	 * 客户注册
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/reg")
 	@ResponseBody
-	public String reg(HttpServletRequest request, CustomerPo cust){
-		System.out.println("进入了注册方法");
-		//判断用户是否存在
-		System.out.println(cust);
-		int result=customerService.insertreg(cust);
+	public String reg(HttpServletRequest request ){
+		String username=request.getParameter("username");
+		String password=request.getParameter("password");
+		String phonenum=request.getParameter("phonenum");
+		String email=request.getParameter("email");
+		String smscode=request.getParameter("smscode");
+		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-context.xml");
+		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext.getBean("customerSmsValidationService");
 		String json="";
-		if(result>0){
-			System.out.println("插入成功！！！");
-			json="{'message':'插入成功'}";
+		if(s==null){
+			return json="{'message':'未发送短信}";
+		}
+		int result=service.validateSms(s.getId(), phonenum, smscode);
+		System.out.println("验证result:"+result);
+		//验证是否成功 0成功 -1验证码不正确 -2验证码已过期
+		if(result == -1){
+			json="{'message':'验证码不正确'}";
+		}else if(result == -2){
+			json="{'message':'验证码已过期'}";
+			request.getSession().removeAttribute("customersms");
+		}else if(result == 0){
+			request.getSession().removeAttribute("customersms");
+			CustomerPo c=new CustomerPo();
+			c.setUsername(username);
+			c.setPassword(password);
+			c.setMobile(phonenum);
+			c.setEmail(email);
+			System.out.println(c);
+			int num=customerService.insertreg(c);			
+			if(num>0){
+				request.getSession().removeAttribute("customersms");
+				json="{'message':'注册成功'}";
+			}else {
+				System.out.println("注册失败");
+				json="{'message':'注册失败'}";
+			}
+		}
+		
+		
+		System.out.println(json);
+		return json;
+	}
+	
+	/**
+	 * 验证忘记密码中手机是否注册过
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/validatelost")
+	@ResponseBody
+	public String validatelost(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("进入验证忘记密码手机验证");
+		String mobile=request.getParameter("phonenum");
+		CustomerPo c=new CustomerPo();
+		c.setMobile(mobile);
+		CustomerPo customer=customerService.validatelost(c);
+		String json="";
+		if(customer!=null){
+			json="{'message':'该号已占用','names':'"+customer.getMobile()+"'}";
 		}else {
-			System.out.println("插入失败");
-			json="{'message':'插入失败'}";
+			json="{'message':'该号为占用'}";
 		}
 		System.out.println(json);
+		return json;
+	}
+	
+	/**
+	 * 忘记密码进行密码修改
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/updatepass")
+	@ResponseBody
+	public String updatepass(HttpServletRequest request, HttpServletResponse response){
+		String password=request.getParameter("password");
+		String mess=request.getParameter("mess");
+		String phone=request.getParameter("phonenum");
+		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
+		System.out.println("短信session的值"+s);
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+				"spring-context.xml");
+		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
+				.getBean("customerSmsValidationService");
+		String json="";
+		if(s==null){
+			return json="{'message':'未发送短信'}";
+		}
+		int result=service.validateSms(s.getId(), phone,mess);
+		System.out.println("验证短信结果result:"+result);
+		//验证是否成功 0成功 -1验证码不正确 -2验证码已过期
+		if(result == -1){
+			json="{'message':'验证码不正确'}";
+		}else if(result == -2){
+			json="{'message':'验证码已过期'}";
+			request.getSession().removeAttribute("customersms");
+		}else if(result == 0){
+		request.getSession().removeAttribute("customersms");
+		CustomerPo c=new CustomerPo();
+		c.setMobile(phone);
+		c.setPassword(password);
+		int num=customerService.updatepass(c);
+		if(num>0){
+			json="{'message':'找回成功'}";
+		}else {
+			json="{'message':'找回失败'}";
+		}
+		System.out.println(json);
+		}
 		return json;
 	}
 }

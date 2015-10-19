@@ -3,28 +3,19 @@
 <link rel="stylesheet" href="${root }/static/css/cart/cart.css">
 <jsp:include page="/views/common/top.jsp" />
 <%-- <script type="text/javascript" src="${root }/static/js/cart/address_all.js"></script> --%>
-
-<script type="text/javascript" src="${root }/static/js/cailiao/jquery.js"></script>
-<script type="text/javascript" src="${root }/static/js/cailiao/area.js"></script>
-<script type="text/javascript" src="${root }/static/js/cailiao/location.js"></script>
-<script type="text/javascript" src="${root }/static/js/cailiao/select2.js"></script>
-<script type="text/javascript" src="${root }/static/js/cailiao/select2_locale_zh-CN.js"></script>
-
-<%-- <link href="${root }/static/css/cailiao/common.css" rel="stylesheet"/> --%>
-<link href="${root }/static/css/cailiao/select2.css" rel="stylesheet"/>
 <div id="mainmain">
 	<div class="main clearfix">
 		<div class="cart-box">
 			<div class="cart-title">
 				<h3 class="dark-blue">
-					我的订单<i class="cart-arrow"></i>
+					订单详情<i class="cart-arrow"></i>
 				</h3>
 			</div>
 			<table class="cart-table" id="cart-table">
 				<thead>
 					<th width="44"></th>
-					<th width="400" style="text-align: left;">所选产品</th>
-					<th width="115">项目费用</th>
+					<th width="400" style="text-align: left;">所选套餐</th>
+					<th width="115">套餐费用</th>
 					<th width="207">订单状态</th>
 					<th>操作</th>
 				</thead>	
@@ -35,7 +26,7 @@
 							<span class="product-text">市区vip定制套餐</span></td>
 						<td><span class="price">1001.0</span>元</td>
 						<td>尚未提供公司资料</td>
-						<td><a href="javascript:;" class="cart-btn" name="remove" >删除</a></td>
+						<td><a href="javascript:;" style="color:red;font-weight:bold;">删除</a></br></br><a href="javascript:;" style="color:green;font-weight:bold;" >查看详情</a></td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" name="checkbox" id=""></td>
@@ -43,7 +34,7 @@
 							<span class="product-text">市区vip定制套餐</span></td>
 						<td><span class="price">1002.0</span>元</td>
 						<td>尚未提供公司资料</td>
-						<td><a href="javascript:;" class="cart-btn" name="remove" >删除</a></td>
+						<td><a href="javascript:;" style="color:red;font-weight:bold;">删除</a></br></br><a href="javascript:;" style="color:green;font-weight:bold;" >查看详情</a></td>
 					</tr>
 					<tr>
 						<td><input type="checkbox" name="checkbox" id=""></td>
@@ -51,18 +42,18 @@
 							<span class="product-text">市区vip定制套餐</span></td>
 						<td><span class="price">1003.0</span>元</td>
 						<td>尚未提供公司资料</td>
-						<td><a href="javascript:;" class="cart-btn" name="remove" >删除</a></td>
+						<td><a href="javascript:;" style="color:red;font-weight:bold;">删除</a></br></br><a href="javascript:;" style="color:green;font-weight:bold;" >查看详情</a></td>
 					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
 						<td colspan="3" class="tal">&emsp;<input type="checkbox" id="checkall"  onclick="checkAll()">
 							全选 <input type="checkbox" id="checkother" onclick="checkOther()">
-							反选&emsp;&emsp;<a href="javascript:;" id="removeselected">删除所选产品</a>&emsp;&emsp;已选择<span id="selectedTotal">0</span>件商品
+							反选&emsp;&emsp;<a href="javascript:;" id="removeselected">删除所选订单</a>&emsp;&emsp;已选择<span id="selectedTotal">0</span>个订单
 						</td>
 						<td><span id="priceTotal">0.00</span>元</td>
-						<td><a href="javascript:cailiao();" class="cart-btn" id="editaddr">提交材料</a> <a
-							href="javascript:;" class="cart-btn">付款</a></td>
+						<td><a href="javascript:;" >&nbsp;</a> <a
+							href="javascript:;" >&nbsp;</a></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -152,7 +143,7 @@
 						document.getElementById("J_editAddrBox").style.display="none";
 					}
 				</script> 
-		<!--  <div class="xm-edit-addr-box" id="J_editAddrBox" style="display:none;">
+		 <!-- <div class="xm-edit-addr-box" id="J_editAddrBox" style="display:none;">
         	<div class="bd">
 	            <div class="item">
 	                <label>收货人姓名<span>*</span></label> 
@@ -220,19 +211,14 @@
 					href="" class="pay-btn">立即申购</a></li>
 			</ul>
 		</div>
-		<div class="cart-box">
+		<%-- <div class="cart-box">
 			<div class="cart-title">
 				<h3 class="real-blue">
 					注册流程<i class="cart-arrow"></i>
 				</h3>
 			</div>
 			<img src="${root }/static/images/cart/progress.png" alt="">
-		</div>
+		</div> --%>
 	</div>
 </div>
-<script type="text/javascript">
-	function cailiao(){
-		$("#cl").show();
-	}
-</script>
 <jsp:include page="/views/common/footer.jsp" />

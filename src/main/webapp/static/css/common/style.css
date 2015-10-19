@@ -129,7 +129,7 @@ ul,li{list-style-type: none;}
 #top{height: 52px;background: #1d2087;margin-bottom:40px;}
 #top .container{height:52px; position:relative;}
 #top .logo { position:absolute;top:15px;left:0px;z-index: 99;}
-#top .top-tool { position:absolute;top:0;right:0;height: 52px;line-height: 52px; color:#fff;font-size:16px;}
+#top .top-tool { position:absolute;top:0;right:0;height: 104px;line-height: 52px; color:#fff;font-size:16px;}
 #top .top-tool img { vertical-align:sub; margin-right:5px;}
 #top .top-tool a { color:#fff;font-size:16px;}
 #top .top_right { position:absolute;top:30px;right:10px;}
@@ -391,7 +391,7 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 .pro-left-txts { float:left;width:680px;background:#fff;font-size:16px;color:#a0a0a0;}
 
 .proll { float:left;padding:20px; width:425px;}
-.pro-attr{line-height: 24px; overflow:hidden; padding:5px 0;}
+.pro-attr{line-height: 30px; overflow:hidden; padding:5px 0;}
 .pro-attr dt{width:100px; float:left;}
 .pro-attr dd span{font-size: 18px; font-weight: bold; padding: 0 5px 0 0; color: #a0a0a0;}
 .pro-attr dd del{color: #999;}
@@ -400,9 +400,17 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 .pro-left-txts .pro-name { font-size:24px;}
 
 .prorr { float:left;}
-.buy_content_button {position:absolute; top:50%; margin-top:-64px; margin-left:20px;}
-.buy_content_button a {display:block;width:120px; height:50px; line-height:50px; text-align:center;background:#e83135;color:#fff;margin-bottom:8px;}
+.buy_content_button {position:absolute; top:44%; margin-top:-64px; margin-left:20px;text-align:center;}
+.buy_content_button a {display:block;width:120px; height:50px; line-height:50px; text-align:center;background:#e83135;color:#fff;margin-bottom:8px;font-weight:normal;}
+.buy_content_button a:hover{text-decoration:none;}
 .buy_content_button a.wrap_btn2 {background:#00a0ea;}
+
+.pro-price{width:50%;float:left;}
+.pro-price dd{
+	font-size:18px;
+	color:#e83135;
+}
+
 
 .pro-main {padding:20px 0 40px 0;}
 .pro-left {background:#fff;}
@@ -410,4 +418,34 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 
 .theme-popover{
 	display:none;
+}
+
+
+
+
+.aa{
+	width:120px;
+	height:auto;
+	background-color:#1d2087;
+	color:white;
+	text-align:center;
+	float:right;
+}
+.bb{
+	width:50px;
+	height:104px;
+	float:right;
+}
+.cc{
+	height:30px;
+	line-height:20px;
+	display:none;
+}
+.dd{
+	color: #fff;
+    display: inline-block;
+    width: 92px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #f5aa01;
 }
