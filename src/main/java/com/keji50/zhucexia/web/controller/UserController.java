@@ -1,13 +1,10 @@
 package com.keji50.zhucexia.web.controller;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

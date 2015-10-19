@@ -1,7 +1,5 @@
 package com.keji50.zhucexia.web.controller;
-
 import java.io.File;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -182,8 +180,7 @@ public class CustomerController {
 			}
 		}
 		
-		
-		System.out.println(json);
+	  System.out.println(json);
 		return json;
 	}
 }

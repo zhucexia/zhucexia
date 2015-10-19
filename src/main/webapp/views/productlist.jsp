@@ -66,7 +66,7 @@
 					<div class="box_content">
 						<div class="pro_list clearfix">
 							<ul>
-							<c:forEach var="good" items="${goodlist}">
+							<c:forEach var="good" items="${ goodlist}">
 								<li><div class="pro_img">
 										<a href="${root}/good/goodsdetail?id=${good.id }"><img
 											dataid="356963" width="215"

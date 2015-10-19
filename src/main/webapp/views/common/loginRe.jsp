@@ -63,22 +63,20 @@
 		助策侠期待你的江湖！ <a href="javascript:;" title="关闭" class="close">×</a> <br />
 	</div>
 	<div class="theme-popbod dform">
-		<form class="theme-signin" name="loginform" action="" method="post">
+		<form class="theme-signin" name="loginform" action="${root }/customer/reg" method="post">
 			<ul>
 				<li><strong>用户名：</strong> <input class="ipt" type="text"
 					name="username" placeholder="注册侠" size="20" id="username"/><span class="uts" ></span></li>
 				<li><strong>密 码：</strong> <input class="ipt" type="password"
-					name="pwd" value="" size="20" /><span></span></li>
+					name="password" value="" size="20" /><span></span></li>
 				<li><strong>确认密码：</strong> <input class="ipt" type="password"
-					name="conpwd" value="" size="20" /><span></span></li>
-				<li><strong>手机号：</strong> <input class="ipt" type="text"
-					name="phone" placeholder="您的手机号" size="20" id="phone"/><span class="pts" ></span></li>
-				<li><strong>验证码：</strong> <input class="ipt" type="text"
-					name="msg" size="20" /><span class="msgs" onclick="mess()">获取短信验证码</span><span id="messcode"></</span> </li>
+					name="conpassword" value="" size="20" /><span></span></li>
+				<li><strong>手机号：</strong> <input class="ipt" type="text" Sname="phone" placeholder="您的手机号" size="20" id="phone"/><span class="pts" ></span></li>
+
+				<li><strong>验证码：</strong> <input class="ipt" type="text" name="msg" size="20" /><span class="msgs" onclick="mess()">获取短信验证码</span><span id="messcode"></</span> </li>
 				<li><strong>邮箱：</strong> <input class="ipt" type="text"
 					name="email" placeholder="您的联系邮箱" size="20" /><span></span></li>
-				<li><strong></strong> <input class="btn btn-primary"
-					type="button" name="reg" value=" 注 册 " /></li>
+				<li><strong></strong> <input class="btn btn-primary" type="button" name="reg" value=" 注 册 " /></li>
 			</ul>
 		</form>
 	</div>
@@ -200,11 +198,11 @@
 				<li><strong>用户名：</strong> <input class="ipt" type="text"
 					name="log" value="your name" size="20" id="use" /><span></span></li>
 				<li><strong>地址：</strong> <input class="ipt" type="password"
-					name="pwd" value="***" size="20" id="adr" /><span></span></li>
+					name="password" value="***" size="20" id="adr" /><span></span></li>
 				<li><strong>手机号：</strong> <input class="ipt" type="password"
-					name="pwd" value="***" size="20" id="mob" /><span></span></li>
+					name="password" value="***" size="20" id="mob" /><span></span></li>
 				<li><strong>微信号：</strong> <input class="ipt" type="password"
-					name="pwd" value="***" size="20" id="wei" /><span></span></li>
+					name="password" value="***" size="20" id="wei" /><span></span></li>
 				<li><input class="btn btn-primary" type="submit" name="submit"
 					value=" 编 辑 " class="bj" /><span></span></li>
 			</ul>

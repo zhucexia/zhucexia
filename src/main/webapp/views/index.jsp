@@ -50,7 +50,11 @@
 									alt="${good.name }" class="356963" height="256"></a></span>
 						</div>
 						<div class="dec-right">
+<<<<<<< HEAD
 							<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
+=======
+							<a href="#" title="${good.name }">立刻申请</a>
+>>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
 						</div>
 						<div class="dec-left">
 							<h5>
@@ -153,8 +157,7 @@
 									</h5>
 									<p><%-- ${server.detail_content} --%></p>
 									<div class="index-btn">
-										<a href="${root}/good/goodsdetail?id=${server.id}"
-											title="${server.name}">立刻申请</a>
+										<a href="${root}/good/goodsdetail?id=${server.id}" title="${server.name}">立刻申请</a>
 									</div>
 								</div>
 							</li>

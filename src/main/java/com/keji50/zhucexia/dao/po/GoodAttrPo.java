@@ -10,7 +10,6 @@ public class GoodAttrPo extends BasePo {
 	private int goodid;
 	
 	private String code;
-	
 	private String names;
 	
 	private int sort;

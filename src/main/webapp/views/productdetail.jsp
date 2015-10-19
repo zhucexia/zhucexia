@@ -105,9 +105,11 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 			</c:forEach>
 </div>
+<<<<<<< HEAD
 <script type="text/javascript">
 	function bookOrder(id){
 			<%CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
@@ -123,4 +125,7 @@
 
 
 </script>
+=======
+
+>>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
 <jsp:include page="/views/common/footer.jsp" />
