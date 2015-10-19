@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="/views/common/header.jsp" />
 <jsp:include page="/views/common/top.jsp" />
 
@@ -35,11 +37,30 @@
 		<div class="index_ser">
 			<div class="box" id="news-channel">
 				<div class="title common_title">
-					<a href="#"
-						class="cur">最新</a>
+					<a href="${root }/good/goodlist"
+						class="cur">套餐</a>
 				</div>
 				<ul class="newc-list clearfix" style="display: block; top: 0px;">
+					<c:forEach items="${goodlist }" var="good">
 					<li>
+						<div class="pic">
+							<span><a href="#"
+								title="${good.name }"><img dataid="356963" width="320"
+									src="${root }/static/images/index/goods/${good.pic}"
+									alt="${good.name }" class="356963" height="256"></a></span>
+						</div>
+						<div class="dec-right">
+							<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
+						</div>
+						<div class="dec-left">
+							<h5>
+								<a href="#" title="${good.name }">${good.name }</a>
+							</h5>
+							<p>${good.apply_condition }</p>
+						</div>
+					</li>
+					</c:forEach>
+					<%-- <li>
 						<div class="pic">
 							<span><a href="#"
 								title="虹口定制套餐"><img dataid="356963" width="320"
@@ -89,7 +110,7 @@
 							</h5>
 							<p>申请条件：注册资本不限，不限行业</p>
 						</div>
-					</li>
+					</li> --%>
 				</ul>
 			</div>
 			<script type="text/javascript" language="javascript">
@@ -116,7 +137,29 @@
 					<div class="cont" style="overflow: hidden;">
 						<ul
 							style="margin: 0px; padding: 0px; position: relative; list-style-type: none; z-index: 1; width: 4680px; left: -1040px;">
-							<li
+							<c:forEach items="${ serverlist}" var="server">
+								<li
+								style="overflow: hidden; float: left; width: 500px; height: 225px;">
+								<div class="pic"> 
+									<a href="#"
+										target="_blank"><img dataid="373471" width="225"
+										src="${root }/static/images/index/banner/${server.pic}"
+										alt="${server.name}" class="373471" height="225"></a>
+								</div>
+								<div class="dec">
+									<h5>
+										<a href="#"
+											target="_blank">${server.name}</a>
+									</h5>
+									<p><%-- ${server.detail_content} --%></p>
+									<div class="index-btn">
+										<a href="${root}/good/goodsdetail?id=${server.id}"
+											title="${server.name}">立刻申请</a>
+									</div>
+								</div>
+							</li>
+							</c:forEach>
+							<%-- <li
 								style="overflow: hidden; float: left; width: 500px; height: 225px;">
 								<div class="pic">
 									<a href="#"
@@ -295,7 +338,7 @@
 											title="半年免费代理记账">立刻申请</a>
 									</div>
 								</div>
-							</li>
+							</li> --%>
 						</ul>
 					</div>
 					<div class="l" id="next">

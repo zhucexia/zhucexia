@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keji50.zhucexia.dao.mapper.CustomerPoMapper">
+	<resultMap id="BaseResultMap" type="com.keji50.zhucexia.dao.po.CustomerPo">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="is_pinlessmobile" property="ispinlessmobile" jdbcType="VARCHAR" />
+		<result column="is_pinlessemail" property="ispinlessemail" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, username, password, mobile, email,qq,is_pinlessmobile,is_pinlessemail, create_by, create_time, update_by, update_time
+	</sql>
+	<select id="login" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
+		select <include refid="Base_Column_List" /> from customer where username=#{username,jdbcType=VARCHAR} and password=#{password,jdbcType=VARCHAR}  or mobile=#{mobile,jdbcType=VARCHAR}
+		 
+	</select>
+	<select id="validate" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
+		select <include refid="Base_Column_List" /> from customer where  1=1 and username=#{username,jdbcType=VARCHAR} 
+	</select>
+	<select id="validatephone" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
+		select <include refid="Base_Column_List" /> from customer where  1=1 and mobile=#{mobile,jdbcType=VARCHAR} 
+	</select>
+	<insert id="insertreg" parameterType="com.keji50.zhucexia.dao.po.CustomerSmsPo">
+    insert into customer(username, password, mobile, email, create_time)
+    values(#{username,jdbcType=VARCHAR},  #{password,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR}, #{email,jdbcType=TIMESTAMP},now())
+  </insert>
+</mapper>

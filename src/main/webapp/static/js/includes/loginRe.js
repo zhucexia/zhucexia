@@ -32,7 +32,7 @@ $(function() {
         'email' : '请输入正确的EMAIL格式'
     }
     $('.theme-signin input').focus(function() {
-        var $this = $(this),
+      var $this = $(this),
             name = $this.attr('name');
         $this.next().not('.msgs').text(errormsg[name]).removeClass('success-text').addClass('error-text');
     }).blur(function() {
@@ -56,10 +56,12 @@ $(function() {
     $(".msgs").click(function() {
         var time = 30;
         var code = $(this);
+        
         if (validCode) {
             validCode = false;
             code.addClass("msgs1");
             var t = setInterval(function() {
+            	validCode = true;
                 time--;
                 code.html(time + "秒");
                 if (time == 0) {
@@ -67,17 +69,130 @@ $(function() {
                     code.html("重新获取");
                     validCode = true;
                     code.removeClass("msgs1");
-
                 }
+                
             }, 1000)
         }
     })
 
+    
+    $("#username").blur(function(){
+    		var name=$("#username").val();
+    		if(name!="" || name!=null){
+    			$.ajax({
+    				url : "/zhucexia/customer/validateuser",
+    				type : 'POST',
+    				dataType: "json",
+    				data : {
+    					username : name,
+    				},
+    				success : function(data) {
+    					var data=eval("(" + data + ")");
+    					if(data.message=="已经被占用"){
+    						$(".uts").html("已经被占用");
+    						validCode=false;
+    						if(flag==false || validCode==false){
+   				    		 $(".uts").css("color","red");
+   				    	    }else if(flag==true && validCode==true){
+   				    	      $(".uts").css("color","#0099FF");
+   				    	    }
+    					
+    					}else{
+    						validCode=true;
+    						if($("#username").val().length>=3){
+    							validCode=true;
+    						}else{
+    							validCode=false;
+    						}	
+    						
+    						if(flag==false || validCode==false){
+      				    		 $(".uts").css("color","red");
+      				    	    }else if(flag==true && validCode==true){
+      				    	      $(".uts").css("color","#0099FF");
+      				    	    }
+    					}
+    				},
+    				error:function(data) {
+    					var data=eval("(" + data + ")");
+    				}
+    			});
+    		}
+    		
+    	});
 
+    $("#phone").blur(function(){
+		var phone=$("#phone").val();
+		if(phone!="" || phone!=null){
+			$.ajax({
+				url : "/zhucexia/customer/validatephone",
+				type : 'POST',
+				dataType: "json",
+				data : {
+					phonenum : phone,
+				},
+				success : function(data) {
+					var data=eval("(" + data + ")");
+					if(data.message=="该号已占用"){
+						
+						$(".pts").html("该号已占用");
+						validCode=false;
+						if(flag==false || validCode==false){
+				    		 $(".pts").css("color","red");
+				    	 }else{
+				    		 $(".pts").css("color","#0099FF");
+				    	 }
+					}else{
+						
+						if($("#phone").val().length==11){
+							validCode=true;
+						}else{
+							validCode=false;
+						}		
+						if(flag==false || validCode==false){
+				    		$(".pts").css("color","red");
+				    	 }else if(flag==true && validCode==true){
+				    	    $(".pts").css("color","#0099FF");
+				    	 }
+					}
+				},
+				error:function(data) {
+					var data=eval("(" + data + ")");
+				}
+			});
+		}
+		
+	});
+   
     //提交按钮,所有验证通过方可提交
     $('input[name="reg"]').click(function() {
-        if (flag) {
-            $(this).submit();
+    	alert("注册提交按钮");
+    	if($("input[name='username']").val()=="" || $("input[name='username']").val()==null){
+    		flag==false;
+    	}
+        if (flag==true && validCode==true) {
+        	var name=$("#username").val();
+			var password=$("input[name='pwd']").val();
+			var mobile=$("input[name='phone']").val();
+			var email=$("input[name='email']").val();
+			$.ajax({
+				url : "/zhucexia/customer/reg",
+				type : 'POST',
+				dataType: "json",
+				data : {
+					username : name,
+					password : password,
+					phonenum: mobile,
+					email: email,
+				},
+				success : function(data) {
+					var data=eval("(" + data + ")");
+					alert(data.message);
+				},
+				error:function(data) {
+					var data=eval("(" + data + ")");
+					alert(data.message);
+				}
+			});
         } else {
             return false;
         }

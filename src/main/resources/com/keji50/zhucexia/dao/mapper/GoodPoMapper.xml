@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keji50.zhucexia.dao.mapper.GoodPoMapper">
+	<resultMap id="BaseResultMap" type="com.keji50.zhucexia.dao.po.GoodPo">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="good_type_id" property="good_type_id" jdbcType="DECIMAL" />
+		<result column="good_type_name" property="good_type_name" jdbcType="VARCHAR" />
+		<result column="price_range" property="price_range" jdbcType="VARCHAR" />
+		<result column="price_market" property="price_market" jdbcType="DECIMAL" />
+		<result column="pic_id" property="pic_id" jdbcType="VARCHAR" />
+		<result column="pic" property="pic" jdbcType="VARCHAR" />
+		<result column="register_cost" property="register_cost" jdbcType="VARCHAR" />
+		<result column="apply_condition" property="apply_condition" jdbcType="VARCHAR" />
+		<result column="detail_content" property="detail_content" jdbcType="VARCHAR" />
+		<result column="begin_sale_time" property="begin_sale_time" jdbcType="TIMESTAMP" />
+		<result column="end_sale_time" property="end_sale_time" jdbcType="TIMESTAMP" />
+		<result column="total_sales" property="total_sales" jdbcType="DECIMAL" />
+		<result column="daily_sales" property="daily_sales" jdbcType="DECIMAL" />
+		<result column="index_show" property="index_show" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="initialNum" property="initialNum" jdbcType="DECIMAL" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="click_count" property="click_count" jdbcType="DECIMAL" />
+		<result column="comment_count" property="comment_count" jdbcType="DECIMAL" />
+		<result column="sort" property="sort" jdbcType="DECIMAL" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<!-- <select id="selectUser" parameterType="int"  resultMap="userResultMap" >  
+        分别为mobile的主键id与user的主键id赋值别名,避免因为两个表字段名称相同而注入到对应对象名称冲突  
+        select m.id m_id,m.telnumber,u.id u_id,u.name,u.pass from t_mobile m,t_user u where m.userid = u.id and u.id = #{id}   
+    </select>  -->
+    <sql id="Simple_Column_List">
+    	id,name,price_range,price_market,pic,good_type_name
+    </sql>
+	<sql id="Base_Column_List">
+		id,code,name,good_type_id,good_type_name,price_range,price_market,pic_id,pic,register_cost,  
+		apply_condition,detail_content,begin_sale_time,end_sale_time,total_sales,daily_sales,
+		index_show,state,initialNum,remark,click_count,comment_count,sort,create_by,create_time,update_by,update_time
+	</sql>
+	<select id="showindexgood" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from good where index_show=1 and good_type_id=1 and state='s'
+	</select>
+	
+	<select id="showdetailgood" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from good where good_type_id=1 and state='s'
+	</select>
+	
+	<select id="showindexserver" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from good where index_show=1 and good_type_id=2 and state='s'
+	</select>
+	
+	<select id="showdetailserver" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from good where good_type_id=2 and state='s'
+	</select>
+	
+	 <select id="goodsdetail" resultType="java.util.HashMap">
+		select g.*,ga.option_value,ga.names from good g left join good_attr ga on g.id=ga.good_id where g.id=#{id} and g.state='s'
+	</select>
+    
+    <!-- 以 id未条件，查询单个商品信息-->
+    <select id="getGood" resultType="java.util.HashMap">
+    	select <include refid="Simple_Column_List" /> from good where id=#{id} and state='s'
+    </select>
+    
+    <!-- 查询主键为id的商品的关联商品 -->
+    <select id="getRelationGood" resultType="java.util.HashMap">
+    	select a.id as relationId ,a.good_id,a.related_good_id,a.related_good_name,b.id,
+    	b.name,b.good_type_name,b.price_range,b.price_market,b.pic from good_relation a ,good b where a.related_good_id=b.id and 
+    	a.good_id=#{id} and b.state='s'
+    </select>
+    
+    <!-- 查询商品的所有配置关系 -->
+    <select id="getRelations" resultType="java.util.HashMap">
+    	select good_id,related_good_id ,related_good_name from good_relation 
+    </select>
+</mapper>
