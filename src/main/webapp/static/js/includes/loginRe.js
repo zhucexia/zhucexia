@@ -62,7 +62,6 @@ $(function() {
     	if(($(this).html()=="获取短信验证码" || $(this).html()=="重新获取") && ($("#phone").val()!="" || $("#mob").val()!="该号已占用" ) && (pts != "该号已占用" && los!="输入有误或未曾注册")){
 	        var time = 30;
 	        var code = $(this);
-	        alert(code);
             code.addClass("msgs1");
             var t = setInterval(function() {
             	validCode = true;
@@ -72,7 +71,7 @@ $(function() {
                 if (time == 0) {
                     clearInterval(t);
                     code.html("重新获取");
-                    validCode = true;
+                    validCode = false;
                     code.removeClass("msgs1");
                 }
                 
@@ -175,7 +174,6 @@ $(function() {
     //验证手机验证码
     $("#yzm").blur(function(){
 		var yzm=$(this).val();
-		alert("进入手机验证");
 		if(yzm!="" || yzm!=null){
 			$.ajax({
 				url : "/zhucexia/customer/validateyzm",
@@ -221,7 +219,6 @@ $(function() {
 		var email=$("#email").val();
 		var yzm=$("#yzm").val();
     	if(name=="" || password=="" || cpassword=="" || mobile=="" || yzm=="" || email==""){
-    		alert("用户名为空");
     		$(".zcts").html("完整以上全部内容");
     		$(".zcts").css({"font-weight":"bold","color":"red"});
     		flag==false;
