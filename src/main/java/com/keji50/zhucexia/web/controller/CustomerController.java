@@ -1,5 +1,8 @@
 package com.keji50.zhucexia.web.controller;
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,8 +66,15 @@ public class CustomerController {
 				"spring-context.xml");
 		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
 				.getBean("customerSmsValidationService");
-		CustomerSmsPo sms=service.sendValidationSms(phone, "192.168.1.1", SmsTemplate.VALIDATION_TEMPLATE);
-		
+		String ip="";
+		 try {
+			ip = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 System.out.println("ip为:"+ip);
+		CustomerSmsPo sms=service.sendValidationSms(phone, ip, SmsTemplate.VALIDATION_TEMPLATE);
 		String json="";
 		if(sms!=null){
 			request.getSession().setAttribute("customersms", sms);
@@ -80,22 +90,7 @@ public class CustomerController {
 	@RequestMapping("/clearsession")
 	@ResponseBody
 	public String clearsession(HttpServletRequest request, HttpServletResponse response){
-		request.getSession().invalidate();
-		String pa=request.getRealPath("/");
-		System.out.println(pa);
-		pa=pa.substring(0,pa.lastIndexOf("\\"));
-		System.out.println(pa);
-		pa=pa.substring(0,pa.lastIndexOf("\\"))+"\\resource";
-		System.out.println(pa);
-		File file = new File(pa);
-		if(!file.exists()){
-			System.out.println(file.mkdirs());
-			if(file.mkdir())
-				{
-				
-				System.out.println("oh!ye成功喽！！！！");
-				}
-		}
+		request.getSession().invalidate();		
 		System.out.println("进入清除缓存方法");
 		String	json="{'message':'清除缓存'}";
 		return json;
