@@ -15,6 +15,8 @@ public class PaymentController {
 		String orderId = request.getParameter("orderId");
 		String paymentCode = request.getParameter("paymentCode");
 		
+		// 检查订单是否是未支付状态， 是否过期
+		
 		// 更新订单的支付信息
 		
 		// 支付宝支付
