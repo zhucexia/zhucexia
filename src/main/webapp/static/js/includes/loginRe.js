@@ -54,12 +54,13 @@ $(function() {
     //获取短信验证码
     var validCode = false;
     $(".msgs").click(function() {
+
         var pts=$(".pts").html() ; var los=$(".lostmobile").html();
     	validCode = false;
     	if(($(this).html()=="获取短信验证码" || $(this).html()=="重新获取") && ($("#phone").val()!="" || $("#mob").val()!="该号已占用" ) && (pts != "该号已占用" && los!="输入有误或未曾注册")){
 	        var time = 30;
 	        var code = $(this);
-        var code = $(this);
+       var code = $(this);
         if (validCode) {
             validCode = false;
             code.addClass("msgs1");
@@ -101,6 +102,8 @@ $(function() {
    				    	      $(".uts").css("color","#0099FF");
    				    	    }
 
+
+    					
     					}else{
     						validCode=true;
     						if($("#username").val().length>=3){
@@ -108,8 +111,6 @@ $(function() {
     						}else{
     							validCode=false;
     						}	
-    						
-
     						if(flag==false || validCode==false){
       				    		 $(".uts").css("color","red");
       				    	    }else if(flag==true && validCode==true){
@@ -167,11 +168,18 @@ $(function() {
 		}
 		
 	});
+	/*   $("#mobile").blur(function(){
+		var mobile=$("#mobile").val();
+		alert(mobile);
+		if(mobile!="" || mobile!=null){
+			alert("进入ajax");
+=======
     
     //验证手机验证码
     $("#yzm").blur(function(){
 		var yzm=$(this).val();
 		if(yzm!="" || yzm!=null){
+>>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
 			$.ajax({
 				url : "/zhucexia/customer/validatephone",
 				type : 'POST',
@@ -212,7 +220,7 @@ $(function() {
 		}
 		
 	});
-   /* function colorselect(){
+    function colorselect(){
     	 if(flag==false || validCode==false){
     		 alert("进入颜色选择");
     		 alert(flag);alert(validCode);
@@ -223,8 +231,7 @@ $(function() {
     	    	alert("进入正确颜色选择");
     	    	$(this).children(".ts").css("color","#0099FF");
     	    }
-    }*/
-   
+    }*/   
     //提交按钮,所有验证通过方可提交
     $('input[name="reg"]').click(function() {
     	var name=$("#username").val();

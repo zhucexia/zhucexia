@@ -313,7 +313,8 @@ public class SalaOrderController {
 						Map<String,Object> mapGoods=(Map<String, Object>) selectedGood.get(keys);
 						String good_type_names=mapGoods.get("good_type_name").toString();
 						if(good_type_names.equals("套餐")){
-							String  relations=selectedGood.get(keys).toString();
+							String  relations=relationMap.get(keys).toString();
+							System.out.println("relations==="+relations+"====key=="+key);
 							int bool=relations.lastIndexOf(","+key+",");
 							if(bool<0){
 								myname+=mapGood.get("name").toString()+",";
