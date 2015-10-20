@@ -55,12 +55,7 @@ $(function() {
     var validCode = false;
     $(".msgs").click(function() {
         var time = 30;
-<<<<<<< HEAD
         var code = $(this);
-        
-=======
-        var code = $(this);        
->>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
         if (validCode) {
             validCode = false;
             code.addClass("msgs1");
@@ -100,7 +95,7 @@ $(function() {
    				    	    }else if(flag==true && validCode==true){
    				    	      $(".uts").css("color","#0099FF");
    				    	    }
-<<<<<<< HEAD
+
     					
     					}else{
     						validCode=true;
@@ -109,15 +104,6 @@ $(function() {
     						}else{
     							validCode=false;
     						}	
-    						
-=======
-    					}else{
-    						if($("#username").val().length>=3){
-    							validCode=true;
-    						}else{
-    							validCode=false;
-    						}	
->>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
     						if(flag==false || validCode==false){
       				    		 $(".uts").css("color","red");
       				    	    }else if(flag==true && validCode==true){
@@ -133,7 +119,6 @@ $(function() {
     		
     	});
 
-<<<<<<< HEAD
     $("#phone").blur(function(){
 		var phone=$("#phone").val();
 		if(phone!="" || phone!=null){
@@ -176,8 +161,7 @@ $(function() {
 		}
 		
 	});
-=======
-    $("#mobile").blur(function(){
+	/*   $("#mobile").blur(function(){
 		var mobile=$("#mobile").val();
 		alert(mobile);
 		if(mobile!="" || mobile!=null){
@@ -222,7 +206,7 @@ $(function() {
 		}
 		
 	});
-   /* function colorselect(){
+    function colorselect(){
     	 if(flag==false || validCode==false){
     		 alert("进入颜色选择");
     		 alert(flag);alert(validCode);
@@ -234,11 +218,10 @@ $(function() {
     	    	$(this).children(".ts").css("color","#0099FF");
     	    }
     }*/
->>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
+
    
     //提交按钮,所有验证通过方可提交
     $('input[name="reg"]').click(function() {
-<<<<<<< HEAD
     	alert("注册提交按钮");
     	if($("input[name='username']").val()=="" || $("input[name='username']").val()==null){
     		flag==false;
@@ -267,12 +250,6 @@ $(function() {
 					alert(data.message);
 				}
 			});
-=======
-    	alert("注册提交按钮激活");
-        if (flag==true && validCode==true) {
-        	alert("注册提交");
-            $(this).submit();
->>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
         } else {
             return false;
         }
