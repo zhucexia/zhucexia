@@ -377,6 +377,7 @@ CREATE TABLE `payment` (
 DROP TABLE IF EXISTS `sale_order`;
 CREATE TABLE `sale_order` (
   `id` int(11) unsigned auto_increment NOT NULL COMMENT '主键id',
+  `order_no` varchar(25) NOT NULL COMMENT '订单号',
   `type` varchar(1) DEFAULT '0' COMMENT '0:商城订单 1:线下订单',
   `customer_id` int(11) NOT NULL COMMENT '客户id',
   `customer_name` varchar(64) NOT NULL COMMENT '客户名称',
@@ -408,6 +409,7 @@ CREATE TABLE `sale_order` (
   `cancel_time` datetime DEFAULT NULL COMMENT '取消订单时间',
   PRIMARY KEY (`id`),
   KEY `sale_order_id` (`id`),
+  KEY `sale_order_no` (`order_no`),
   KEY `order_customer_id` (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单表';
 
@@ -417,6 +419,8 @@ CREATE TABLE `sale_order` (
 DROP TABLE IF EXISTS `sale_order_detail`;
 CREATE TABLE `sale_order_detail` (
   `id` int(11) unsigned auto_increment NOT NULL COMMENT '主键id',
+  `order_id` int(11) NOT NULL COMMENT '订单id',
+  `order_no` varchar(25) NOT NULL COMMENT '订单号',
   `good_id` int(11) NOT NULL COMMENT '商品id',
   `good_name` varchar(128) NOT NULL COMMENT '商品名称',
   `good_price_id` int(11) NOT NULL COMMENT '商品价格id',
@@ -425,6 +429,8 @@ CREATE TABLE `sale_order_detail` (
   `total_price` decimal(18,2) NOT NULL COMMENT '总价格',
   PRIMARY KEY (`id`),
   KEY `sale_order_detail_id` (`id`),
+  KEY `order_detail_sale_order_id` (`order_id`),
+  KEY `order_detail_sale_order_no` (`order_no`),
   KEY `order_detail_good_id` (`good_id`),
   KEY `order_detail_good_price_id` (`good_price_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单明细表';

@@ -54,8 +54,13 @@ $(function() {
     //获取短信验证码
     var validCode = false;
     $(".msgs").click(function() {
-        var time = 30;
-        var code = $(this);
+
+        var pts=$(".pts").html() ; var los=$(".lostmobile").html();
+    	validCode = false;
+    	if(($(this).html()=="获取短信验证码" || $(this).html()=="重新获取") && ($("#phone").val()!="" || $("#mob").val()!="该号已占用" ) && (pts != "该号已占用" && los!="输入有误或未曾注册")){
+	        var time = 30;
+	        var code = $(this);
+       var code = $(this);
         if (validCode) {
             validCode = false;
             code.addClass("msgs1");
@@ -66,12 +71,13 @@ $(function() {
                 if (time == 0) {
                     clearInterval(t);
                     code.html("重新获取");
-                    validCode = true;
+                    validCode = false;
                     code.removeClass("msgs1");
                 }
                 
             }, 1000)
-        }
+        } 
+    	}
     })
 
     
@@ -95,6 +101,7 @@ $(function() {
    				    	    }else if(flag==true && validCode==true){
    				    	      $(".uts").css("color","#0099FF");
    				    	    }
+
 
     					
     					}else{
@@ -166,6 +173,13 @@ $(function() {
 		alert(mobile);
 		if(mobile!="" || mobile!=null){
 			alert("进入ajax");
+=======
+    
+    //验证手机验证码
+    $("#yzm").blur(function(){
+		var yzm=$(this).val();
+		if(yzm!="" || yzm!=null){
+>>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
 			$.ajax({
 				url : "/zhucexia/customer/validatephone",
 				type : 'POST',
@@ -217,12 +231,19 @@ $(function() {
     	    	alert("进入正确颜色选择");
     	    	$(this).children(".ts").css("color","#0099FF");
     	    }
-    }*/
-
-   
+    }*/   
     //提交按钮,所有验证通过方可提交
     $('input[name="reg"]').click(function() {
-    	alert("注册提交按钮");
+    	var name=$("#username").val();
+		var password=$("#zcpwd").val();
+		var cpassword=$("#zcconpwd").val();
+		var mobile=$("#phone").val();
+		var email=$("#email").val();
+		var yzm=$("#yzm").val();
+    	if(name=="" || password=="" || cpassword=="" || mobile=="" || yzm=="" || email==""){
+    		$(".zcts").html("完整以上全部内容");
+    		$(".zcts").css({"font-weight":"bold","color":"red"});
+    	}
     	if($("input[name='username']").val()=="" || $("input[name='username']").val()==null){
     		flag==false;
     	}

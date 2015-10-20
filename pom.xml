@@ -248,7 +248,7 @@
 			<groupId>jaxen</groupId>
 			<artifactId>jaxen</artifactId>
 			<version>${jaxen.version}</version>
-		</dependency>
+		</dependency> 
 	</dependencies>
 
 	<build>

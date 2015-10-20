@@ -24,30 +24,32 @@
 		<title>支付宝即时到账交易接口</title>
 	</head>
 	<%
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath(); 
+	
 		////////////////////////////////////请求参数//////////////////////////////////////
 
 		//支付类型
 		String payment_type = "1";
 		//必填，不能修改
 		//服务器异步通知页面路径
-		String notify_url = "http://商户网关地址/zhucexia/views/pay/notify_url.jsp";
+		String notify_url = basePath + "/views/pay/notify_url.jsp";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 		//页面跳转同步通知页面路径
-		String return_url = "http://商户网关地址/zhucexia/views/pay/return_url.jsp";
+		String return_url = basePath + "/views/pay/return_url.jsp";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 		//商户订单号
-		String out_trade_no = new String(request.getParameter("WIDout_trade_no").getBytes("ISO-8859-1"),"UTF-8");
+		String out_trade_no = (String) request.getAttribute("WIDout_trade_no");
 		//商户网站订单系统中唯一订单号，必填
 		//订单名称
-		String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
+		String subject = (String) request.getAttribute("WIDsubject");
 		//必填
 		//付款金额
-		String total_fee = new String(request.getParameter("WIDtotal_fee").getBytes("ISO-8859-1"),"UTF-8");
+		String total_fee = (String) request.getAttribute("WIDtotal_fee");
 		//必填
 		//订单描述
-		String body = new String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");
+		String body = (String) request.getAttribute("WIDbody");
 		//商品展示地址
-		String show_url = new String(request.getParameter("WIDshow_url").getBytes("ISO-8859-1"),"UTF-8");
+		String show_url = (String) request.getAttribute("WIDshow_url");
 		//需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
 		//防钓鱼时间戳
 		String anti_phishing_key = AlipaySubmit.query_timestamp();
