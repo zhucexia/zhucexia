@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keji50.zhucexiaadmin.dao.mapper.SalaOrderPoMapper">
+	<resultMap id="BaseResultMap" type="com.keji50.zhucexiaadmin.dao.po.SalaOrderPo">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerid" jdbcType="DECIMAL" />
+		<result column="customer_name" property="customername" jdbcType="VARCHAR" />
+		<result column="order_money" property="ordermoney" jdbcType="DECIMAL" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="zip_code" property="zipcode" jdbcType="VARCHAR" />
+		<result column="payment_id" property="paymentid" jdbcType="DECIMAL" />
+		<result column="payment_code" property="paymentcode" jdbcType="VARCHAR" />
+		<result column="payment_name" property="paymentname" jdbcType="VARCHAR" />
+		<result column="delivery_id" property="deliveryid" jdbcType="DECIMAL" />
+		<result column="delivery_code" property="deliverycode" jdbcType="VARCHAR" />
+		<result column="delivery_name" property="deliveryname" jdbcType="VARCHAR" />
+		<result column="order_state" property="orderstate" jdbcType="VARCHAR" />
+		<result column="payment_state" property="paymentstate" jdbcType="VARCHAR" />
+		<result column="delivery_state" property="deliverystate" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="alipay_trade_no" property="alipaytradeno" jdbcType="VARCHAR" />
+		<result column="delivery_trade_no" property="deliverytradeno" jdbcType="VARCHAR" />
+		<result column="orderstate_time" property="orderstatetime" jdbcType="TIMESTAMP" />
+		<result column="payment_time" property="paymenttime" jdbcType="TIMESTAMP" />
+		<result column="delivery_time" property="deliverytime" jdbcType="TIMESTAMP" />
+		<result column="cancel_time" property="canceltime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, customer_name, mobile, email, order_state, order_money, update_by, update_time
+	</sql>
+
+	<!-- 新增会员 -->
+	<select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select <include refid="Base_Column_List" />
+		from sale_order
+		where 1=1
+		<if test="id != null and id !=''">
+			and id = #{id,jdbcType=DECIMAL}
+		</if>
+		<if test="orderstate != null and orderstate !=''">
+			and order_state = #{orderstate,jdbcType=VARCHAR}
+		</if>
+		<if test="mobile != null and mobile !=''">
+			and mobile = #{mobile,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<delete id="deletesalaorder" parameterType="int">
+		delete from sale_order where id=#{id,jdbcType=DECIMAL}
+	</delete>
+	<!-- <insert id="addcustomer"  parameterType="com.keji50.zhucexiaadmin.dao.po.CustomerPo" >
+		insert into customer(id, username, password, phone_number, email, create_by) value(#{id},#{username},#{password},#{phoneNumber},#{email},#{createBy})
+	</insert>--> 
+	<select id="getorder" parameterType="int" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from sale_order where id=#{id,jdbcType=DECIMAL}
+	</select>
+	<update id="updateorder" parameterType="com.keji50.zhucexiaadmin.dao.po.SalaOrderPo">
+		update sale_order set order_state=#{orderstate,jdbcType=VARCHAR} where id=#{id}
+	</update>  
+</mapper>
