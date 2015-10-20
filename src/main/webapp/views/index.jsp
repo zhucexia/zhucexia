@@ -43,14 +43,18 @@
 				<ul class="newc-list clearfix" style="display: block; top: 0px;">
 					<c:forEach items="${goodlist }" var="good">
 					<li>
-					
 						<div class="pic">
-							<span><a href="${root}/good/goodsdetail?id=${good.id }"><img dataid="356963" width="320"
+							<span><a href="#"
+								title="${good.name }"><img dataid="356963" width="320"
 									src="${root }/static/images/index/goods/${good.pic}"
 									alt="${good.name }" class="356963" height="256"></a></span>
 						</div>
 						<div class="dec-right">
+<<<<<<< HEAD
+							<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
+=======
 							<a href="#" title="${good.name }">立刻申请</a>
+>>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
 						</div>
 						<div class="dec-left">
 							<h5>
@@ -140,8 +144,9 @@
 							<c:forEach items="${ serverlist}" var="server">
 								<li
 								style="overflow: hidden; float: left; width: 500px; height: 225px;">
-								<div class="pic">
-									<a href="${root}/good/goodsdetail?id=${server.id }"><img dataid="373471" width="225"
+								<div class="pic"> 
+									<a href="#"
+										target="_blank"><img dataid="373471" width="225"
 										src="${root }/static/images/index/banner/${server.pic}"
 										alt="${server.name}" class="373471" height="225"></a>
 								</div>
@@ -150,10 +155,9 @@
 										<a href="#"
 											target="_blank">${server.name}</a>
 									</h5>
-									<p>${server.detail_content}</p>
+									<p><%-- ${server.detail_content} --%></p>
 									<div class="index-btn">
-										<a href="#"
-											title="${server.name}">立刻申请</a>
+										<a href="${root}/good/goodsdetail?id=${server.id}" title="${server.name}">立刻申请</a>
 									</div>
 								</div>
 							</li>

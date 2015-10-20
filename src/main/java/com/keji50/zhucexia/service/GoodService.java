@@ -4,6 +4,7 @@ package com.keji50.zhucexia.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -52,5 +53,21 @@ public class GoodService {
 		// TODO Auto-generated method stub
 		return goodPoMapper.goodsdetail(id);
 	}
+    
+	/*获取单个商品信息*/
+	public Map<String, Object> getGood(String id) {
+		return goodPoMapper.getGood(id);
+	}
+   /*获取单个商品的配置的商品的信息*/
+	public List<Map<String, Object>> getRelationGood(String id) {
+		return goodPoMapper.getRelationGood(id);
+	}
+  /*获取所有商品的配置关系*/
+	public List<Map<String,Object>> getRelations(){
+		return goodPoMapper.getRelations();
+	}
+	
+	
+
 
 }

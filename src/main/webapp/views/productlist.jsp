@@ -156,13 +156,13 @@
 							<ul>
 							<c:forEach var="good" items="${ serverlist}">
 								<li><div class="pro_img">
-										<a href="${root}/good/goodsdetail?id=${good.id }"><img
+										<a href="＃"><img
 											dataid="356963" width="215"
 											src="${root }/static/images/index/banner/${good.pic}"
 											alt="${good.name }" class="356963" height="215" /></a>
 									</div>
 									<div class="pro_tit">
-										<a href="${root}/good/goodsdetail?id=${good.id }">${good.name }</a>
+										<a href="＃">${good.name }</a>
 									</div>
 								</li>
 							</c:forEach>

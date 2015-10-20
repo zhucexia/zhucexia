@@ -17,5 +17,11 @@ public interface GoodPoMapper {
 	List<GoodPo> showdetailserver();
 
 	List<HashMap<String, Object>> goodsdetail(int id);
+
+	public Map<String, Object> getGood(String id);
+
+	public List<Map<String, Object>> getRelationGood(String id);
+
+	public List<Map<String, Object>> getRelations();
 	
 }

@@ -30,7 +30,7 @@
 .pro-price dd del {color: #999999;}
 .price-wrap{position:relative;}
 .price-wrap .line{width:0;height:50px;border-right:1px solid #ccc;position:absolute;top: 8px;left: 193px;}
- 
+
 .pro-attr .dist{
 	background: #00a0ea;
     color: #fff;
@@ -41,6 +41,5 @@
 }
 .pro-attr .dist input{margin-right:3px;}
 .pro-attr .dist input,.pro-attr .dist i{vertical-align:middle;	line-height:25px;}
-
 /* 促销活动标签 */
 .discount_btn { background:#C33; color:#fff; padding:2px 5px; font-size:12px; border-radius:3px; margin-left:5px;}

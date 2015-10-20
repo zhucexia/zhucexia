@@ -3,52 +3,25 @@
 <div id="top" class="top">
     <div class="container">
         <div class="logo">
-            <h1><a title="" href="${root }/index/show"><img src="${root }/static/images/header/logo.png" alt=""></a></h1></div>
+            <h1><a title="" href="index.html"><img src="${root }/static/images/header/logo.png" alt=""></a></h1></div>
         <div class="top-tool"><img src="${root }/static/images/header/c1.jpg">4009207898
             <img src="${root }/static/images/header/c2.jpg">
            <% 
            		if(customer!=null){
-           			%><span id="qq">
-           				<%-- <a href="javascript:;"><span id="logins"><%=customer.getUsername() %></span></a> |
-               	         <a href="javascript:clearsession();" ><span id="turnback">注销</span></a> &nbsp; --%>
-               	         <span class="bb"> |
-	           	           <a href="javascript:clearsession();" ><span id="turnback">注销</span></a>
-	           	             &nbsp;
-	           	         </span>
-	           	         <span class="aa">
-		           			  <a href="javascript:;" class="mm">
-				           		  <span id="logins">
-					           		 	<li class="xf"> <%=customer.getUsername() %></li>
-					           		 	<li class="cc"><a href="${root }/views/myorder.jsp">我的订单</a></li>
-				           		  </span>
-			           		</a>
-		           		 </span> 
-               	       </span>
- 
-               	      <span id="ww" style="display:none;">
-               	      		 <a href="javascript:" class="J_dialog mm" data="log" id="pp"><span id="logina">登录</span></a> |  
-               	            <a href="javascript:ee();" class="J_dialog mm" data="reg"><span id="turnbacka">注册</span></a> &nbsp; 
-
-               	       </span>
+           			%><span id="qq"><a href="javascript:;"><span id="logins"><%=customer.getUsername() %></span></a> |
+               	            <a href="javascript:clearsession();" ><span id="turnback">注销</span></a> &nbsp;</span>
+               	      <span id="ww" style="display:none;"><a href="javascript:;" class="J_dialog mm" data="log"><span id="logina">登录</span></a> |
+               	            <a href="javascript:ee();" class="J_dialog mm" data="reg"><span id="turnbacka">注册</span></a> &nbsp;</span>
+               	            
+               	       <span id="rr" style="display:none;"><a href="javascript:;" class="mm" id="a2a"><span id="a21a">登录</span></a> |
+           	            <a href="javascript:sele()" class="mm" id="b2a"><span id="b21">注册</span></a>  &nbsp;</span>
            	             <% 
            		}else{
-           		  %><span id="hc"><a href="javascript:;" class="J_dialog mm" data="log" id="a1"><span id="a11" style="height:auto">登录</span></a> |
+           		  %><span id="hc"><a href="javascript:;" class="J_dialog mm" data="log" id="a1"><span id="a11">登录</span></a> |
            	            <a href="javascript:" class="J_dialog mm" data="reg" id="b1"><span id="b11">注册</span></a>  &nbsp;</span>
            	            
-           	        <span id="hc1" style="display:none;">
-           	        	<span class="bb"> |
-	           	           <a href="javascript:sele()" class="mm" id="b2" ><span id="a21">注册</span></a>
-	           	             &nbsp;
-	           	         </span>
-	           	         <span class="aa">
-		           			  <a href="javascript:;" class="mm" id="a2">
-				           		  <span id="a11">
-					           		 	<li class="xf"> 13916247927</li>
-					           		 	<li class="cc"><a href="${root }/views/myorder.jsp">我的订单</a></li>
-				           		  </span>
-			           		</a>
-		           		 </span>
-		           	</span>
+           	        <span id="hc1" style="display:none;"><a href="javascript:;" class="mm" id="a2"><span id="a21">登录</span></a> |
+           	            <a href="javascript:sele()" class="mm" id="b2"><span id="b21">注册</span></a>  &nbsp;</span>
            	            <% 
            		}
            %>
@@ -79,7 +52,6 @@
 				if(data.message=="清除缓存"){
 					$("#qq").hide();
 					$("#ww").show();
-					$("#logina").html("登录");
 				}else{
 					$("#mess").html("输入的用户名/手机号 或密码有误");
 				}
@@ -91,6 +63,7 @@
 			}
 		});
 	}
+	
 	function ee(){
 		if($("#turnbacka").html()=="注销"){
 			$.ajax({
@@ -99,7 +72,7 @@
 				success : function(data) {
 					var data=eval("(" + data + ")");
 					if(data.message=="清除缓存"){
-						$(".xf").html("登录");
+						$("#logina").html("登录");
 						$("#reg").hide();
 						$("#turnbacka").html("注册");
 					}else{
@@ -112,15 +85,13 @@
 					$("#mess").html("输入的用户名/手机号 或密码有误");
 				}
 			});
-		}else if($("#turnbacka").html()=="注册"){
-			/* $("#qq").show();
-			$("#logins").html("");
-			$("#ww").hide(); */
-			/* $(".xf").html("登录");
-			$("#turnbacka").html("注销"); */
+		}else if($("#turnbacka").html()=="登录"){
+			$("#logina").html("登录");
+			$("#turnbacka").html("注册");
 		}
 	}
 	function sele(){
+		alert("本页面");
 		$("#hc1").hide();
 		$("#hc").show();
 		$.ajax({
@@ -129,6 +100,7 @@
 			success : function(data) {
 				var data=eval("(" + data + ")");
 				if(data.message=="清除缓存"){
+					alert(data.message);
 				}else{
 					$("#mess").html("输入的用户名/手机号 或密码有误");
 				}
