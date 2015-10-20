@@ -1,5 +1,8 @@
 package com.keji50.zhucexia.web.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,7 +82,15 @@ public class CustomerController {
 				"spring-context.xml");
 		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
 				.getBean("customerSmsValidationService");
-		CustomerSmsPo sms=service.sendValidationSms(phone, "192.168.1.1", SmsTemplate.VALIDATION_TEMPLATE);
+		String ip="";
+		 try {
+			ip = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 System.out.println("ip为:"+ip);
+		CustomerSmsPo sms=service.sendValidationSms(phone, ip, SmsTemplate.VALIDATION_TEMPLATE);
 		String json="";
 		if(sms!=null){
 			request.getSession().setAttribute("customersms", sms);
