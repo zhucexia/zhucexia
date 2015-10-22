@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keji50.zhucexia.dao.mapper.SaleOrderDetailPoMapper">
+	<resultMap type="com.keji50.zhucexia.dao.po.SaleOrderDetailPo" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="DECIMAL"/>
+		<result column="good_id" property="good_id" jdbcType="DECIMAL"/>
+		<result column="good_name" property="good_name" jdbcType="VARCHAR"/>
+		<result column="good_price_id" property="good_price_id" jdbcType="DECIMAL"/>
+		<result column="good_price" property="good_price" jdbcType="DECIMAL"/>
+		<result column="good_num" property="good_num" jdbcType="DECIMAL"/>
+		<result column="total_price" property="total_price" jdbcType="DECIMAL"/>
+		<result column="order_id" property="order_id" jdbcType="DECIMAL"/>
+		<result column="order_no" property="ordre_no" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, good_id, good_name, good_price_id, good_price, good_num, total_price, order_id
+	</sql>
+	<select id="getOrderDetail" resultMap="BaseResultMap" parameterType="int">
+		select <include refid="Base_Column_List"></include>
+		from sale_order_detail where 1=1 and order_id=#{order_id,jdbcType=DECIMAL}
+	</select>
+	
+	<insert id="inserts" parameterType="java.util.List">
+	 	insert into sale_order_detail(good_id,good_name,good_price_id,good_price,good_num,total_price,order_id,order_no) values 
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item.good_id},#{item.good_name},#{item.good_price_id},#{item.good_price},#{item.good_num},#{item.total_price},
+			#{item.order_id},#{item.order_no}
+  	   </foreach>
+  	   <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+  			select LAST_INSERT_ID() 
+  		</selectKey>
+	</insert>
+</mapper>

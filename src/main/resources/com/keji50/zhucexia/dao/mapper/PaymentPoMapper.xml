@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keji50.zhucexia.dao.mapper.PaymentPoMapper">
+	<resultMap id="BaseResultMap" type="com.keji50.zhucexia.dao.po.PaymentPo">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="payment_fee" property="payment_fee" jdbcType="DECIMAL" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, code,name, payment_fee,remark, create_by,create_time, update_by, update_time,state
+	</sql>
+
+	<select id="getPayMethod" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+		select <include refid="Base_Column_List" />
+		from payment
+		where 1=1
+	</select>
+	
+	<!-- 以id为条件查询单个支付方式信息 -->
+	<select id="getPayMethodById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select <include refid="Base_Column_List" />
+		from payment
+		where 1=1 and id=#{id,jdbcType=DECIMAL}
+	</select>
+</mapper>
