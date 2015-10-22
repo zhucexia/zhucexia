@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -63,7 +64,7 @@ public class PaymentController {
 		}
 		/*if ("alipay".equalsIgnoreCase(paymentCode)) {
 			// 数据库中查询获取订单详情， 拼装支付宝支付所需参数
-			request.setAttribute("WIDout_trade_no", "20151020102010228101822911"); // 订单号
+			request.setAttribute("WIDout_trade_no", String.valueOf(System.currentTimeMillis())); // 订单号
 			request.setAttribute("WIDsubject", "测试订单");                           // 订单名称
 			request.setAttribute("WIDtotal_fee", "0.01");                            // 订单金额
 			request.setAttribute("WIDbody", "测试订单描述");                           // 订单描述
