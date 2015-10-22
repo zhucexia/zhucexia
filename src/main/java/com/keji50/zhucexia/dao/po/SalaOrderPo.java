@@ -12,6 +12,7 @@ public class SalaOrderPo extends BasePo{
 	
 	private int customerid;
 	
+	private String order_no;
 	private String customername;
 	
 	private float ordermoney;

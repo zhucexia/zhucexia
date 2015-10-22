@@ -1,5 +1,9 @@
 package com.keji50.zhucexia.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,14 +16,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.keji50.zhucexia.dao.po.CustomerAddrPo;
+import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.dao.po.GoodPo;
+import com.keji50.zhucexia.dao.po.PaymentPo;
+import com.keji50.zhucexia.dao.po.SalaOrderPo;
+import com.keji50.zhucexia.dao.po.SaleOrderDetailPo;
+import com.keji50.zhucexia.service.CustomerAddressService;
 import com.keji50.zhucexia.service.GoodService;
+import com.keji50.zhucexia.service.PaymentService;
+import com.keji50.zhucexia.service.SaleOrderService;
 
 @Controller
 @RequestMapping(value = "/sales")
 public class SalaOrderController {
 	@Resource(name = "goodService")
 	private GoodService   goodService;
+	
+	@Resource(name="paymentService")
+	private PaymentService paymentService;
+	
+	@Resource(name="customerAddressService")
+	private CustomerAddressService customerAddrService; 
+	
+	@Resource(name="saleOrderService")
+	private SaleOrderService saleOrderService;
+	
 	/*跳转到订单上传页*/
 	@RequestMapping("/toBuildOrder")
 	public String toBuildOrder(HttpServletRequest request){
@@ -292,11 +314,12 @@ public class SalaOrderController {
 							/*该服务是否选中的该套餐的配置*/
 							int flags=serviceRelation.lastIndexOf(","+keys+",");
 							/*该基本套餐是否有该该服务的配置*/
-							int flagss=0;
+							int flagss=-1;
 							if(relationMap.get(keys)!=null){
+								System.out.println("============"+relationMap.get(keys).toString());
 								flagss=relationMap.get(keys).toString().lastIndexOf(","+key+",");
 							}
-							if(flags<0&&flagss<=0){
+							if(flags<0&&flagss<0){
 								System.out.println(keys+"代表的服务没有绑定基本套餐，请删除该项服务！");
 								myname+=mapGood.get("name").toString()+",";
 							}
@@ -340,88 +363,138 @@ public class SalaOrderController {
 		System.out.println(names);
 		return names;
 	}
-	/*@Resource(name = "salaorderservice")
-	private SalaOrderService salaorderservice;
-	
-	@RequestMapping(value = "/index")
-	public String index(HttpServletRequest request) {
-		return "salaorder/list";
+	/*返回购物车*/
+	@RequestMapping("/returnCart")
+	public String returnCart(){
+		return "cart";
 	}
-	
-	
-	@RequestMapping(value = "/getorderList", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> listByCondition(HttpServletRequest request) {
-		String requestJson = WebUtils.getRequestPayload(request);
-		Map<String, Object> conditions = JSONObject.parseObject(requestJson);
-		Page<SalaOrderPo> page = salaorderservice.getorderByConditions(conditions);
-		for (SalaOrderPo salaOrderPo : page) {
-			System.out.println(salaOrderPo.getOrderstate());
-			if(salaOrderPo.getOrderstate().equals("0")){
-				salaOrderPo.setOrderstate("未确认");
-			}else if(salaOrderPo.getOrderstate().equals("1")) {
-				salaOrderPo.setOrderstate("已确认");
-			}else if(salaOrderPo.getOrderstate().equals("2")){
-				salaOrderPo.setOrderstate("交易成功");
-			}else{
-				salaOrderPo.setOrderstate("交易取消");
-			}
+	/*确认订单页面，选择支付方式*/
+	@RequestMapping("/toOrderDetail")
+	public String toOrderDetail(HttpServletRequest request){
+		/*用户选择购买的产品的id*/
+		String[] ids=request.getParameter("goodIds").split(",");
+		/*商品总价格*/
+		String totalPrice=request.getParameter("priceTotal").toString();
+		System.out.println("totalPrice---"+totalPrice);
+		/*根据产品id，从session里获取产品信息,存入到map中*/
+		Map<String,Object> map=new HashMap<String,Object>();
+		/*selectedGood,sesion里的产品数据*/
+		Map<String,Object> mapGood=(Map<String, Object>) request.getSession().getAttribute("selectedGood");
+		for(int i=0;i<ids.length;i++){
+			map.put(ids[i], mapGood.get(ids[i]));
 		}
-		System.out.println("执行查询"+page.size());
-		return PageUtils.pageToMap(page);
+		request.setAttribute("chooseGood", map);
+		request.setAttribute("ids", request.getParameter("goodIds"));
+		request.setAttribute("totalPrice", totalPrice);
+		/*查询已存在的支付方式*/
+		List<PaymentPo> list=paymentService.getPayMethod();
+		/*返回数据到页面*/
+		request.setAttribute("list", list);
+		return  "orderDetail";
 	}
-	
-	@RequestMapping(value = "/deletesalaorder", method = RequestMethod.POST)	
-	@ResponseBody
-	public JSONObject deletesalaorder(HttpServletRequest request) {
-		System.out.println(request.getParameter("sno"));
-		int id=Integer.valueOf(request.getParameter("sno"));
-		int result=salaorderservice.deletesalaorder(id);
-		JSONObject json;
-		if(result>0){
-			json=JSONObject.parseObject("{'message':'删除成功'}");
-		}else{
-			json=JSONObject.parseObject("{'message':'删除失败'}");
-		}
+	/*选择支付方式，生成订单*/
+	@RequestMapping("/buildOrders")
+	public String buildOrders(HttpServletRequest request) throws ParseException{
+		/*添加收获地址----*/
+		CustomerAddrPo customerAddrPo = new CustomerAddrPo();
+		/*获取用户的id值*/
+		CustomerPo customerPo= (CustomerPo) request.getSession().getAttribute("customer");
+		System.out.println(customerPo.toString());
+		customerAddrPo.setCustomer_id(customerPo.getId());
+		/*地址，包括省份，和城市*/
+		String addr=request.getParameter("newAddress[province]")+request.getParameter("newAddress[city]");
+		customerAddrPo.setAddress(addr);
+		/*地址地区*/
+		String area=request.getParameter("newAddress[district]");
+		customerAddrPo.setAreaRegion(area);
+		/*街道*/
+		String street=request.getParameter("newAddress[address]");
+		customerAddrPo.setStreet(street);
+		/*邮政编码*/
+		String zip_code = request.getParameter("newAddress[zipcode]");
+		customerAddrPo.setZip_code(zip_code);
+		/*电话号*/
+		String mobile=request.getParameter("newAddress[tel]");
+		customerAddrPo.setTelephone(mobile);
+		/*收货人*/
+		String names=request.getParameter("newAddress[consignee]");
+		customerAddrPo.setName(names);
+		//默认地址
+		customerAddrPo.setIs_default("1");
+		/*备注说明*/
+		String remark=request.getParameter("newAddress[tag_name]");
+		customerAddrPo.setRemark(remark);
+		//int flag=customerAddrService.insert(customerAddrPo);
+		/*添加收货地址结束------*/
 		
-		return json;
-	}
-	@RequestMapping(value = "/add")
-	public String add(HttpServletRequest request) {
-		return "salaorder/add";
-	}
-	
-	
-	@RequestMapping(value = "/getorder", method = RequestMethod.POST)	
-	public String getorder(HttpServletRequest request) {
-		System.out.println("编辑id："+request.getParameter("id"));
-		int id=Integer.valueOf(request.getParameter("id"));
-		SalaOrderPo order=salaorderservice.getorder(id);
-		if(order.getOrderstate().equals("0")){
-			order.setOrderstate("未确认");
-		}else if(order.getOrderstate().equals("1")) {
-			order.setOrderstate("已确认");
-		}else if(order.getOrderstate().equals("2")){
-			order.setOrderstate("交易成功");
-		}else{
-			order.setOrderstate("交易取消");
+		/*开始生成订单--------*/	
+		/*1.获取支付方式的信息----*/
+		//确定用户所选择的支付方式
+		String payMethod=request.getParameter("Checkout[pay_id]");
+		System.out.println("进入了buildOrders方法--支付方式的id=="+payMethod);
+	    //根据支付方式id，获取支付方式的具体信息
+		PaymentPo payment=paymentService.getPayMethodById(payMethod);
+		//声明一个订单对象
+		SalaOrderPo    saleOrder= new SalaOrderPo();
+		//设置订单的支付方式信息
+		saleOrder.setPaymentid(Integer.parseInt(payMethod));
+		saleOrder.setPaymentname(payment.getName());
+		saleOrder.setPaymentcode(payment.getCode());
+		/*支付方式信息完毕-------*/
+		
+		/*2.获取地址信息-----*/
+		saleOrder.setAddress(addr+area+street);
+		saleOrder.setZipcode(zip_code);
+		saleOrder.setMobile(mobile);
+		/*地址信息结束----*/
+		
+		/*3.客户信息-----*/
+		saleOrder.setCustomerid(customerPo.getId());
+		saleOrder.setCustomername(names);
+		/*客户信息结束--------*/
+		
+		//订单确认时间
+		Date date = new Date();
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		saleOrder.setOrderstatetime(sdf.parse(sdf.format(date)));
+		
+		//商品总价格
+		String totalPrice =request.getParameter("totalPrice");
+		saleOrder.setOrdermoney(Float.parseFloat(totalPrice));
+		
+		//订单状态 0：未确认、 1：已确认、 2：交易成功、 9：交易取消'
+		saleOrder.setOrderstate("1");
+		
+		/*生成订单明细表开始------*/
+		//实际购买的商品清单id
+		String[] ids=request.getParameter("ids").toString().split(",");
+		//从session里取出已选择商品清单
+		Date dates = new Date();
+		Map<String,Object> selectedGood=(Map<String, Object>) request.getSession().getAttribute("selectedGood");
+		List<SaleOrderDetailPo> list= new ArrayList<SaleOrderDetailPo>();
+		for(int i=0;i<ids.length;i++){
+			SaleOrderDetailPo saleOrderDetailPo= new SaleOrderDetailPo();
+			System.out.println(ids[i]);
+			Map<String,Object> mapGood=(Map<String, Object>) selectedGood.get(ids[i]);
+			saleOrderDetailPo.setGood_id(Integer.parseInt(ids[i]));
+			saleOrderDetailPo.setGood_name(mapGood.get("name").toString());
+			System.out.println("good_name---------"+mapGood.get("name").toString());
+			saleOrderDetailPo.setGood_price(Float.parseFloat(mapGood.get("price_market").toString()));
+			saleOrderDetailPo.setTotal_price(Float.parseFloat(mapGood.get("price_market").toString()));
+			saleOrderDetailPo.setGood_num(1);
+			saleOrderDetailPo.setGood_price_id(12);
+			saleOrderDetailPo.setCreateBy(customerPo.getUsername());
+			/*创建时间*/
+			saleOrderDetailPo.setCreateTime(sdf.parse(sdf.format(dates)));	
+			list.add(saleOrderDetailPo);
 		}
-		request.setAttribute("order", order);
-		//System.out.println(cus.getUsername());
-		return "salaorder/update";
+		/*生成订单明细表结束------*/
+		
+		int flags=saleOrderService.buildOrder(saleOrder,customerAddrPo,list);
+		System.out.println("id的值----"+flags);
+		/*生成订单，插入到数据库中结束--------*/
+		request.setAttribute("id", flags);
+		/*选择支付方式，进行*/
+		return "confirmOrder";
 	}
-	
-	@RequestMapping(value = "/updateorder")	
-	@ResponseBody
-	public String updateorder(HttpServletRequest request,SalaOrderPo cust) {
-		System.out.println("进入修改controller,名为："+cust.getOrderstate());
-		int result=salaorderservice.updateorder(cust);
-		String mess="";
-		if(result>0){
-			mess="修改成功";
-		}else{
-			mess="修改成功";	
-		}
-		return mess;
-	}*/
 }
