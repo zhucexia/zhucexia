@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keji50.zhucexia.dao.mapper.SaleOrderPoMapper">
+	<resultMap id="BaseResultMap" type="com.keji50.zhucexia.dao.po.SalaOrderPo">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="customer_id" property="customerid" jdbcType="DECIMAL" />
+		<result column="customer_name" property="customername" jdbcType="VARCHAR" />
+		<result column="order_money" property="ordermoney" jdbcType="DECIMAL" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="zip_code" property="zipcode" jdbcType="VARCHAR" />
+		<result column="payment_id" property="paymentid" jdbcType="DECIMAL" />
+		<result column="payment_code" property="paymentcode" jdbcType="VARCHAR" />
+		<result column="payment_name" property="paymentname" jdbcType="VARCHAR" />
+		<result column="delivery_id" property="deliveryid" jdbcType="DECIMAL" />
+		<result column="delivery_code" property="deliverycode" jdbcType="VARCHAR" />
+		<result column="delivery_name" property="deliveryname" jdbcType="VARCHAR" />
+		<result column="order_state" property="orderstate" jdbcType="VARCHAR" />
+		<result column="payment_state" property="paymentstate" jdbcType="VARCHAR" />
+		<result column="delivery_state" property="deliverystate" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="alipay_trade_no" property="alipaytradeno" jdbcType="VARCHAR" />
+		<result column="delivery_trade_no" property="deliverytradeno" jdbcType="VARCHAR" />
+		<result column="orderstate_time" property="orderstatetime" jdbcType="TIMESTAMP" />
+		<result column="payment_time" property="paymenttime" jdbcType="TIMESTAMP" />
+		<result column="delivery_time" property="deliverytime" jdbcType="TIMESTAMP" />
+		<result column="cancel_time" property="canceltime" jdbcType="TIMESTAMP" />
+		<result column="order_no" property="order_no" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id,order_no,customer_id,customer_name,order_money,address,mobile,telephone,email,zip_code,payment_id,payment_code
+		,payment_name,delivery_id,delivery_code,delivery_name,order_state,payment_state,delivery_state,delivery_state,
+		remark,create_by,create_time,update_by,update_time,alipay_trade_no,delivery_trade_no,orderstate_time,payment_time
+		,delivery_time,cancel_time
+	</sql>
+	<!-- 查询用用的某个订单的信息 -->
+	<select id="getOrder" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+		from sale_order where 1=1 and id=#{id}
+	</select>
+	
+	 <insert id="bulidOrder"  parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo" >
+		insert into sale_order(order_no,customer_id,customer_name,order_money,address,mobile,email,zip_code,payment_id,payment_code
+		,payment_name,order_state,remark,orderstate_time)
+	    values(CONCAT(DATE_FORMAT(now(), '%Y%m%d%h%i%s'),LPAD(LAST_INSERT_ID()+1, 11, '0')),#{customerid},#{customername},#{ordermoney},#{address},#{mobile},#{email},#{zipcode},#{paymentid},#{paymentcode
+		},#{paymentname},#{orderstate},#{remark},#{orderstatetime})
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+  			select LAST_INSERT_ID() 
+  		</selectKey>
+	</insert> 
+</mapper>
