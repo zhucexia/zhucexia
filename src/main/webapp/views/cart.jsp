@@ -24,7 +24,7 @@
 					<c:if test="${! empty sessionScope.selectedGood}">
 					<c:forEach items="${sessionScope.selectedGood}" var="item" varStatus="status">
 					<tr id="${item.value.id}">
-						<td><input type="checkbox" name="checkbox" id=""></td>
+						<td><input type="checkbox" name="checkbox" value="${item.value.id}"></td>
 						<td class="tal"><img width="150px" height="130px" src="${root }/static/images/${item.value.pic}" alt="">
 							<span class="product-text">${item.value.name}</span></td>
 						<td><span class="price">${item.value.price_market}</span>元</td>
@@ -178,6 +178,25 @@
 				var dat=eval('('+data+')');
 				if(dat.name!="true"){
 					alert(dat.name+"未绑定基本套餐！");
+				}
+				else{
+					/*判断选择了哪些产品，如果没有选择，要提示用户选择*/
+					//拼接购买产品的id值
+					var goodIds="";
+					var dos=document.getElementsByName("checkbox");
+					for(var i=0;i<tr.length;i++){
+						if(dos[i].checked){
+						goodIds+=dos[i].value+","
+						}
+					}
+					if(goodIds!=""){
+						location.href="${root}/sales/toOrderDetail?goodIds="+goodIds+"&priceTotal="+ $("#priceTotal").text();
+					//计算总价格
+					
+					}
+					else{
+						alert("请选择要结算的产品！！");
+					}
 				}
 				
 			}
