@@ -382,7 +382,7 @@ CREATE TABLE `sale_order` (
   `customer_id` int(11) NOT NULL COMMENT '客户id',
   `customer_name` varchar(64) NOT NULL COMMENT '客户名称',
   `order_money` decimal(18,2) NOT NULL COMMENT '订单金额',
-  `address` varchar(128) NOT NULL COMMENT '收货地址',
+  `address_id` int(11) NOT NULL COMMENT '收货地址',
   `mobile` varchar(16) NOT NULL COMMENT '手机号',
   `telephone` varchar(16) COMMENT '电话号码',
   `email` varchar(64) COMMENT '邮箱',
