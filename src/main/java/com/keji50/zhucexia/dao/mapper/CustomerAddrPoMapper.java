@@ -6,4 +6,8 @@ public interface CustomerAddrPoMapper {
 	
 	int insert (CustomerAddrPo customerAddr);
 
+	public CustomerAddrPo query(int i);
+
+	public CustomerAddrPo getAddr(int addrId);
+
 }

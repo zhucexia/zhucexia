@@ -16,6 +16,8 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="com.keji50.zhucexia.service.out.alipay.util.*"%>
 <%@ page import="com.keji50.zhucexia.service.out.alipay.config.AlipayConfig"%>
+<%@ page import="com.keji50.zhucexia.service.SaleOrderService"%>
+<%@ page import="com.keji50.zhucexia.common.utils.ApplicationContextHolder"%>
 <html>
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,6 +38,7 @@
 		}
 		//乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
 		valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
+		System.out.println(name+"_________"+valueStr);
 		params.put(name, valueStr);
 	}
 	
@@ -48,12 +51,13 @@
 
 	//交易状态
 	String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
-
+  
 	//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
-	
+	//String addr = new String(request.getParameter("WID_AddrId").getBytes("ISO-8859-1"),"UTF-8");
+	//String method = new String(request.getParameter("WID_Method").getBytes("ISO-8859-1"),"UTF-8");
 	//计算得出通知验证结果
 	boolean verify_result = AlipayNotify.verify(params);
-	
+	//获取网站传递的参数
 	if(verify_result){//验证成功
 		//////////////////////////////////////////////////////////////////////////////////////////
 		//请在这里加上商户的业务逻辑程序代码
@@ -63,6 +67,14 @@
 			//判断该笔订单是否在商户网站中已经做过处理
 				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				//如果有做过处理，不执行商户的业务程序
+				//获取地址信息id
+	
+				String[] payMethod=params.get("payment_type").split(",");
+				SaleOrderService saleOrderService=ApplicationContextHolder.getBean("saleOrderService");
+				String bool=saleOrderService.update(out_trade_no,Integer.parseInt(payMethod[1]),payMethod[0],trade_no);
+				if(bool.equals("success")){
+					out.println("你的订单号为："+out_trade_no+",已验证成功<br />");
+				}
 		}
 		
 		//该页面可做页面美工编辑
