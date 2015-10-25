@@ -497,4 +497,124 @@ public class SalaOrderController {
 		/*选择支付方式，进行*/
 		return "confirmOrder";
 	}
+	/*确认订单，生成订单*/
+	@RequestMapping("/buildOrder")
+	public String buildOrder(HttpServletRequest request) throws ParseException{
+		/*获取用户的id值*/
+		CustomerPo customerPo= (CustomerPo) request.getSession().getAttribute("customer");
+		System.out.println(customerPo.toString());
+		SalaOrderPo   saleOrder= new SalaOrderPo();
+		/*1.客户信息-----*/
+		saleOrder.setCustomerid(customerPo.getId());
+		/*客户信息结束--------*/
+		//订单状态 0：未确认、 1：已确认、 2：交易成功、 9：交易取消'
+		saleOrder.setOrderstate("1");
+		
+		saleOrder.setCustomername(customerPo.getUsername());
+		//订单确认时间
+		Date date = new Date();
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		saleOrder.setOrderstatetime(sdf.parse(sdf.format(date)));
+		//商品总价格
+		String totalPrice =request.getParameter("priceTotal");
+		saleOrder.setOrdermoney(Float.parseFloat(totalPrice));
+		/*生成订单明细表开始------*/
+		//实际购买的商品清单id
+		String[] ids=request.getParameter("goodIds").toString().split(",");
+		//从session里取出已选择商品清单
+		Date dates = new Date();
+		Map<String,Object> selectedGood=(Map<String, Object>) request.getSession().getAttribute("selectedGood");
+		List<SaleOrderDetailPo> list= new ArrayList<SaleOrderDetailPo>();
+		for(int i=0;i<ids.length;i++){
+			SaleOrderDetailPo saleOrderDetailPo= new SaleOrderDetailPo();
+			System.out.println(ids[i]);
+			Map<String,Object> mapGood=(Map<String, Object>) selectedGood.get(ids[i]);
+			saleOrderDetailPo.setGood_id(Integer.parseInt(ids[i]));
+			saleOrderDetailPo.setGood_name(mapGood.get("name").toString());
+			System.out.println("good_name---------"+mapGood.get("name").toString());
+			saleOrderDetailPo.setGood_price(Float.parseFloat(mapGood.get("price_market").toString()));
+			saleOrderDetailPo.setTotal_price(Float.parseFloat(mapGood.get("price_market").toString()));
+			saleOrderDetailPo.setGood_num(1);
+			saleOrderDetailPo.setGood_price_id(12);
+			saleOrderDetailPo.setCreateBy(customerPo.getUsername());
+			/*创建时间*/
+			saleOrderDetailPo.setCreateTime(sdf.parse(sdf.format(dates)));	
+			list.add(saleOrderDetailPo);
+		}
+		
+		SalaOrderPo order=saleOrderService.addOrder(saleOrder,list);
+		/*判断是否成功生成了订单和插入了订单详细*/
+		if(order!=null){
+			//成功插入数据
+			/*查询已存在的支付方式*/
+			List<PaymentPo> lists=paymentService.getPayMethod();
+			/*返回数据到页面*/
+			request.setAttribute("list", lists);
+			/*返回订单id值*/
+			request.setAttribute("saleOrder", order);
+			/*查询用户的收获地址，默认地址*/
+			CustomerAddrPo customerAddr=customerAddrService.query(customerPo.getId());
+			//返回地址对象
+			request.setAttribute("customerAddr", customerAddr);
+			//订单详情
+			Map<String,Object> maps=new HashMap<String,Object>();
+			for(int i=0;i<ids.length;i++){
+				maps.put(ids[i], selectedGood.get(ids[i]));
+				/*从选中的seesion里去除这些已支付的*/
+				selectedGood.remove(ids[i]);
+			}                      
+			request.setAttribute("chooseGood", maps);
+
+			//跳转到支付页面
+			return "orderDetail";		
+		}
+		else{
+			//跳转到本页面
+			return "cart";
+		}
+		
+	}
+	/*添加一个收货地址,在外部的文件js中写的，${root}不生效，而页面默认的路径是/zhucexia/sales/*** ,所以把添加方法放到saleOrderController里*/
+	@RequestMapping("/addAddre")
+	@ResponseBody
+	public String AddAddre (HttpServletRequest request){	
+		/*添加收获地址----*/
+		CustomerAddrPo customerAddrPo = new CustomerAddrPo();
+		/*获取用户的id值*/
+		CustomerPo customerPo= (CustomerPo) request.getSession().getAttribute("customer");
+		customerAddrPo.setCustomer_id(customerPo.getId());
+		/*地址，包括省份，和城市*/
+		String addr=request.getParameter("newProvince")+" "+request.getParameter("newCity")+" ";
+		customerAddrPo.setAddress(addr);
+		/*地址地区*/
+		String area=request.getParameter("newCountry");
+		customerAddrPo.setAreaRegion(area);
+		/*街道*/
+		String street=request.getParameter("newStreet");
+		customerAddrPo.setStreet(street);
+		/*邮政编码*/
+		String zip_code = request.getParameter("newZipCode");
+		customerAddrPo.setZip_code(zip_code);
+		/*电话号*/
+		String mobile=request.getParameter("newtel");
+		customerAddrPo.setTelephone(mobile);
+		/*收货人*/
+		String names=request.getParameter("newConsignee");
+		customerAddrPo.setName(names);
+		/*备注说明*/
+		String remark=request.getParameter("newTag");
+		customerAddrPo.setRemark(remark);
+		/*默认地址*/
+		customerAddrPo.setIs_default("1");
+		int flag=customerAddrService.insert(customerAddrPo);
+		System.out.println(customerAddrPo.toString());
+		/*添加收货地址结束------*/
+		if(flag>0){
+			return "{message:"+flag+"}";
+		}
+		else{
+			return "{message:false}";
+		}
+	}
+	
 }

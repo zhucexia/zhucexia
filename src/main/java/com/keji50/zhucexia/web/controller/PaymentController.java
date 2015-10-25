@@ -1,20 +1,24 @@
 package com.keji50.zhucexia.web.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.keji50.zhucexia.dao.po.CustomerAddrPo;
+import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.dao.po.PaymentPo;
 import com.keji50.zhucexia.dao.po.SalaOrderPo;
+import com.keji50.zhucexia.service.CustomerAddressService;
 import com.keji50.zhucexia.service.PaymentService;
 import com.keji50.zhucexia.service.SaleOrderService;
 
@@ -25,14 +29,20 @@ public class PaymentController {
     private   PaymentService  paymentService;
 	@Resource(name="saleOrderService")
 	private SaleOrderService saleOrderService;
+	@Resource(name="customerAddressService")
+	private CustomerAddressService customerAddresService;
 	
 	@RequestMapping(value = "/pay", method = RequestMethod.POST)
-	public String pay(HttpServletRequest request, HttpServletResponse response) {
+	public String pay(HttpServletRequest request, HttpServletResponse response) throws DataAccessException, ParseException {
+	     /*获取地址id值*/
+		String addrId=request.getParameter("addrId");
 		String url="";
 		String orderId = request.getParameter("orderId");
-        //根据orderid获取订单信息
+         //根据orderid获取订单信息
          SalaOrderPo saleOrder = saleOrderService.getOrder(Integer.parseInt(orderId));
          System.out.println("orderId===="+orderId+"order_no---"+saleOrder.getOrder_no());
+        //地址id设置
+         saleOrder.setAddress(addrId);
 		// 检查订单是否是未支付状态， 是否过期(一个月未期限)
 		String payment_state=saleOrder.getPaymentstate();
 		Date date=new Date();
@@ -42,7 +52,20 @@ public class PaymentController {
 		/*订单状态为未支付，并且没有超过一月的失效期*/
 		if(payment_state.equals("0")&&date.compareTo(dateBulid)<0){
 			// 更新订单的支付信息
-			String paymentCode=saleOrder.getPaymentcode();
+			String paymentCode=request.getParameter("Checkout[pay_id]");
+			/*通难过*支付方式编号，查询支付方式的id值*/
+			PaymentPo paymentPo=paymentService.queryByCode(paymentCode);
+			System.out.println("payment----"+paymentPo);
+			/*更新订单地址信息*/
+				//根据订单id，查询地址信息
+				CustomerAddrPo customerAddrPo = customerAddresService.getAddr(Integer.parseInt(addrId));
+				//设置订单的地址id，设置订单的联系电话，订单的邮政编码,更新订单地址信息
+				saleOrder.setTelephone(customerAddrPo.getTelephone());
+				saleOrder.setZipcode(customerAddrPo.getZip_code());
+				saleOrder.setPaymentcode(paymentCode);
+				saleOrder.setPaymentid(paymentPo.getId());
+				saleOrder.setPaymentname(paymentPo.getName());
+				saleOrderService.updateAddr(saleOrder);
 			//判断总价格，是否为0，如果为0，直接更改订单各种信息
 			Float totalPrice=saleOrder.getOrdermoney();
 			if((totalPrice-0)>0.00000001){
@@ -55,14 +78,18 @@ public class PaymentController {
 					request.setAttribute("WIDshow_url", "http://test/zhucexia/order/3");   // 订单地址
 				    url= "pay/alipayapi";
 				    break;
-				case "cash_to_delivery":
-					url="";
+				case "cash_on_delivery":
+					saleOrderService.update(saleOrder.getOrder_no(), "1", null);
+					request.setAttribute("order_no", saleOrder.getOrder_no());
+					url="success";
 					break;
 				default: break;
 			}
 			}
 			else{
-				url="";
+				saleOrderService.update(saleOrder.getOrder_no(), "0.00", null);
+				request.setAttribute("order_no", saleOrder.getOrder_no());
+				url="success";
 			}
 			/*if ("alipay".equalsIgnoreCase(paymentCode)) {
 				// 数据库中查询获取订单详情， 拼装支付宝支付所需参数

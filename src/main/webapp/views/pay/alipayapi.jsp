@@ -15,6 +15,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.keji50.zhucexia.service.out.alipay.config.AlipayConfig" %>
 <%@ page import="com.keji50.zhucexia.service.out.alipay.util.*"%>
+<%@ page import="com.keji50.zhucexia.dao.po.CustomerAddrPo"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Map"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,8 +29,7 @@
 	
 		////////////////////////////////////请求参数//////////////////////////////////////
 
-		//支付类型
-		String payment_type = "1";
+	
 		//必填，不能修改
 		//服务器异步通知页面路径
 		String notify_url = basePath + "/views/pay/notify_url.jsp";
@@ -57,8 +57,8 @@
 		//客户端的IP地址
 		String exter_invoke_ip = request.getRemoteAddr();
 		//非局域网的外网IP地址，如：221.0.0.1
-		
-		
+		//支付类型
+		String payment_type = "1";
 		//////////////////////////////////////////////////////////////////////////////////
 		
 		//把请求参数打包成数组
@@ -77,7 +77,6 @@
 		sParaTemp.put("show_url", show_url);
 		sParaTemp.put("anti_phishing_key", anti_phishing_key);
 		sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
-		
 		//建立请求
 		String sHtmlText = AlipaySubmit.buildRequest(sParaTemp,"get","确认");
 		out.println(sHtmlText);

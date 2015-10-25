@@ -190,7 +190,7 @@
 						}
 					}
 					if(goodIds!=""){
-						location.href="${root}/sales/toOrderDetail?goodIds="+goodIds+"&priceTotal="+ $("#priceTotal").text();
+						location.href="${root}/sales/buildOrder?goodIds="+goodIds+"&priceTotal="+ $("#priceTotal").text();
 					//计算总价格
 					
 					}

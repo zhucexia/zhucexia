@@ -22,9 +22,9 @@
 	
 	<insert id="inserts" parameterType="java.util.List">
 	 	insert into sale_order_detail(good_id,good_name,good_price_id,good_price,good_num,total_price,order_id,order_no) values 
-		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
-			#{item.good_id},#{item.good_name},#{item.good_price_id},#{item.good_price},#{item.good_num},#{item.total_price},
-			#{item.order_id},#{item.order_no}
+		<foreach collection="list" item="item" index="index"  separator="," >
+			(#{item.good_id},#{item.good_name},#{item.good_price_id},#{item.good_price},#{item.good_num},#{item.total_price},
+			#{item.order_id},#{item.order_no})
   	   </foreach>
   	   <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
   			select LAST_INSERT_ID() 

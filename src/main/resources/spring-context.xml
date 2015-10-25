@@ -17,8 +17,8 @@
 				<value>classpath:config.properties</value>
 			</list>
 		</property>
-	</bean>
-
+	</bean>                            
+	<bean id="applicationContextHolder" class="com.keji50.zhucexia.common.utils.ApplicationContextHolder" />
 	<import resource="spring-ds.xml" />
 	<import resource="spring-mybatis.xml" />
 	<import resource="spring-service.xml" />

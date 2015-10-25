@@ -5,25 +5,46 @@
     <id column="id" property="id" jdbcType="DECIMAL" />
     <result column="customer_id" property="customer_id" jdbcType="DECIMAL" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="phonenumber" property="phonenumber" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="zip_code" property="zip_code" jdbcType="VARCHAR" />
     <result column="is_default" property="is_default" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="street" property="street" jdbcType="VARCHAR" />
-    <result column="arearegion" property="arearegion" jdbcType="VARCHAR" />
+    <result column="arearegion" property="areaRegion" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, phone_number, email
+    id, customer_id,name,telephone,address,zip_code,is_default,remark,street,areaRegion,phone_number
   </sql>
   
   <!-- 新增地址-->
+  <!-- 新增地址-->
   <insert id="insert" parameterType="com.keji50.zhucexia.dao.po.CustomerAddrPo">
-    insert into user(customer_id, name, phonenumber, address,zip_code,is_default,remark,street,arearegion,telephone)
-    values(#{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phonenumber,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}
+    insert into customer_address(customer_id, name, phone_number, address,zip_code,is_default,remark,street,arearegion,telephone)
+    values(#{customer_id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
     #{zip_code,jdbcType=VARCHAR},#{is_default,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{street,jdbcType=VARCHAR},
-    #{arearegion,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR})
+    #{areaRegion,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR})
+    <selectKey resultType="java.lang.Integer" keyProperty="id">
+    	select LAST_INSERT_ID()
+    </selectKey>
   </insert>
-
+  
+  <select id="query" resultMap="customerAddrMap">
+  	select <include refid="Base_Column_List"/> from
+  	customer_address where 1=1 and is_default='1' and customer_id=#{i}
+  </select>
+  <select id="getAddr" resultMap="customerAddrMap">
+  	select <include refid="Base_Column_List"/> from
+  	customer_address where 1=1 and id=#{addrId}
+  </select>
+  
+   <select id="queryByCode" resultMap="customerAddrMap" parameterType="java.lang.String">
+  	select <include refid="Base_Column_List"/> from
+  	customer_address where 1=1 and code=#{code}
+  </select>
+  
+  <update id="updateDefaultAddr">
+  	update customer_address set is_default='0' where 1=1
+  </update>
 </mapper>

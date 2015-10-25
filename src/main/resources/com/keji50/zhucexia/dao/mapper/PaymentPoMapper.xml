@@ -27,6 +27,14 @@
 	<select id="getPayMethodById" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select <include refid="Base_Column_List" />
 		from payment
-		where 1=1 and id=#{id,jdbcType=DECIMAL}
+		where 1=1 and id=#{id}
+	</select>
+	
+	<!--以code 为条件查询支付方式信息 -->
+	<select id="queryByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select <include refid="Base_Column_List"/>
+		from payment
+		where 1=1 and code=#{code}
+	
 	</select>
 </mapper>
