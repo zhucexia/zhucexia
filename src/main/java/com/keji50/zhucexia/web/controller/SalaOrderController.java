@@ -508,8 +508,7 @@ public class SalaOrderController {
 		saleOrder.setCustomerid(customerPo.getId());
 		/*客户信息结束--------*/
 		//订单状态 0：未确认、 1：已确认、 2：交易成功、 9：交易取消'
-		saleOrder.setOrderstate("1");
-		
+		saleOrder.setOrderstate("1");	
 		saleOrder.setCustomername(customerPo.getUsername());
 		//订单确认时间
 		Date date = new Date();

@@ -71,6 +71,7 @@ public class SaleOrderService {
 	public SalaOrderPo getOrder(int orderId) {
          return saleOrderPoMapper.getOrder(orderId);
 	}
+
 	
 	/*生成订单，用户确认订单*/
 	public SalaOrderPo addOrder(SalaOrderPo saleOrder, List<SaleOrderDetailPo> list) {
@@ -139,4 +140,5 @@ public class SaleOrderService {
 			throw new RuntimeException();
 		} 
 	}
+
 }
