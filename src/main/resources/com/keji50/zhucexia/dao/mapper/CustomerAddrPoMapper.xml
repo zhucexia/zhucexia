@@ -38,4 +38,14 @@
   	select <include refid="Base_Column_List"/> from
   	customer_address where 1=1 and id=#{addrId}
   </select>
+  
+   <select id="queryByCode" resultMap="customerAddrMap" parameterType="java.lang.String">
+  	select <include refid="Base_Column_List"/> from
+  	customer_address where 1=1 and code=#{code}
+  </select>
+  
+  <update id="updateDefaultAddr">
+  	update customer_address set is_default='0' where 1=1
+  </update>
+
 </mapper>

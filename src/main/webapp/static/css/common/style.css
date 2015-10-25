@@ -129,7 +129,7 @@ ul,li{list-style-type: none;}
 #top{height: 52px;background: #1d2087;margin-bottom:40px;}
 #top .container{height:52px; position:relative;}
 #top .logo { position:absolute;top:15px;left:0px;z-index: 99;}
-#top .top-tool { position:absolute;top:0;right:0;height: 104px;line-height: 52px; color:#fff;font-size:16px;}
+#top .top-tool { position:absolute;top:0;right:0;height: 52px;line-height: 52px; color:#fff;font-size:16px;}
 #top .top-tool img { vertical-align:sub; margin-right:5px;}
 #top .top-tool a { color:#fff;font-size:16px;}
 #top .top_right { position:absolute;top:30px;right:10px;}
@@ -410,42 +410,10 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 	font-size:18px;
 	color:#e83135;
 }
-
-
 .pro-main {padding:20px 0 40px 0;}
 .pro-left {background:#fff;}
 .proInfo .hd {font-size:24px;color:#555;text-align:center;line-height:40px;}
 
 .theme-popover{
 	display:none;
-}
-
-
-
-
-.aa{
-	width:120px;
-	height:auto;
-	background-color:#1d2087;
-	color:white;
-	text-align:center;
-	float:right;
-}
-.bb{
-	width:50px;
-	height:104px;
-	float:right;
-}
-.cc{
-	height:30px;
-	line-height:20px;
-	display:none;
-}
-.dd{
-	color: #fff;
-    display: inline-block;
-    width: 92px;
-    height: 30px;
-    line-height: 30px;
-    background-color: #f5aa01;
 }

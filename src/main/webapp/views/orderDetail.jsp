@@ -45,7 +45,7 @@
 			<br />
 			<div>
 				<%-- <form id="checkoutForm" action="${root}/payment/pay" method="post" target="_blank"> --%>
-				<form id="checkoutForm"  method="post" target="_blank">
+				<form id="checkoutForm" action="${root}/payment/pay" method="post" target="_blank">
 					<div class="checkout-box-bd">
 						<!-- 地址状态 0：默认选择；1：新增地址；2：修改地址 -->
 						<input type="hidden" name="Checkout[addressState]" id="addrState"
@@ -59,7 +59,7 @@
 							<div class="box-bd">
 								<div class="clearfix xm-address-list" id="checkoutAddrList">
 										<c:if test="${!empty customerAddr}">
-											<dl class="item" >
+											<dl class="item selected" data-isnew="true" >
 									            <dt>
 									                <strong class="itemConsignee">${ customerAddr.name}</strong>
 									                <span class="itemTag tag">${customerAddr.remark}</span>
@@ -69,16 +69,16 @@
 									                <p class="itemRegion">${customerAddr.address} ${customerAddr.areaRegion}</p>
 									                <p class="itemStreet">${customerAddr.street}</p>
 									                <input type="hidden" name="addressId" value="${customerAddr.id}">
-									                <c:if test="${saleOrder.paymentstate==0}">
+									                <%-- <c:if test="${saleOrder.paymentstate==0}"> --%>
 									                	<span class="edit-btn J_editAddr">编辑</span>
-									                </c:if>
+									                <%-- /c:if> --%>
 									            </dd>
-									            <dd style="display:block">
+									            <dd style="display:none">
 									                <input type="radio" name="Checkout[address]" class="addressId"  value="10140916720030323">
 									            </dd>
 									        </dl>
 								        </c:if>
-								        <c:if test="${saleOrder.paymentstate==0}">
+								        <c:if test="${saleOrder.orderstate!=2}">
 								        	<div class="item use-new-addr" id="J_useNewAddr" data-state="off">
 												<span class="iconfont icon-add">
 												<img src="${root }/static/images/cart/add_cart.png" /></span> 使用新地址
@@ -160,7 +160,7 @@
 								<div class="box-bd">
 									<ul id="checkoutPaymentList"
 										class="checkout-option-list clearfix J_optionList">
-										<c:if test="${saleOrder.paymentstate==0}">
+										<c:if test="${saleOrder.orderstate!=2}">
 											<c:forEach items="${list}" var="item" >
 												<c:if test="${item.code=='alipay'}">
 													<li class="item selected" style="text-align: center"><input
@@ -178,7 +178,7 @@
 												</c:if>
 	                                        </c:forEach>
                                         </c:if>
-                                        <c:if test="${saleOrder.paymentstate==1}">
+                                        <c:if test="${saleOrder.orderstate==2}">
                                         	<li class="item selected" style="text-align: center"><input
 														type="radio" name="Checkout[pay_id]" checked="checked" value="${saleOrder.paymentcode}">
 														<p>
@@ -318,6 +318,7 @@
 						<!-- 总价格 -->
 						<!-- 订单id -->
 						<input type="hidden" name="orderId" value="${saleOrder.id}">
+						<input type="hidden" name="addrId" id="addrId" value="<c:if test="${!empty customerAddr}">${customerAddr.id}</c:if>">
 						<input type="hidden" id="couponType" name="Checkout[couponsType]">
 						<input type="hidden" id="couponValue"
 							name="Checkout[couponsValue]">
@@ -397,6 +398,9 @@
                 <p class="itemStreet">{{=it.street}} ({{=it.zipcode}})</p>
                 <span class="edit-btn J_editAddr">编辑</span>
             </dd>
+			<dd style="display:none">
+				 <input type="radio" name="Checkout[address]" class="addressId"  value="10140916720030323">
+		   </dd>
         </dl>
 </script>
 

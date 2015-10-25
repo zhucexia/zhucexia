@@ -68,10 +68,10 @@
 				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				//如果有做过处理，不执行商户的业务程序
 				//获取地址信息id
-	
-				String[] payMethod=params.get("payment_type").split(",");
+
+				String payMethod=params.get("payment_type");
 				SaleOrderService saleOrderService=ApplicationContextHolder.getBean("saleOrderService");
-				String bool=saleOrderService.update(out_trade_no,Integer.parseInt(payMethod[1]),payMethod[0],trade_no);
+				String bool=saleOrderService.update(out_trade_no, payMethod, trade_no);
 				if(bool.equals("success")){
 					out.println("你的订单号为："+out_trade_no+",已验证成功<br />");
 				}

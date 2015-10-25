@@ -11,7 +11,7 @@ public class CustomerAddrPo {
 	//用户名
 	private String name;
 	//电话号码
-	private String phone_number;
+	private String phoneNumber;
 	//地址
 	private String address;
 	//邮编号

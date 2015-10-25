@@ -10,4 +10,9 @@ public interface CustomerAddrPoMapper {
 
 	public CustomerAddrPo getAddr(int addrId);
 
+
+	public int updateDefaultAddr();
+
+
+
 }

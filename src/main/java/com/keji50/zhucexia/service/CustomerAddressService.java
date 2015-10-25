@@ -15,13 +15,24 @@ public class CustomerAddressService {
 		return customerAddrPoMapper.query(i);
 	}
 	public int insert(CustomerAddrPo customerAddrPo) throws RuntimeException{
-		int flag=customerAddrPoMapper.insert(customerAddrPo);
-		if(flag>0){
-			return customerAddrPo.getId();
-		}
+		//修改已有的其他的地址为非默认地址
+		int updateFlag=customerAddrPoMapper.updateDefaultAddr();
+		System.out.println("updateFlag-----"+updateFlag);
+		if(updateFlag>0){
+			int flag=customerAddrPoMapper.insert(customerAddrPo);
+			if(flag>0){
+				return customerAddrPo.getId();
+			}
+			else{
+				throw new RuntimeException();
+			}
+	    }
 		else{
 			throw new RuntimeException();
 		}
 	}
+  public CustomerAddrPo getAddr(Integer id){
+	  return customerAddrPoMapper.getAddr(id);
+  }
 
 }

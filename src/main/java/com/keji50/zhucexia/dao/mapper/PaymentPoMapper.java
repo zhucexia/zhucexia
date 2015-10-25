@@ -9,5 +9,9 @@ public interface PaymentPoMapper {
 	public List<PaymentPo> getPayMethod();
 
 	public PaymentPo getPayMethodById(String id);
+	
+	public PaymentPo getPaymentById(String id);
+
+	public PaymentPo queryByCode(String code);
 
 }

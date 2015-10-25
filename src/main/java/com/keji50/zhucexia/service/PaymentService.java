@@ -22,5 +22,8 @@ public class PaymentService {
 	public PaymentPo getPayMethodById(String id){
 		return paymentPoMapper.getPayMethodById(id);
 	}
-
+   /*以code作为条件查询支付方式信息*/
+	public PaymentPo queryByCode(String code){
+		return paymentPoMapper.queryByCode(code);
+	}
 }

@@ -508,7 +508,8 @@ public class SalaOrderController {
 		saleOrder.setCustomerid(customerPo.getId());
 		/*客户信息结束--------*/
 		//订单状态 0：未确认、 1：已确认、 2：交易成功、 9：交易取消'
-		saleOrder.setOrderstate("1");
+		saleOrder.setOrderstate("1");	
+		saleOrder.setCustomername(customerPo.getUsername());
 		//订单确认时间
 		Date date = new Date();
 		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -572,4 +573,47 @@ public class SalaOrderController {
 		}
 		
 	}
+	/*添加一个收货地址,在外部的文件js中写的，${root}不生效，而页面默认的路径是/zhucexia/sales/*** ,所以把添加方法放到saleOrderController里*/
+	@RequestMapping("/addAddre")
+	@ResponseBody
+	public String AddAddre (HttpServletRequest request){	
+		/*添加收获地址----*/
+		CustomerAddrPo customerAddrPo = new CustomerAddrPo();
+		/*获取用户的id值*/
+		CustomerPo customerPo= (CustomerPo) request.getSession().getAttribute("customer");
+		customerAddrPo.setCustomer_id(customerPo.getId());
+		/*地址，包括省份，和城市*/
+		String addr=request.getParameter("newProvince")+" "+request.getParameter("newCity")+" ";
+		customerAddrPo.setAddress(addr);
+		/*地址地区*/
+		String area=request.getParameter("newCountry");
+		customerAddrPo.setAreaRegion(area);
+		/*街道*/
+		String street=request.getParameter("newStreet");
+		customerAddrPo.setStreet(street);
+		/*邮政编码*/
+		String zip_code = request.getParameter("newZipCode");
+		customerAddrPo.setZip_code(zip_code);
+		/*电话号*/
+		String mobile=request.getParameter("newtel");
+		customerAddrPo.setTelephone(mobile);
+		/*收货人*/
+		String names=request.getParameter("newConsignee");
+		customerAddrPo.setName(names);
+		/*备注说明*/
+		String remark=request.getParameter("newTag");
+		customerAddrPo.setRemark(remark);
+		/*默认地址*/
+		customerAddrPo.setIs_default("1");
+		int flag=customerAddrService.insert(customerAddrPo);
+		System.out.println(customerAddrPo.toString());
+		/*添加收货地址结束------*/
+		if(flag>0){
+			return "{message:"+flag+"}";
+		}
+		else{
+			return "{message:false}";
+		}
+	}
+	
 }

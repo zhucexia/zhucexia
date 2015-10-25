@@ -46,13 +46,29 @@
 		from sale_order where 1=1 and id=#{id}
 	</select>
 	
-	 <insert id="bulidOrder"  parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo" >
-		insert into sale_order(order_no,customer_id,customer_name,order_money,address,mobile,email,zip_code,payment_id,payment_code
-		,payment_name,order_state,remark,orderstate_time)
-	    values(CONCAT(DATE_FORMAT(now(), '%Y%m%d%h%i%s'),LPAD(LAST_INSERT_ID()+1, 11, '0')),#{customerid},#{customername},#{ordermoney},#{address},#{mobile},#{email},#{zipcode},#{paymentid},#{paymentcode
-		},#{paymentname},#{orderstate},#{remark},#{orderstatetime})
+	 <insert id="addOrder"  parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo" >
+		insert into sale_order(order_no,customer_id,customer_name,order_money,order_state,orderstate_time)
+	    values(CONCAT(DATE_FORMAT(now(), '%Y%m%d%h%i%s'),LPAD(LAST_INSERT_ID()+1, 11, '0')),#{customerid},#{customername},#{ordermoney},
+		#{orderstate},#{orderstatetime})
 		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
   			select LAST_INSERT_ID() 
   		</selectKey>
 	</insert> 
+	<select id="getOrderByno" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select <include refid="Base_Column_List" />
+		from sale_order where 1=1 and order_no=#{order_no}
+	</select>
+	
+	<!-- 修改订单信息 -->
+	<update id="update" parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo" >
+		update sale_order set 
+		order_state=#{orderstate},payment_state=#{paymentstate},alipay_trade_no=#{alipaytradeno},payment_time=#{paymenttime}
+		where order_no=#{order_no}
+	</update>
+	
+	<!-- 修改订单地址信息 -->
+	<update id="updateAddr" parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo" >
+		update sale_order set address=#{address},telephone=#{telephone},payment_id=#{paymentid},payment_code=#{paymentcode},payment_name=#{paymentname},
+		zip_code=#{zipcode} where order_no=#{order_no}
+	</update>
 </mapper>
