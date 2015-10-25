@@ -47,4 +47,5 @@
   <update id="updateDefaultAddr">
   	update customer_address set is_default='0' where 1=1
   </update>
+
 </mapper>
