@@ -64,6 +64,11 @@ public class SaleOrderService {
 	public SalaOrderPo getOrder(int orderId) {
          return saleOrderPoMapper.getOrder(orderId);
 	}
+	public SalaOrderPo addOrder(SalaOrderPo saleOrder,
+			List<SaleOrderDetailPo> list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	//
 }
