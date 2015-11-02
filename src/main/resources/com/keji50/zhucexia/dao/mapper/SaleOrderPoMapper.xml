@@ -33,7 +33,44 @@
 		<result column="delivery_time" property="deliverytime" jdbcType="TIMESTAMP" />
 		<result column="cancel_time" property="canceltime" jdbcType="TIMESTAMP" />
 		<result column="order_no" property="order_no" jdbcType="VARCHAR" />
+		<result column="order_pic" property="order_pic" jdbcType="VARCHAR" />
 	</resultMap>
+	<!--  商品信息映射 
+	<resultMap type="com.keji50.zhucexia.dao.po.GoodPo" id="goods">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="pic" property="pic" jdbcType="VARCHAR" />
+	    
+	</resultMap>	
+	收货地址
+	<resultMap type="com.keji50.zhucexia.dao.po.CustomerAddrPo" id="customerAddr">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	订单详情和商品表一对一映射
+	<resultMap type="com.keji50.zhucexia.dao.po.SaleOrderDetailPo" id="goodsDetail">
+		<result column="good_id" property="good_id" jdbcType="DECIMAL"/>
+		<result column="good_price" property="good_price" jdbcType="DECIMAL"/>
+	    <result column="good_num" property="good_num" jdbcType="DECIMAL"/>
+	    <result column="order_id" property="order_id" jdbcType="DECIMAL"/>
+	    <association property="goods" javaType="com.keji50.zhucexia.dao.po.GoodPo" resultMap="goods"></association>
+	</resultMap>
+	订单和收货地址一对一映射，和订单详情一对多映射
+	<resultMap type="com.keji50.zhucexia.dao.po.SalaOrderPo" id="saleOrders">
+		<id column="id" property="id" jdbcType="DECIMAL" />
+		<result column="order_money" property="ordermoney" jdbcType="DECIMAL" />
+	    <result column="payment_name" property="paymentname" jdbcType="VARCHAR" />
+	    <result column="orderstate_time" property="orderstatetime" jdbcType="TIMESTAMP" />
+	    <result column="order_no" property="order_no" jdbcType="VARCHAR" />
+	    <result column="payment_state" property="paymentstate" jdbcType="VARCHAR" />
+	    <association property="addr" javaType="com.keji50.zhucexia.dao.po.CustomerAddrPo" resultMap="customerAddr">
+	    	 <id column="id" property="id" jdbcType="DECIMAL" />
+	    	 <result column="name" property="name" jdbcType="VARCHAR" />
+	    </association>
+	    <collection property="lists" ofType="com.keji50.zhucexia.dao.po.SaleOrderDetailPo" resultMap="goodsDetail">
+	    </collection>
+	</resultMap> -->
 	<sql id="Base_Column_List">
 		id,order_no,customer_id,customer_name,order_money,address,mobile,telephone,email,zip_code,payment_id,payment_code
 		,payment_name,delivery_id,delivery_code,delivery_name,order_state,payment_state,delivery_state,delivery_state,
@@ -47,9 +84,9 @@
 	</select>
 	
 	 <insert id="addOrder"  parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo" >
-		insert into sale_order(order_no,customer_id,customer_name,order_money,order_state,orderstate_time)
+		insert into sale_order(order_no,customer_id,customer_name,order_money,order_state,orderstate_time,order_pic,remark)
 	    values(CONCAT(DATE_FORMAT(now(), '%Y%m%d%h%i%s'),LPAD(LAST_INSERT_ID()+1, 11, '0')),#{customerid},#{customername},#{ordermoney},
-		#{orderstate},#{orderstatetime})
+		#{orderstate},#{orderstatetime},#{order_pic},#{remark})
 		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
   			select LAST_INSERT_ID() 
   		</selectKey>
@@ -70,5 +107,50 @@
 	<update id="updateAddr" parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo" >
 		update sale_order set address=#{address},telephone=#{telephone},payment_id=#{paymentid},payment_code=#{paymentcode},payment_name=#{paymentname},
 		zip_code=#{zipcode} where order_no=#{order_no}
+	</update>
+	
+	<!-- 查询素所有订单信息，包含订单详情 -->
+	<select id="querryOrders" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+<!-- 		SELECT d.name , a.name ,a.id as goods_id,a.pic,b.order_no ,b.id  ,
+		b.payment_name,b.order_money,b.create_time,b.payment_state,
+		b.order_state FROM good a ,sale_order b ,sale_order_detail c ,
+		customer_address d
+	    WHERE b.address=d.id AND b.order_no=c.order_no 
+	    AND c.good_id=a.id -->
+	    select b.order_no ,b.id ,b.orderstate_time,b.delivery_state,b.payment_code,
+		b.payment_name,b.order_money,b.create_time,b.payment_state,b.remark,b.order_pic,
+		b.order_state,d.name from sale_order b ,customer_address d where b.address=d.id
+		<choose>
+			<when test="types==0">
+				and 1=1 and b.order_state!='8'
+			</when>
+			<when test="types==1">
+				and b.order_state='1' and b.payment_state='0' and b.payment_code!='cash_on_delivery'
+			</when>
+			<when test="types==2">
+				and ((b.order_state='1' and b.payment_state='1') or (b.payment_code='cash_on_delivery' and b.order_state='1' and b.payment_state='0'))
+			</when>
+			<when test="types==3">
+				and b.order_state='2' and payment_state='1'
+			</when>
+			<when test="types==4">
+				and b.order_state='9'
+			</when>
+		</choose>
+		<if test="date==null">
+			and 1=1
+		</if>
+		<if test="date!=null">
+			and b.create_time>=date
+		</if>
+	</select>
+	
+	<!-- 逻辑删除 -->
+	<update id="delOrder" parameterType="java.lang.String">
+		update sale_order set order_state ='8' where id=#{id}
+	</update>
+	<!-- 取消订单 -->
+	<update id="cancleOrder" parameterType="java.lang.String">
+		update sale_order set order_state='9' where id=#{id}
 	</update>
 </mapper>

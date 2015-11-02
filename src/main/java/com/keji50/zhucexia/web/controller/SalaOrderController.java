@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.keji50.zhucexia.dao.po.CustomerAddrPo;
 import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.dao.po.GoodPo;
@@ -524,6 +525,8 @@ public class SalaOrderController {
 		Date dates = new Date();
 		Map<String,Object> selectedGood=(Map<String, Object>) request.getSession().getAttribute("selectedGood");
 		List<SaleOrderDetailPo> list= new ArrayList<SaleOrderDetailPo>();
+		//设置订单中的remark，用户购买商品详情的简介
+		String remarks="";
 		for(int i=0;i<ids.length;i++){
 			SaleOrderDetailPo saleOrderDetailPo= new SaleOrderDetailPo();
 			System.out.println(ids[i]);
@@ -539,8 +542,14 @@ public class SalaOrderController {
 			/*创建时间*/
 			saleOrderDetailPo.setCreateTime(sdf.parse(sdf.format(dates)));	
 			list.add(saleOrderDetailPo);
+			//详情简介
+			remarks+=mapGood.get("name").toString()+",";
+			//设置图片
+			saleOrder.setOrder_pic(mapGood.get("pic").toString());
 		}
-		
+		//去除remark最后面的，号
+		remarks=remarks.substring(0,remarks.length()-1);
+		saleOrder.setRemark(remarks);
 		SalaOrderPo order=saleOrderService.addOrder(saleOrder,list);
 		/*判断是否成功生成了订单和插入了订单详细*/
 		if(order!=null){
@@ -616,4 +625,72 @@ public class SalaOrderController {
 		}
 	}
 	
+	/*订单管理*/
+	@RequestMapping("/toOrderManage")
+	public String toOrderManage(HttpServletRequest request) throws ParseException{
+		/*查询所有的订单信息，包括，完成，未完成，已付款未付款，已确定，已取消等*/
+		String times=request.getParameter("date-filter");
+		/*订单类型*/
+		String types=request.getParameter("state");
+		Date date = null;
+		//对订单类型进行判断
+		if(types==null){
+			types="0";
+		}
+		if(times==null){
+			times="0";
+		}
+		else{
+			if(!times.equals("0")){
+				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date dates=new Date();
+				dates.setMonth(dates.getMonth()-Integer.parseInt(times));
+				date=sdf.parse(sdf.format(dates));
+			}
+		}
+		//数据库查询的参数
+		Map<String,Object> maps=new HashMap<String,Object>();
+		maps.put("types",types);
+		maps.put("times", date);
+		List<HashMap<String,Object>> list=saleOrderService.querryOrders(maps);
+		//System.out.println(list.get(0).toString());
+		request.setAttribute("list", list);
+		request.setAttribute("types", types);
+		request.setAttribute("times", times);
+		return "orderManage";
+	}
+	/*个人中心*/
+	@RequestMapping("userManager")
+	public String userManager(){
+		return "home";
+	}
+	/*删除订单，逻辑上删除*/
+	@RequestMapping("delOrder")
+	@ResponseBody
+	public String delOrder(HttpServletRequest request){
+		String id=request.getParameter("order_id");
+		System.out.println("id============="+id);
+		int flag=saleOrderService.delOrder(id);
+		if(flag>0){
+			return "{message:true}";
+		}
+		else{
+			return "{message:false}";
+		}
+	}
+  @RequestMapping("cancleOrder")
+  @ResponseBody
+  public String cancleOrder(HttpServletRequest request){
+	  String id=request.getParameter("order_id");
+	  int flag=saleOrderService.cancleOrder(id);
+	  String json =null;
+		if(flag>0){
+			json="{message:true}";
+			return json;
+		}
+		else{
+			json="{message:false}";
+			return json;
+		}
+  }
 }

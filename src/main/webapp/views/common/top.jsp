@@ -19,7 +19,7 @@
 		           			  <!-- <a href="javascript:;" > -->
 				           		  <span id="logins" class="mm">
 					           		 	<li class="xf"> <%=customer.getUsername() %></li>
-					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/views/myorder.jsp">个人中心</a></li>
+					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/sales/userManager">个人中心</a></li>
 					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/views/myorder.jsp">我的订单</a></li>
 				           		  </span>
 			           		<!-- </a> -->
@@ -45,7 +45,7 @@
 		           			  <!-- <a href="javascript:;" > -->
 				           		  <span id="a11" class="mm" id="a2">
 					           		 	<li class="xf">13916247927</li>
-					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/views/myorder.jsp">个人中心</a></li>
+					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/sales/userManager">个人中心</a></li>
 					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/views/myorder.jsp">我的订单</a></li>
 				           		  </span>
 			           		<!-- </a> -->

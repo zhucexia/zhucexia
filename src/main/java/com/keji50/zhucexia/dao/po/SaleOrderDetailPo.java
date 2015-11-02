@@ -1,5 +1,9 @@
 package com.keji50.zhucexia.dao.po;
 
+import java.util.List;
+
+import com.keji50.zhucexia.dao.mapper.CustomerAddrPoMapper;
+
 import lombok.Data;
 
 @Data
@@ -22,4 +26,5 @@ public class SaleOrderDetailPo extends BasePo{
 	
 	/*订单号*/
 	private String order_no;
+	private GoodPo goods;
 }
