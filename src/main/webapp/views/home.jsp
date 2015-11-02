@@ -133,11 +133,11 @@
 											<div class="bd">
 												<dl>
 													<dt>
-														<a href="http://www.zhucexia.com/orders/">
+														<a href="${root}/sales/toOrderManage">
 														<img src="${root }/static/images/user/purchasemanagement.png"></a>
 													</dt>
 													<dd>
-														<a href="http://www.zhucexia.com/orders/">订单管理</a>
+														<a href="${root}/sales/toOrderManage">订单管理</a>
 													</dd>
 												</dl>
 												<dl>
@@ -620,6 +620,5 @@
    });  
 </script>
 </body>
-<jsp:include page="/views/common/footer.jsp" />
 </html>
-
+<jsp:include page="/views/common/footer.jsp" />

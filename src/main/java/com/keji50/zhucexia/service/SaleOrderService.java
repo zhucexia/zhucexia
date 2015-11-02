@@ -3,6 +3,7 @@ package com.keji50.zhucexia.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -107,7 +108,7 @@ public class SaleOrderService {
 		//查询订单的信息
 		SalaOrderPo saleOrder=saleOrderPoMapper.getOrderByno(order_no);
 		//更改订单状态
-		saleOrder.setOrderstate("2");
+		//saleOrder.setOrderstate("2");
 		if(!saleOrder.getPaymentcode().equals("cash_no_delivery")){
 			saleOrder.setPaymentstate("1");
 		}
@@ -133,6 +134,28 @@ public class SaleOrderService {
 	}
 	public int updateAddr(SalaOrderPo saleOrder) throws RuntimeException {
 		int flag=saleOrderPoMapper.updateAddr(saleOrder);
+		if(flag>0){
+			return flag;
+		}
+		else{
+			throw new RuntimeException();
+		} 
+	}
+	public List<HashMap<String,Object>> querryOrders(Map<String, Object> maps) {
+		return saleOrderPoMapper.querryOrders(maps);
+	}
+	public int delOrder(String id) throws RuntimeException {
+		
+		int flag=saleOrderPoMapper.delOrder(id);
+		if(flag>0){
+			return flag;
+		}
+		else{
+			throw new RuntimeException();
+		} 
+	}
+	public int cancleOrder(String id) {
+		int flag=saleOrderPoMapper.cancleOrder(id);
 		if(flag>0){
 			return flag;
 		}

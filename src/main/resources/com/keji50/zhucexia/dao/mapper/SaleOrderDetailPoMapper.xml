@@ -20,6 +20,12 @@
 		from sale_order_detail where 1=1 and order_id=#{order_id,jdbcType=DECIMAL}
 	</select>
 	
+	<!-- 订单详情，包含商品的信息 -->
+	<select id="querryDetails" resultType="java.util.HashMap" parameterType="int">
+		select a.good_id ,a.good_price,a.order_id ,b.name,b.pic,b.price_market,b.id
+		from sale_order_detail a ,good b where 1=1 and order_id=#{id,jdbcType=DECIMAL}
+		and a.good_id=b.id
+	</select>
 	<insert id="inserts" parameterType="java.util.List">
 	 	insert into sale_order_detail(good_id,good_name,good_price_id,good_price,good_num,total_price,order_id,order_no) values 
 		<foreach collection="list" item="item" index="index"  separator="," >

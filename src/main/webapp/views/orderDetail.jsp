@@ -69,16 +69,16 @@
 									                <p class="itemRegion">${customerAddr.address} ${customerAddr.areaRegion}</p>
 									                <p class="itemStreet">${customerAddr.street}</p>
 									                <input type="hidden" name="addressId" value="${customerAddr.id}">
-									                <%-- <c:if test="${saleOrder.paymentstate==0}"> --%>
+									                 <c:if test="${saleOrder.paymentstate==0 and saleOrder.paymentcode!='cash_on_delivery'}"> 
 									                	<span class="edit-btn J_editAddr">编辑</span>
-									                <%-- /c:if> --%>
+									                 </c:if> 
 									            </dd>
 									            <dd style="display:none">
 									                <input type="radio" name="Checkout[address]" class="addressId"  value="10140916720030323">
 									            </dd>
 									        </dl>
 								        </c:if>
-								        <c:if test="${saleOrder.orderstate!=2}">
+								        <c:if test="${saleOrder.paymentstate==0 && saleOrder.paymentcode!='cash_on_delivery'}">
 								        	<div class="item use-new-addr" id="J_useNewAddr" data-state="off">
 												<span class="iconfont icon-add">
 												<img src="${root }/static/images/cart/add_cart.png" /></span> 使用新地址
@@ -160,7 +160,7 @@
 								<div class="box-bd">
 									<ul id="checkoutPaymentList"
 										class="checkout-option-list clearfix J_optionList">
-										<c:if test="${saleOrder.orderstate!=2}">
+										<c:if test="${saleOrder.paymentstate==0 && saleOrder.paymentcode!='cash_on_delivery'}">
 											<c:forEach items="${list}" var="item" >
 												<c:if test="${item.code=='alipay'}">
 													<li class="item selected" style="text-align: center"><input
@@ -178,7 +178,7 @@
 												</c:if>
 	                                        </c:forEach>
                                         </c:if>
-                                        <c:if test="${saleOrder.orderstate==2}">
+                                        <c:if test="${saleOrder.paymentstate==1 ||(saleOrder.paymentstate==0 && saleOrder.paymentcode=='cash_on_delivery')}">
                                         	<li class="item selected" style="text-align: center"><input
 														type="radio" name="Checkout[pay_id]" checked="checked" value="${saleOrder.paymentcode}">
 														<p>
@@ -323,11 +323,12 @@
 						<input type="hidden" id="couponValue"
 							name="Checkout[couponsValue]">
 						<div class="checkout-confirm">
-
+						<c:if test="${saleOrder.paymentstate==0 && saleOrder.paymentcode!='cash_on_delivery'}">
 							<a href="${root}/sales/returnCart"
 								class="btn btn-lineDakeLight btn-back-cart">返回购物车</a> <input
 								type="submit" class="btn btn-primary" value="立即付款"
 								id="checkoutToPay" />
+						</c:if>
 						</div>
 					</div>
 			</div>

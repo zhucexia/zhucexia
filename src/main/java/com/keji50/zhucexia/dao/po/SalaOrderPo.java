@@ -1,6 +1,9 @@
 package com.keji50.zhucexia.dao.po;
 
 import java.util.Date;
+import java.util.List;
+
+import com.keji50.zhucexia.dao.mapper.CustomerAddrPoMapper;
 
 import lombok.Data;
 
@@ -58,5 +61,10 @@ public class SalaOrderPo extends BasePo{
 	private Date deliverytime;
 	
 	private Date canceltime;
+	
+	/*private CustomerAddrPo addr;
+	private List<SaleOrderDetailPo> lists;*/
+	private String order_pic;
+
 	
 }

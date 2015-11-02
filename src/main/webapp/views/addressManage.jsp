@@ -68,7 +68,7 @@
 					<div class="navLt wisub" style="display:none;">
 					</div>
 					<div class="navRt wisub">
-						<a href="http://www.zhucexia.com/home/"> 我的账户 </a> |      
+						<a href="${root}/sales/toOrderManage"> 我的账户 </a> |      
 			            <a href="http://www.zhucexia.com/orders/"> 我的交易 </a> |
 	              	</div>
               	</div>
@@ -142,6 +142,5 @@
 
         </script>
    </body>
-<jsp:include page="/views/common/footer.jsp" />
 </html>
-
+<jsp:include page="/views/common/footer.jsp" />
