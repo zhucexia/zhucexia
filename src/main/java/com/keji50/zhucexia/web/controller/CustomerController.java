@@ -1,15 +1,25 @@
 package com.keji50.zhucexia.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -309,4 +319,66 @@ public class CustomerController {
 		}
 		return json;
 	}
+	
+	/**
+	 * 用户基本信息
+	 * @throws Exception 
+	 */
+	@RequestMapping("/setBaseDate")
+	@ResponseBody
+	public String setBaseDate(HttpServletRequest request,HttpServletResponse response,ModelMap maps)throws Exception{
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request); 
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload uploader = new ServletFileUpload(factory);
+		List<FileItem> list = uploader.parseRequest(request);
+		for(FileItem item:list){
+			if (item.isFormField()){
+			// 处理普通表单域
+			String field = item.getFieldName();//表单域名
+			String value = item.getString("UTF-8");
+			} else {
+			//将临时文件保存到指定目录
+			String fileName = item.getName();//文件名称
+			String filepath = "${root}/static/images/user" + fileName;
+			item.write(new File(filepath));//执行保存
+			}
+		}
+		return null;
+	}
+	@RequestMapping("/changePwd")
+	public int updatePwd(HttpServletRequest request,HttpServletResponse response){
+		CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
+		String userName = customerPo.getUsername();
+		String oldPwd = request.getParameter("oldpassword");
+		String newPwd = request.getParameter("password1");
+		String password = customerService.getPwdByUserName(userName);
+		int i=0;
+		if(!password.equals(oldPwd)){
+			i=0;
+		}else if(customerService.updatePwd(customerPo)>0){
+			i=1;
+		}else{
+			i=2;
+		}
+		return i;
+	}
+	
+	@RequestMapping("/bindMobile")
+	public int bindMobile(HttpServletRequest request,HttpServletResponse response){
+		String userName = request.getParameter("username");
+		String mobile = request.getParameter("mobile");
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		CustomerPo customerPo = new CustomerPo();
+		customerPo.setUsername(userName);
+		customerPo.setMobile(mobile);
+		customerPo.setUpdateBy(userName);
+		customerPo.setUpdateTime(time);
+		int result = customerService.bindMobile(customerPo);
+		int i=0;
+		if(result<=0){
+			i=1;
+		}
+		return i;
+	}
 }
+

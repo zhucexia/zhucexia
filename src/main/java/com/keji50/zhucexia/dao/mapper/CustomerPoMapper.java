@@ -15,4 +15,11 @@ public interface CustomerPoMapper {
 
 	int updatepass(CustomerPo c);
 	
-}
+	int setBaseDate(CustomerPo customerPo);
+	
+	String getPwdByUserName(String userName);
+	
+	int updatePwd(CustomerPo customerPo);
+	
+	int bingdMobile(CustomerPo customerPo);
+}	

@@ -64,7 +64,21 @@ public class CustomerService {
 		return customerPoMapper.updatepass(c);
 	}
 	
-
-
-
+	public int setBaseDate(CustomerPo customerPo){
+		
+		return customerPoMapper.setBaseDate(customerPo);
+	}
+	
+	public String getPwdByUserName(String userName){
+		String password = customerPoMapper.getPwdByUserName(userName);
+		return password;
+	}
+	
+	public int updatePwd(CustomerPo customerPo){
+		return customerPoMapper.updatePwd(customerPo);
+	}
+	
+	public int bindMobile(CustomerPo customerPo){
+		return customerPoMapper.bingdMobile(customerPo);
+	}
 }

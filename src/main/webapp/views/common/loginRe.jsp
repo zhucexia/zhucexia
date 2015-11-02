@@ -1,6 +1,10 @@
 <%@ page language="java" import="java.util.*,com.keji50.zhucexia.dao.po.CustomerPo" pageEncoding="UTF-8"%>
-
-<link rel="stylesheet" href="${root }/static/css/includes/loginRe.css">
+<!DOCTYPE link PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link type="text/css" rel="stylesheet" href="${root }/static/css/includes/loginRe.css">
+</head>
+<body>
 <div class="theme-popover" id="log">
 	<div class="theme-poptit">
 		登 录！ <a href="javascript:;" title="关闭" class="close">×</a> <br />
@@ -386,4 +390,6 @@
 		    });
 
 </script>
-<script type="text/javascript" src="${root }/static/js/includes/loginRe.js"></script>
+<script type="text/javascript" src="${root}/static/js/includes/loginRe.js"></script>
+</body>
+</html>
