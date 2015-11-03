@@ -96,10 +96,9 @@ public class CustomerController {
 		 try {
 			ip = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("ip:"+ip);
+		System.out.println("ip:"+ip);
 		CustomerSmsPo sms=service.sendValidationSms(phone, ip, SmsTemplate.VALIDATION_TEMPLATE);
 		String json="";
 		if(sms!=null){
@@ -346,34 +345,42 @@ public class CustomerController {
 		return null;
 	}
 	@RequestMapping("/changePwd")
+	@ResponseBody
 	public int updatePwd(HttpServletRequest request,HttpServletResponse response){
 		CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
 		String userName = customerPo.getUsername();
-		String oldPwd = request.getParameter("oldpassword");
-		String newPwd = request.getParameter("password1");
+		String oldPwd = request.getParameter("oldPwd");
+		String newPwd = request.getParameter("newPwd");
 		String password = customerService.getPwdByUserName(userName);
 		int i=0;
-		if(!password.equals(oldPwd)){
-			i=0;
-		}else if(customerService.updatePwd(customerPo)>0){
-			i=1;
+		if(password.equals(oldPwd)){
+			customerPo.setPassword(newPwd);
+			int resutl = customerService.updatePwd(customerPo);
+			if(resutl>0){				
+				i=0;
+			}else{
+				i=1;
+			}
 		}else{
 			i=2;
 		}
+
 		return i;
 	}
 	
 	@RequestMapping("/bindMobile")
+	@ResponseBody
 	public int bindMobile(HttpServletRequest request,HttpServletResponse response){
-		String userName = request.getParameter("username");
+		CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
+		String userName = customerPo.getUsername();
 		String mobile = request.getParameter("mobile");
 		Timestamp time = new Timestamp(System.currentTimeMillis());
-		CustomerPo customerPo = new CustomerPo();
-		customerPo.setUsername(userName);
 		customerPo.setMobile(mobile);
 		customerPo.setUpdateBy(userName);
 		customerPo.setUpdateTime(time);
+		System.out.println(customerPo.toString());
 		int result = customerService.bindMobile(customerPo);
+		System.out.println(result);
 		int i=0;
 		if(result<=0){
 			i=1;

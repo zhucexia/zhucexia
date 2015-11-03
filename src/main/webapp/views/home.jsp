@@ -8,7 +8,9 @@
 	String root = request.getContextPath();
 	request.setAttribute("root",root);
 %>
-<% CustomerPo customer=(CustomerPo)request.getSession().getAttribute("customer"); %>
+<% CustomerPo customer=(CustomerPo)request.getSession().getAttribute("customer");
+	System.out.println(customer+"aaaaaaaaaaaaaaa");
+%>
 <jsp:include page="/views/common/header.jsp" />
 <jsp:include page="/views/common/top.jsp" />
 <html lang="zh">
@@ -28,8 +30,7 @@
 	rel="stylesheet" href="${root }/static/css/plugins/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css"
 		href="${root }/static/css/common/skin.css" media="all">
-<script 
-	src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
+
 <script 
 	src="${root }/static/js/plugins/jquery-ui-1.10.3.min.js"></script>
 <script 
@@ -50,9 +51,12 @@
 	src="${root }/static/js/common/da.js"></script>
 <script type="text/javascript" src="${root }/static/js/plugins/ui.js"></script>
 <script type="text/javascript" src="${root }/static/js/plugins/qiniu.min.js"></script>
-<script type="text/javascript" src="${root }/static/js/customer/cutomer.js"></script>
+
 </head>
 <body class="medium">
+<script 
+	src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="${root }/static/js/customer/customer.js"></script>
 	<div class="WB_miniblog">
 		<div class="topNavWrap-pindao" style="background-color:">
 			<div class="grhead">
@@ -178,7 +182,7 @@
 													<div class="span4">
 														<div class="box-quick-link blue-background">
 																<a href="javascript:void(0)"
-																	rel="facebox" id="baseDate">
+																	rel="facebox" id="baseData" onclick="addBaseData();">
 																	<div class="link-header">
 																		<i class="fa fa-edit fa-2x"></i>
 																	</div>
@@ -189,7 +193,7 @@
 													<div class="span4">
 														<div class="box-quick-link grass-green-background">
 															<a	href="javascrit:void(0);"
-																rel="facebox" id="changePwd">
+																rel="facebox" id="changePwd" onclick="changePwd()">
 																<div class="link-header">
 																	<i class="fa fa-lock fa-2x"></i>
 																</div>
@@ -200,7 +204,7 @@
 													<div class="span4">
 														<div class="box-quick-link muted-background">
 															<a href="javascript:void(0);"
-																rel="facebox" id="bingdMobile">
+																rel="facebox" id="bindMobile" onclick="bindMobile()">
 																<div class="link-header">
 																	<i class="fa fa-mobile-phone fa-2x"></i>
 																</div>
@@ -312,7 +316,7 @@
 				</div>
 			</div>
 	</div>
-	<div id="facebox" style="top:60.7px;left:688.5px;display:none;" class="facebox">
+	<div id="facebox" style="display:none" class="facebox">
 		<div class="popup">
 			<div class="content">
 				<div class="face-block">
@@ -324,7 +328,7 @@
 					  </label>
 					  <div class="controls">
 						<input class="textinput textInput" id="id_username" name="username" type="text" 
-						value="123123<%-- <%=customer.getUsername() %> --%>" readonly="true">
+						value="<%=customer.getUsername() %>" readonly="true">
 					  </div>
 					</div>
 					<div  class="clearfix control-group">		
@@ -357,12 +361,12 @@
 				  </form>
 			</div>
 			</div>
-			<a href="#" class="close">
+			<a href="javascript:;" class="close" onclick="closeWin()">
 				<img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
 			</a>
 		</div>
 	</div>
-	<div id="facebox1" style="top: 66.3px; left: 688.5px; display:none;" class="facebox">
+	<div id="facebox" style="display:none;" class="facebox">
 	    <div class="popup">         
 	        <div class="content">       
 	            <div class="face-block">
@@ -406,7 +410,7 @@
 	                </div>
 	            </div>           
 	        </div>         
-	        <a href="javascript:void(0);" class="close">
+	        <a href="javascript:void(0);" class="close" onclick="closeWin()">
 	            <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
 	        </a>       
 	    </div>     
@@ -542,26 +546,8 @@
 	#facebox .close {
 		opacity: 1;
 	}
-	
-	
-	
-	#facebox1 .content {
-        width: auto !important;
-    }
-
-    .span4 .blue-background {
-        background-color: #78C5F7 !important;
-    }
-    .span4 .orange-background {
-        background-color: #F2E18B !important;
-    }
-    .span4 .grass-green-background {
-        background-color: #A8E888 !important;
-    }
-    .span4 .muted-background {background-color: #BEBEBE !important;}
-    .box-quick-link a .content-title { background:#fafafa !important;border-bottom: 1px solid #ddd !important;}
 </style>
-	<div id="facebox3" style="top: 66.3px; left: 688.5px; display:none;" class="facebox">       
+	<div id="facebox" style="display:none;" class="facebox">       
         <div class="popup">         
             <div class="content">
             	<div class="face-block">
@@ -576,8 +562,10 @@
                             		</label>
                             		<div class="controls">
                             			<input class="textinput textInput" id="id_mobile" name="mobile" placeholder="手机号码" type="text">
-                            			<span class="pts" ></span>
-                            			<a class="btn btn-primary" id="send_token_btn" href="javascript:void(0);">发送验证码</a>
+                            			<div id="warning_4"><span style="color:red;" id="span1"></span></div>
+                            			<a style="height:20px;width:70px;" class="btn btn-primary" id="send_token_btn" href="javascript:void(0);" onclick="sendMsg()">
+                            				<span>发送验证码</span>
+                            			</a>
                             		</div>
                             	</div>
                             	<div id="div_id_token" class="clearfix control-group">
@@ -585,7 +573,8 @@
                             			验证码<span class="asteriskField">*</span>
                             		</label>
                             		<div class="controls">
-                            			<input class="textinput textInput" id="id_token" name="token" placeholder="验证码" type="text"><span id="messcode"></span>
+                            			<input class="textinput textInput" id="id_token" name="token" placeholder="验证码" type="text">
+                            			<div id="warning_5"><span id="messcode"></span></div>
                                     </div>
                             	</div>
                             </fieldset>
@@ -596,8 +585,8 @@
                     </div>
                 </div>
             </div>
-            <a href="javascript:void(0);" class="close">
-                <img src="${root }/static/images/use/closelabel.png" class="close_image" title="close">
+            <a href="javascript:void(0);" class="close" onclick="closeWin()">
+                <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
             </a>
         </div>
     </div>
@@ -608,16 +597,79 @@
 				}); 
 </script> -->
 
-<script type="text/javascript">
-   // 导航选卡
-   $(function(){
-       ch = $('.wisub').children();
-       $.each(ch, function(index, value){
-           if (value && (window.location.href ==value.href || window.location.pathname == value.href)) {
-               $(value).addClass("selected");
-           }
-       });
-   });  
+<script language="javascript">
+//导航选卡
+$(function(){
+    ch = $('.wisub').children();
+    $.each(ch, function(index, value){
+        if (value && (window.location.href ==value.href || window.location.pathname == value.href)) {
+            $(value).addClass("selected");
+        }
+    });
+});
+
+$("#id_mobile").blur(function(){
+	var phone=$("#id_mobile").val().trim();
+	var reg = /^1[3578][0-9]{9}$/; 
+	var flag = reg.test(phone);
+	alert("checkMobile中flag="+flag);
+	if(flag){
+		$.ajax({
+			url : "/zhucexia/customer/validatephone",
+			type : 'POST',
+			dataType: "json",
+			data : {
+				phonenum : phone,
+			},
+			success : function(data) {
+				var data=eval('(' + data + ')');
+				if(data.message=="该手机已占用"){					
+					$("#warning_4 span").html("该手机已占用aaaaaaaaa");
+					$("#warning_4").show();
+					alert("if中"+$("#warning_4 span").html());
+				}else{
+					$("#warning_4 span").html("true");
+					alert("else中"+$("#warning_4 span").html());
+				}
+			}
+		});
+	}else{
+		$("#warning_4 span").html("请输入正确的手机号");
+		$("#warning_4").show();
+	}
+	alert($("#warning_4 span").html());
+});
+
+//验证手机验证码
+$("#id_token").blur(function(){
+		var yzm=$(this).val();
+		if(yzm!="" || yzm!=null){
+			$.ajax({
+				url : "/zhucexia/customer/validateyzm",
+				type : 'POST',
+				dataType: "json",
+				data : {
+					"yzm" : yzm,
+				},
+				success : function(data) {
+					var data=eval("(" + data + ")");
+					if(data.message !="输入正确"){
+						validCode=false;
+						$("#warning_5 span").html(data.message);
+						$("#warning_5").show();
+					}else{
+						validCode=true;
+						$("#warning_5 span").html("验证通过");
+						$("#warning_5").show();
+					}
+				},
+			});
+		}else{
+			$("#wanrging_5 span").html("不能为空");
+			$("#warning_5").show();
+		}
+			
+	});
 </script>
 </body>
 </html>
