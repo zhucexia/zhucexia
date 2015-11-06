@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.keji50.zhucexia.dao.po.CustomerPo" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -7,7 +7,8 @@
 	// Application common variables
 	String root = request.getContextPath();
 	request.setAttribute("root",root);
-	
+%>
+<% CustomerPo customer=(CustomerPo)request.getSession().getAttribute("customer");
 %>
 <jsp:include page="/views/common/header.jsp" />
 <jsp:include page="/views/common/top.jsp" />
@@ -28,8 +29,7 @@
 	rel="stylesheet" href="${root }/static/css/plugins/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css"
 		href="${root }/static/css/common/skin.css" media="all">
-<script 
-	src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
+
 <script 
 	src="${root }/static/js/plugins/jquery-ui-1.10.3.min.js"></script>
 <script 
@@ -46,10 +46,16 @@
 	src="${root }/static/js/plugins/plupload.full.min.js"></script>
 <script 
 	src="${root }/static/js/plugins/facebox.js"></script>
-<script 
+<script type="text/javascript"
 	src="${root }/static/js/common/da.js"></script>
+<script type="text/javascript" src="${root }/static/js/plugins/ui.js"></script>
+<script type="text/javascript" src="${root }/static/js/plugins/qiniu.min.js"></script>
+
 </head>
 <body class="medium">
+<script 
+	src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="${root }/static/js/customer/customer.js"></script>
 	<div class="WB_miniblog">
 		<div class="topNavWrap-pindao" style="background-color:">
 			<div class="grhead">
@@ -115,13 +121,12 @@
 													onerror="this.src=&#39;/site_media/static/division/user/imgs/nophoto.gif&#39;">
 											</div>
 											<div class="pc_personInfo_body mb5">
-												<div>
-													<span class="userName"> 昵称：13501635413 
-													<span class="black9"></span>
+												<div id="nick">昵称：
+													<span class="userName"> <%=customer.getNickName() %>
 													<!--<a style=" margin-left:5px; font-size:12px;" class="blue" href="/profiles/edit/">修改资料</a>--></span>
 												</div>
 												<div>角色：默认</div>
-												<div>用户名:13501635413</div>
+												<div>用户名：<span><%=customer.getUsername() %></span></div>
 											</div>
 										</div>
 										<div class="jygl clearfix">
@@ -165,7 +170,6 @@
 														<a href="${root}/address/addrManage">收货地址管理</a>
 													</dd>
 												</dl>
-												<!--<div class="span4"><div class="box-quick-link brown-background"><a href="/orders/"><div class="link-header"><i class="fa fa-folder-open-o fa-2x"></i></div><div class="content-title">订单管理</div></a></div></div><div class="span4"><div class="box-quick-link purple-background"><a href="/unreview/items/"><div class="link-header"><i class="fa fa-comments fa-2x"></i></div><div class="content-title">评价管理</div></a></div></div><div class="span4"><div class="box-quick-link green-background"><a href="/favorites/"><div class="link-header"><i class="fa fa-star fa-2x"></i></div><div class="content-title">我的收藏</div></a></div></div><div class="span4"><div class="box-quick-link blue-background"><a href="/adressbook/"><div class="link-header"><i class="fa fa-home fa-2x"></i></div><div class="content-title">收货地址管理</div></a></div></div>-->
 											</div>
 										</div>
 										<div class="jygl clearfix">
@@ -175,8 +179,8 @@
 												<div class="account-links">
 													<div class="span4">
 														<div class="box-quick-link blue-background">
-																<a href="http://www.zhucexia.com/account/profile_edit/"
-																	rel="facebox">
+																<a href="javascript:void(0)"
+																	rel="facebox"  onclick="addBaseDataWin();">
 																	<div class="link-header">
 																		<i class="fa fa-edit fa-2x"></i>
 																	</div>
@@ -186,8 +190,8 @@
 													</div>
 													<div class="span4">
 														<div class="box-quick-link grass-green-background">
-															<a	href="http://www.zhucexia.com/account/password_change/"
-																rel="facebox">
+															<a	href="javascrit:void(0);"
+																rel="facebox"  onclick="changePwdWin()">
 																<div class="link-header">
 																	<i class="fa fa-lock fa-2x"></i>
 																</div>
@@ -197,8 +201,8 @@
 													</div>
 													<div class="span4">
 														<div class="box-quick-link muted-background">
-															<a href="http://www.zhucexia.com/account/bind_mobile/"
-																rel="facebox">
+															<a href="javascript:void(0);"
+																rel="facebox"  onclick="bindMobileWin()">
 																<div class="link-header">
 																	<i class="fa fa-mobile-phone fa-2x"></i>
 																</div>
@@ -208,12 +212,11 @@
 													</div>
 													<div class="span4">
 														<div class="box-quick-link green-background">
-															<a href="http://www.zhucexia.com/review_info_iframe/"
-																rel="facebox">
+															<a href="javascript:;" rel="facebox" onclick="bindEmailWin()">
 																<div class="link-header">
 																	<i class="fa fa-table fa-2x"></i>
 																</div>
-																<div class="content-title">完善信息</div>
+																<div class="content-title">绑定邮箱</div>
 															</a>
 														</div>
 													</div>
@@ -245,7 +248,7 @@
 														<i class="listStyle-dot"></i>
 														<span class="mr10">邮箱验证：未验证</span>
 														<a rel="facebox" target="_blank" class="blue"
-															href="http://www.zhucexia.com/account/email/">验证</a>
+															href="javascript:;">验证</a>
 													</p>
 													<p>
 														<i class="listStyle-dot"></i>
@@ -283,12 +286,11 @@
 									<div class="pc_personInfo_body">
 										<h3>
 											<div class="clearfix" style="height: 18px">
-												<span class="userName">用户名:13501635413</span>
+												<span class="userName"></span>
 											</div>
-											<span class="userName">手机:13501635413</span>
+											<span class="userName"></span>
 										</h3>
-										<!-- <div class="mt16"><span>我的积分：</span><a href="#"><span class="orange fw-b"></span></a></div> -->
-										<!--<div class="mt3"><span>我的邮件：</span><a href="#"><span class="orange fw-b">None</span></a></div>-->
+										
 									</div>
 								</div>
 							</div>
@@ -311,13 +313,214 @@
 				</div>
 			</div>
 	</div>
-	<div id="facebox" style="display: none;">
+	<div id="facebox" style="display:none" class="facebox">
 		<div class="popup">
-			<div class="content"></div>
-			<a href="http://www.zhucexia.com/home/#" class="close">
-				<img src="${root }/static/images/user/closelabel.png" class="close_image" title="close"></a>
+			<div class="content">
+				<div class="face-block">
+				  <form class="form-horizontal" id="baseDateForm" method="post"  ENCTYPE="multipart/form-data">
+					<input type="hidden" name="csrfmiddlewaretoken" value="fyj4uLeBQqYtVsIoywdp6S4L3JlSdAqw">
+					<div id="div_id_username" class="clearfix control-group">
+					  <label for="id_username" class="control-label ">
+						用户名
+					  </label>
+					  <div class="controls">
+						<input class="textinput textInput" id="id_username" name="username" type="text" 
+						value="<%=customer.getUsername() %>" readonly="true">
+					  </div>
+					</div>
+					<div  class="clearfix control-group">		
+						<label for="id_nickname" class="control-label ">昵称</label>
+						<div class="controls">               
+							<input class="textinput textInput" id="id_nickname" name="nickname" type="text" value="<%=customer.getNickName() %>">    
+						</div>        
+					</div>
+					<input id="id_avatar" name="avatar" type="hidden">
+					<div id="div_id_nickname" class="clearfix control-group">
+						<label class="control-label ">
+							头像
+						</label>
+						<div class="controls">
+							<img id="avatar" src="../static/images/user/usercenter_head.jpg" 
+							width="100" height="100">
+							<div id="container">
+								<!-- <a class="btn btn-default btn-lg " id="pickfiles" href="javascript:void(0);" 
+									style="position: relative; z-index: 1;">
+									<i class="glyphicon glyphicon-plus"></i>
+									<sapn>选择文件</sapn>
+								</a> -->
+								<input type="file" value="上传" name="image">
+							</div>
+						</div>
+					</div>
+					<div class="form-actions">
+					  <input class="btn btn-primary" type="button" name="action" value="确定" onclick="aa()">
+					</div>
+				  </form>
+			</div>
+			</div>
+			<a href="javascript:;" class="close" onclick="closeWin()">
+				<img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
+			</a>
 		</div>
 	</div>
+	<div id="facebox" style="display:none;" class="facebox">
+	    <div class="popup">         
+	        <div class="content">       
+	            <div class="face-block">
+	                <div class="zh-r-tit"><b>修改密码</b><span class="black9">(*必填写项)</span></div>
+	                <div class="zh-r-change">
+	                    <form method="POST" action="" class="form-horizontal" id="changePwd">
+	                        <input type="hidden" name="csrfmiddlewaretoken" value="fyj4uLeBQqYtVsIoywdp6S4L3JlSdAqw">
+	                            <fieldset class="inlineLabels">
+		                           <div id="div_id_oldpassword" class="clearfix control-group">
+			                          <label for="id_oldpassword" class="control-label requiredField">
+			                          	当前密码：<span class="asteriskField">*</span>
+				                      </label>
+	                                    <div class="controls">
+	                                        <input class="textinput textInput" id="id_oldpassword" name="oldpassword" type="password">
+	                                        <div id="warning_1"><span></span></div>   
+	                                    </div>
+		                           </div>
+		                           <div id="div_id_password1" class="clearfix control-group">		
+	    			                 <label for="id_password1" class="control-label requiredField">
+	    				                	新的密码：<span class="asteriskField">*</span>
+	       			                 </label>
+	                                <div class="controls">               
+	                                        <input class="textinput textInput" id="id_password1" name="password1" type="password">
+	                                        <div id="warning_2"><span></span></div>    
+	                                    </div>       
+		                            </div>
+		                            <div id="div_id_password2" class="clearfix control-group">		
+				                     <label for="id_password2" class="control-label requiredField">
+					                    	新密码（再输入一次）：<span class="asteriskField">*</span>
+				                     </label>
+	                                    <div class="controls">              
+	                                        <input class="textinput textInput" id="id_password2" name="password2" type="password">
+	                                        <div id="warning_3"><span></span></div>
+	                                    </div>
+	                                </div>
+	                            </fieldset>
+	                            <div class="form-actions">
+	                                <input class="btn" type="button" name="action" value="确定" onclick="bb()">
+	                            </div>
+	                    </form>
+	                </div>
+	            </div>           
+	        </div>         
+	        <a href="javascript:void(0);" class="close" onclick="closeWin()">
+	            <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
+	        </a>       
+	    </div>     
+	</div>
+
+	<div id="facebox" style="display:none;" class="facebox">       
+        <div class="popup">         
+            <div class="content">
+            	<div class="face-block" id="bindedMobile">
+            		<div class="zh-r-tit"><b>您已绑定手机号码:<%=customer.getMobile() %></b><br><span class="black9">如需更换请先验证：</span></div>
+                    <div class="zh-r-change">       
+                        <form method="POST" action="" class="form-horizontal">
+                            <fieldset class="inlineLabels">
+                            	<div id="div_id_mobile" class="clearfix control-group">
+                            		<label for="id_mobile" class="control-label requiredField">
+                            			手机号<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="old_mobile" name="mobile" placeholder="手机号码" type="text" 
+                            			value="<%=customer.getMobile() %>" readonly="true">
+                            			<a style="height:20px;width:70px;" class="btn btn-primary" id="send_token_btn" href="javascript:void(0);" onclick="sendMsgBinded()">
+                            				<span id="code">获取验证码</span>
+                            			</a>
+                            			<div id="warning_4"><span style="color:red;"></span></div>
+                            		</div>
+                            	</div>
+                            	<div id="div_id_token" class="clearfix control-group">
+                            		<label for="id_token" class="control-label requiredField">
+                            			验证码<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_token" name="token" placeholder="验证码" type="text">
+                            			<div id="warning_5"><span id="messcode" style="color:red;"></span></div>
+                                    </div>
+                            	</div>
+                            </fieldset>
+                            <div class="form-actions">
+                            	<input class="btn" type="button" name="action" value="确认验证" onclick="toBindMobile()">
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            	<div class="face-block" id="bindMobile">
+            		<div class="zh-r-tit"><b>绑定手机号码</b><span class="black9">(*必填写项)</span></div>
+                    <div class="zh-r-change">       
+                        <form method="POST" action="" class="form-horizontal">
+                            <fieldset class="inlineLabels">
+                            	<div id="div_id_mobile" class="clearfix control-group">
+                            		<label for="id_mobile" class="control-label requiredField">
+                            			手机号<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_mobile" name="mobile" placeholder="手机号码" type="text">
+                            			<a style="height:20px;width:70px;" class="btn btn-primary" id="send_token_btn" href="javascript:void(0);" onclick="sendMsg()">
+                            				<span id="code">获取验证码</span>
+                            			</a>
+                            			<div id="warning_6"><span style="color:red;" id="span1"></span></div>
+                            		</div>
+                            	</div>
+                            	<div id="div_id_token" class="clearfix control-group">
+                            		<label for="id_token" class="control-label requiredField">
+                            			验证码<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_token_1" name="token" placeholder="验证码" type="text">
+                            			<div id="warning_7"><span id="messcode" style="color:red;"></span></div>
+                                    </div>
+                            	</div>
+                            </fieldset>
+                            <div class="form-actions">
+                            	<input class="btn" type="button" name="action" value="确认绑定" onclick="bindMobile()">
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="close" onclick="closeWin()">
+                <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
+            </a>
+        </div>
+    </div>
+    
+    <div id="facebox" style="display:none;" class="facebox">       
+        <div class="popup">         
+            <div class="content">
+            	<div class="face-block" >
+            		<div class="zh-r-tit" id="prompt"><b></b><span class="black9"></span></div>
+                    <div class="zh-r-change">       
+                        <form method="POST" action="" class="form-horizontal">
+                            <fieldset class="inlineLabels">
+                            	<div id="div_id_mobile" class="clearfix control-group">
+                            		<label for="id_mobile" class="control-label requiredField">
+                            			电子邮箱<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_email" name="mobile" placeholder="电子邮箱" type="text">
+                            			<div id="warning_10"><span style="color:red;"></span></div><br>
+                            		</div>
+                            	</div>
+                            </fieldset>
+                            <div class="form-actions">
+                            	<input class="btn" type="button" name="action" value="确认绑定" onclick="sendEmail()">
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="close" onclick="closeWin()">
+                <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
+            </a>
+        </div>
+    </div>
+    
 <style>
 	#facebox .content {
 		width: auto !important;
@@ -450,22 +653,49 @@
 		opacity: 1;
 	}
 </style>
-<script>
-	$(document).ready(
+<!-- <script>
+ 	$(document).ready(
 		function() {
 			$("a[rel*='facebox']").facebox();
-				})
-</script>
-<script type="text/javascript">
-   // 导航选卡
-   $(function(){
-       ch = $('.wisub').children();
-       $.each(ch, function(index, value){
-           if (value && (window.location.href ==value.href || window.location.pathname == value.href)) {
-               $(value).addClass("selected");
-           }
-       });
-   })
+				}); 
+</script> -->
+
+<script language="javascript">
+//导航选卡
+	$(function(){
+	    ch = $('.wisub').children();
+	    $.each(ch, function(index, value){
+	        if (value && (window.location.href ==value.href || window.location.pathname == value.href)) {
+	            $(value).addClass("selected");
+	        }
+	    });
+	});
+	
+	
+	var mobile = '<%=customer.getMobile()%>';
+	if(mobile==""||mobile==null){
+		$("#bindedMobile").css("display","none");
+		$("#bindMobile").css("display","block");
+	}else{
+		$("#bindedMobile").css("display","block");
+		$("#bindMobile").css("display","none");
+	}
+	var email = '<%=customer.getEmail() %>';
+	if(email==""||email==null||email=="null"){
+		$("#prompt b").html("绑定电子邮箱");
+	}else{
+		$("#prompt b").html("您已绑定电子邮箱"+email);
+		$("#prompt span").html("如要解除绑定请验证");
+		$("#id_email").val('<%=customer.getEmail()%>');
+		$("#id_email").attr("readonly","true");
+	}
+	
+	var nickName = "<%=customer.getNickName() %>"
+	if(nickName==""||nickName==null||nickName=="null"){
+		$("#nick span").html("");
+	}else{
+		$("#nick span").html(nickName)
+	}
 </script>
 </body>
 </html>

@@ -24,5 +24,10 @@ public class CustomerPo extends BasePo {
 	private String ispinlessemail;
 	
 	private String type;//'0: 普通会员    1:企业会员',
-
+	
+	private String pic;
+	
+	private String pic_id;
+	
+	private String nickName;
 }

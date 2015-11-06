@@ -29,5 +29,9 @@
   	select <include refid="Base_Column_List" /> from customer_email 
   	where id = #{id,jdbcType=DECIMAL} and type = #{type,jdbcType=VARCHAR}
   </select>
-
+  <!-- 修改验证邮箱状态 -->
+  <update id="updateState" parameterType="int">
+  	update customer_email set state=1 where id=#{id}
+  </update>
+	
 </mapper>

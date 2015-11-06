@@ -38,4 +38,32 @@
   <update id="updatepass" parameterType="com.keji50.zhucexia.dao.po.CustomerSmsPo">
   		update customer set password=#{password,jdbcType=VARCHAR} where 1=1 and mobile=#{mobile,jdbcType=VARCHAR}
   </update>
+  <update id="setBaseDate" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
+  	update customer set pic=#{pic},pic_id=#{pic_id} where 1=1 and username=#{username}
+  </update>
+  <select id="getPwdByUserName" parameterType="string" resultType="string">
+  	select password from customer where username=#{userName}
+  </select>
+  <update id="updatePwd" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
+  	update customer set password=#{password} where 1=1 and username=#{username}
+  </update>
+  <update id="bingdMobile" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
+  	update customer set mobile=#{mobile} where username=#{username}
+  </update>
+  <update id="bindEmail">
+  	update customer set email=#{email} where id=#{id}
+  </update>
+  <update id="delEmail">
+  	update customer set email=NULL where id=#{id}
+  </update>
+  <select id="selectById" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+  	from customer where id=#{id}
+  </select>
+  <select id="selectByEmail" parameterType="string" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+  	from customer where email=#{email}
+  </select>
+  
+  
 </mapper>

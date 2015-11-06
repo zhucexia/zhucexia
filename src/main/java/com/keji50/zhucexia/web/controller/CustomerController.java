@@ -1,22 +1,38 @@
 package com.keji50.zhucexia.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.keji50.zhucexia.common.utils.MD5Utils;
+import com.keji50.zhucexia.dao.po.CustomerEmailPo;
 import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.dao.po.CustomerSmsPo;
+import com.keji50.zhucexia.service.CustomerEmailValidationService;
 import com.keji50.zhucexia.service.CustomerService;
 import com.keji50.zhucexia.service.CustomerSmsValidationService;
+import com.keji50.zhucexia.service.out.email.EmailTemplate;
 import com.keji50.zhucexia.service.out.sms.SmsTemplate;
 /**
  * 
@@ -32,6 +48,10 @@ public class CustomerController {
 	 */
 	@Resource(name="customerService")
 	private CustomerService customerService;
+	@Resource
+	private CustomerSmsValidationService customerSmsValidationService;
+	@Resource
+	private CustomerEmailValidationService customerEmailValidationService;
 	
 	/**
 	 * 客户登录
@@ -53,6 +73,7 @@ public class CustomerController {
 		CustomerPo customer=customerService.login(c);
 		String json="";
 		if(customer!=null){
+			System.out.println(customer.toString());
 			request.getSession().setAttribute("customer", customer);
 			if(customer.getUsername().equals(username)){
 				json="{'message':'登录成功','names':'"+customer.getUsername()+"'}";
@@ -77,20 +98,14 @@ public class CustomerController {
 		System.out.println("进入发短信方法");
 		String phone=request.getParameter("phonenum");
 		System.out.println("----"+phone);
-		@SuppressWarnings("resource")
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-				"spring-context.xml");
-		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
-				.getBean("customerSmsValidationService");
 		String ip="";
 		 try {
 			ip = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 System.out.println("ip:"+ip);
-		CustomerSmsPo sms=service.sendValidationSms(phone, ip, SmsTemplate.VALIDATION_TEMPLATE);
+		System.out.println("ip:"+ip);
+		CustomerSmsPo sms=customerSmsValidationService.sendValidationSms(phone, ip, SmsTemplate.VALIDATION_TEMPLATE);
 		String json="";
 		if(sms!=null){
 			request.getSession().setAttribute("customersms", sms);
@@ -128,15 +143,16 @@ public class CustomerController {
 	public String validateyzm(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("验证客户短信验证码方法");
 		String code=request.getParameter("yzm");
+		String mobile=request.getParameter("mobile");
 		String json="";
 		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
 		if(s==null){
 			json="{'message':'未发送短信'}";
 		}else{
-			if(!s.getValidationCode().equals(code)){
-				json="{'message':'输入错误'}";
-			}else{
+			if(s.getValidationCode().equals(code)&&s.getMobile().equals(mobile)){
 				json="{'message':'输入正确'}";
+			}else{
+				json="{'message':'输入错误'}";
 			}
 		}
 		System.out.println("短信验证结果"+json);
@@ -309,4 +325,156 @@ public class CustomerController {
 		}
 		return json;
 	}
+	
+	/**
+	 * 用户基本信息
+	 * @throws Exception 
+	 */
+	@RequestMapping("/setBaseDate")
+	@ResponseBody
+	public String setBaseDate(HttpServletRequest request,HttpServletResponse response,ModelMap maps)throws Exception{
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request); 
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload uploader = new ServletFileUpload(factory);
+		List<FileItem> list = uploader.parseRequest(request);
+		for(FileItem item:list){
+			if (item.isFormField()){
+			// 处理普通表单域
+			String field = item.getFieldName();//表单域名
+			String value = item.getString("UTF-8");
+			} else {
+			//将临时文件保存到指定目录
+			String fileName = item.getName();//文件名称
+			String filepath = "${root}/static/images/user" + fileName;
+			item.write(new File(filepath));//执行保存
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 通过原密码修改密码
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/changePwd")
+	@ResponseBody
+	public int updatePwd(HttpServletRequest request,HttpServletResponse response){
+		CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
+		String userName = customerPo.getUsername();
+		String oldPwd = request.getParameter("oldPwd");
+		String newPwd = request.getParameter("newPwd");
+		String password = customerService.getPwdByUserName(userName);
+		int i=0;
+		if(password.equals(oldPwd)){
+			customerPo.setPassword(newPwd);
+			int resutl = customerService.updatePwd(customerPo);
+			if(resutl>0){				
+				i=0;
+			}else{
+				i=1;
+			}
+		}else{
+			i=2;
+		}
+
+		return i;
+	}
+	
+	/**
+	 * 绑定手机号
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/bindMobile")
+	@ResponseBody
+	public int bindMobile(HttpServletRequest request,HttpServletResponse response){
+		CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
+		String userName = customerPo.getUsername();
+		String mobile = request.getParameter("mobile");
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		CustomerPo cust = new CustomerPo();
+		cust.setUsername(userName);
+		cust.setMobile(mobile);
+		cust.setUpdateBy(userName);
+		cust.setUpdateTime(time);
+		System.out.println(cust.toString());
+		int result = customerService.bindMobile(cust);
+		System.out.println(result);
+		int i=0;
+		if(result<=0){
+			i=1;
+		}
+		return i;
+	}
+	
+	/**
+	 * 绑定邮箱发送验证邮件
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/sendEmail")
+	@ResponseBody
+	public int sendEmail(HttpServletRequest request,HttpServletResponse response){
+		CustomerPo customer = (CustomerPo)request.getSession().getAttribute("customer");
+		int id = customer.getId();
+		String email = request.getParameter("email");
+		CustomerPo cust = new CustomerPo();
+		cust.setEmail(email);
+		cust.setId(id);
+		String ip="";
+		try {
+			ip = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		System.out.println("ip============"+ip);
+		CustomerEmailPo customerEmail = customerEmailValidationService.sendEmail(cust, ip, EmailTemplate.VALIDATION_TEMPLATE);
+		int i=0;
+		if(customerEmail==null){
+			i = 1;
+		}else{
+			/*customer = customerService.selectById(id);
+			System.out.println(customer);
+			request.getSession().setAttribute("customer",customer);*/
+		}
+		return i;
+	}
+	
+	@RequestMapping("email/validate")
+	public String validateEmail(HttpServletRequest request,HttpServletResponse response){
+		int emailId = Integer.parseInt(request.getParameter("id"));
+		System.out.println(emailId);
+		String emailType = request.getParameter("type");
+		String emailValidationCode = request.getParameter("validationCode");
+		Map<String,Object> result = customerEmailValidationService.validateEmail(emailId, emailType, emailValidationCode);
+		int resultCode = Integer.parseInt(result.get("resultCode").toString());
+		String page="";
+		String str="";
+		switch(resultCode){
+		case 0:
+			String email = ((CustomerEmailPo)result.get("result")).getEmail();
+			int customerId = ((CustomerEmailPo)result.get("result")).getCustomerId();
+			Boolean flag1 = customerService.selectById(customerId).getEmail()==null;
+			if(flag1){
+				customerService.bindEmail(email, customerId);			
+			}else{
+				customerService.delEmail(customerId);
+			}
+			page= "validateSuccess";
+			break;
+		case -1:
+			page= "validateFailed1";
+			break;
+		case -2:
+			page= "validateFailed2";
+			break;
+		}
+		return page;
+	}
+	
 }
+

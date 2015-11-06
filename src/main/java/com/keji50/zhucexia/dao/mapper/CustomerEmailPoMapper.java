@@ -8,4 +8,6 @@ public interface CustomerEmailPoMapper {
 	int insert(CustomerEmailPo email);
 
 	CustomerEmailPo selectById(@Param("id") int id, @Param("type") String type);
+	
+	int updateState(int id);
 }

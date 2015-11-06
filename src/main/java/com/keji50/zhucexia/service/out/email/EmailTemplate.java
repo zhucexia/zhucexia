@@ -4,8 +4,8 @@ import lombok.Getter;
 
 public enum EmailTemplate {
 	
-	VALIDATION_TEMPLATE("0", "点击下面链接激活邮箱，48小时有效，链接只能使用一次，请尽快激活！<br> %s"),
-	RESET_PASSWORD_TEMPLATE("1", "点击下面链接重置密码，48小时有效，链接只能使用一次，请尽快使用！<br> %s");
+	VALIDATION_TEMPLATE("0", "点击下面链接激活邮箱，48小时有效，链接只能使用一次，请尽快激活！<a href='%s' target='_blank'>点击激活</a>"),
+	RESET_PASSWORD_TEMPLATE("1", "点击下面链接重置密码，48小时有效，链接只能使用一次，请尽快使用！<a href='%s' target='_blank'>点击重置</a>");
 
 	@Getter
 	private String type;

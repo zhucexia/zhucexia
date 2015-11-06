@@ -3,7 +3,7 @@
 <mapper namespace="com.keji50.zhucexia.dao.mapper.GoodAttrPoMapper">
 	<resultMap id="BaseResultMap" type="com.keji50.zhucexia.dao.po.GoodAttrPo">
 		<id column="id" property="id" jdbcType="DECIMAL" />
-		<result column="good_id" property="goodid" jdbcType="DECIMAL" />
+		<result column="good_type_id" property="goodid" jdbcType="DECIMAL" />
 		<result column="code" property="code" jdbcType="VARCHAR" />
 		<result column="names" property="names" jdbcType="VARCHAR" />
 		<result column="sort" property="sort" jdbcType="DECIMAL" />
@@ -16,7 +16,7 @@
 		<result column="state" property="state" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, code,good_id, names, sort,remark, create_by,create_time, update_by, update_time,state,option_value
+		id, code,good_type_id, names, sort,remark, create_by,create_time, update_by, update_time,state,option_value
 	</sql>
 
 	<!-- <select id="selectByCondition" resultMap="BaseResultMap" parameterType="java.util.HashMap">
