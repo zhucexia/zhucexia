@@ -121,7 +121,7 @@
 													onerror="this.src=&#39;/site_media/static/division/user/imgs/nophoto.gif&#39;">
 											</div>
 											<div class="pc_personInfo_body mb5">
-												<div id="nick">昵称：
+												<div id="nick" style="display:none;">昵称：
 													<span class="userName"> <%=customer.getNickName() %>
 													<!--<a style=" margin-left:5px; font-size:12px;" class="blue" href="/profiles/edit/">修改资料</a>--></span>
 												</div>
@@ -328,7 +328,7 @@
 						value="<%=customer.getUsername() %>" readonly="true">
 					  </div>
 					</div>
-					<div  class="clearfix control-group">		
+					<div  class="clearfix control-group" style="display:none;">		
 						<label for="id_nickname" class="control-label ">昵称</label>
 						<div class="controls">               
 							<input class="textinput textInput" id="id_nickname" name="nickname" type="text" value="<%=customer.getNickName() %>">    
@@ -509,7 +509,7 @@
                             	</div>
                             </fieldset>
                             <div class="form-actions">
-                            	<input class="btn" type="button" name="action" value="确认绑定" onclick="sendEmail()">
+                            	<input id="emailEvent" class="btn" type="button" name="action" value="确认绑定" onclick="sendEmail()">
                             </div>
                         </form>        
                     </div>
@@ -688,6 +688,8 @@
 		$("#prompt span").html("如要解除绑定请验证");
 		$("#id_email").val('<%=customer.getEmail()%>');
 		$("#id_email").attr("readonly","true");
+		$("#emailEvent").val("解除绑定");
+		
 	}
 	
 	var nickName = "<%=customer.getNickName() %>"
