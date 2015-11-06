@@ -163,11 +163,11 @@
 												</dl>
 												<dl>
 													<dt>
-														<a href="http://www.zhucexia.com/addressbook/">
+														<a href="${root}/address/addrManage">
 														<img src="${root }/static/images/user/procurementlist.png"></a>
 													</dt>
 													<dd>
-														<a href="http://www.zhucexia.com/addressbook/">收货地址管理</a>
+														<a href="${root}/address/addrManage">收货地址管理</a>
 													</dd>
 												</dl>
 											</div>

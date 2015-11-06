@@ -26,5 +26,9 @@ public class CustomerAddrPo {
 	private String areaRegion;
 	//手机号
 	private String telephone;
+	//省份，城市，区域的id值,以逗号分隔
+	private String addressId;
+	//删除标志，1，标示正常，0 表示删除
+	private String isDelete;
 
 }

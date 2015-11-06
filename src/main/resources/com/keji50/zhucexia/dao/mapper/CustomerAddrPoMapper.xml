@@ -13,18 +13,20 @@
     <result column="street" property="street" jdbcType="VARCHAR" />
     <result column="arearegion" property="areaRegion" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="addressId" property="addressId" jdbcType="VARCHAR"/>
+    <result column="isDelete" property="isDelete" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, customer_id,name,telephone,address,zip_code,is_default,remark,street,areaRegion,phone_number
+    id, customer_id,name,telephone,address,zip_code,is_default,remark,street,areaRegion,phone_number,addressId
   </sql>
   
   <!-- 新增地址-->
   <!-- 新增地址-->
   <insert id="insert" parameterType="com.keji50.zhucexia.dao.po.CustomerAddrPo">
-    insert into customer_address(customer_id, name, phone_number, address,zip_code,is_default,remark,street,arearegion,telephone)
+    insert into customer_address(customer_id, name, phone_number, address,zip_code,is_default,remark,street,arearegion,telephone,addressId)
     values(#{customer_id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
     #{zip_code,jdbcType=VARCHAR},#{is_default,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},#{street,jdbcType=VARCHAR},
-    #{areaRegion,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR})
+    #{areaRegion,jdbcType=VARCHAR},#{telephone,jdbcType=VARCHAR},#{addressId,jdbcType=VARCHAR})
     <selectKey resultType="java.lang.Integer" keyProperty="id">
     	select LAST_INSERT_ID()
     </selectKey>
@@ -45,7 +47,26 @@
   </select>
   
   <update id="updateDefaultAddr">
-  	update customer_address set is_default='0' where 1=1
+  	update customer_address set is_default='0' where 1=1 and is_default='1'
   </update>
 
+	<select id="queryList" resultMap="customerAddrMap" parameterType="java.lang.Integer">
+		select <include refid="Base_Column_List"/> from customer_address where 1=1 and customer_id=#{id} and isDelete='1'
+	</select>
+	<!-- 修改添加的地址的信息 -->
+	<update id="update" parameterType="com.keji50.zhucexia.dao.po.CustomerAddrPo">
+		update customer_address set name=#{name},address=#{address},zip_code=#{zip_code},
+		remark=#{remark},street=#{street},arearegion=#{areaRegion},telephone=#{telephone},addressId=#{addressId}
+		where id=#{id}
+	</update>
+  <!-- 修改当前选中地址为默认地址 -->
+  <update id="isDefaultById" parameterType="java.lang.String">
+  	update customer_address set is_default='1' where id=#{id}
+  </update>
+  
+  <!-- 逻辑删除当前地址 -->
+  <update id="delAddr" parameterType="java.lang.String">
+  	update customer_address set isDelete='0' where id=#{id}
+  </update>
+  
 </mapper>
