@@ -121,13 +121,12 @@
 													onerror="this.src=&#39;/site_media/static/division/user/imgs/nophoto.gif&#39;">
 											</div>
 											<div class="pc_personInfo_body mb5">
-												<div>
-													<span class="userName"> 昵称：13501635413 
-													<span class="black9"></span>
+												<div id="nick">昵称：
+													<span class="userName"> <%=customer.getNickName() %>
 													<!--<a style=" margin-left:5px; font-size:12px;" class="blue" href="/profiles/edit/">修改资料</a>--></span>
 												</div>
 												<div>角色：默认</div>
-												<div>用户名:13501635413</div>
+												<div>用户名：<span><%=customer.getUsername() %></span></div>
 											</div>
 										</div>
 										<div class="jygl clearfix">
@@ -249,7 +248,7 @@
 														<i class="listStyle-dot"></i>
 														<span class="mr10">邮箱验证：未验证</span>
 														<a rel="facebox" target="_blank" class="blue"
-															href="http://www.zhucexia.com/account/email/">验证</a>
+															href="javascript:;">验证</a>
 													</p>
 													<p>
 														<i class="listStyle-dot"></i>
@@ -287,9 +286,9 @@
 									<div class="pc_personInfo_body">
 										<h3>
 											<div class="clearfix" style="height: 18px">
-												<span class="userName">用户名:13501635413</span>
+												<span class="userName"></span>
 											</div>
-											<span class="userName">手机:13501635413</span>
+											<span class="userName"></span>
 										</h3>
 										
 									</div>
@@ -332,7 +331,7 @@
 					<div  class="clearfix control-group">		
 						<label for="id_nickname" class="control-label ">昵称</label>
 						<div class="controls">               
-							<input class="textinput textInput" id="id_nickname" name="nickname" type="text">    
+							<input class="textinput textInput" id="id_nickname" name="nickname" type="text" value="<%=customer.getNickName() %>">    
 						</div>        
 					</div>
 					<input id="id_avatar" name="avatar" type="hidden">
@@ -689,6 +688,13 @@
 		$("#prompt span").html("如要解除绑定请验证");
 		$("#id_email").val('<%=customer.getEmail()%>');
 		$("#id_email").attr("readonly","true");
+	}
+	
+	var nickName = "<%=customer.getNickName() %>"
+	if(nickName==""||nickName==null||nickName=="null"){
+		$("#nick span").html("");
+	}else{
+		$("#nick span").html(nickName)
 	}
 </script>
 </body>

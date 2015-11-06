@@ -449,7 +449,7 @@ public class CustomerController {
 		int emailId = Integer.parseInt(request.getParameter("id"));
 		System.out.println(emailId);
 		String emailType = request.getParameter("type");
-		String emailValidationCode = request.getParameter("amp;validationCode");
+		String emailValidationCode = request.getParameter("validationCode");
 		Map<String,Object> result = customerEmailValidationService.validateEmail(emailId, emailType, emailValidationCode);
 		int resultCode = Integer.parseInt(result.get("resultCode").toString());
 		String page="";
