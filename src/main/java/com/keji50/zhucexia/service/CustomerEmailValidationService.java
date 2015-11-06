@@ -64,7 +64,7 @@ public class CustomerEmailValidationService extends AbstractValidationService {
 	 * @param validationCode
 	 *            验证md5字符串
 	 * @return map 
-	 * 			resultCode 0成功 -1验证码不正确 -2验证码已过期 
+	 * 			resultCode 0成功 -1验证码不正确 -2验证码已过期或失效
 	 * 			result 当前email对象， 里面包含邮箱、用户id等信息
 	 */
 	public Map<String, Object> validateEmail(int id, String type, String validationCode) {
@@ -76,8 +76,8 @@ public class CustomerEmailValidationService extends AbstractValidationService {
 			result.put("resultCode", -1);
 			return result;
 		}
-		// 邮件验证码是否过期
-		if (new Date().compareTo(email.getValidationExpire()) > 0) {
+		// 邮件验证码是否过期或失效
+		if (new Date().compareTo(email.getValidationExpire()) > 0||email.getState().equals(1)) {
 			result.put("resultCode", -2);
 			return result;
 		}
@@ -86,7 +86,7 @@ public class CustomerEmailValidationService extends AbstractValidationService {
 			result.put("resultCode", -1);
 			return result;
 		}
-
+		customerEmailPoMapper.updateState(id);
 		result.put("resultCode", 0);
 		result.put("result", email);
 		return result;

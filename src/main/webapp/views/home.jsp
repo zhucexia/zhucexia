@@ -9,7 +9,6 @@
 	request.setAttribute("root",root);
 %>
 <% CustomerPo customer=(CustomerPo)request.getSession().getAttribute("customer");
-	System.out.println(customer+"aaaaaaaaaaaaaaa");
 %>
 <jsp:include page="/views/common/header.jsp" />
 <jsp:include page="/views/common/top.jsp" />
@@ -182,7 +181,7 @@
 													<div class="span4">
 														<div class="box-quick-link blue-background">
 																<a href="javascript:void(0)"
-																	rel="facebox" id="baseData" onclick="addBaseData();">
+																	rel="facebox"  onclick="addBaseDataWin();">
 																	<div class="link-header">
 																		<i class="fa fa-edit fa-2x"></i>
 																	</div>
@@ -193,7 +192,7 @@
 													<div class="span4">
 														<div class="box-quick-link grass-green-background">
 															<a	href="javascrit:void(0);"
-																rel="facebox" id="changePwd" onclick="changePwd()">
+																rel="facebox"  onclick="changePwdWin()">
 																<div class="link-header">
 																	<i class="fa fa-lock fa-2x"></i>
 																</div>
@@ -204,7 +203,7 @@
 													<div class="span4">
 														<div class="box-quick-link muted-background">
 															<a href="javascript:void(0);"
-																rel="facebox" id="bindMobile" onclick="bindMobile()">
+																rel="facebox"  onclick="bindMobileWin()">
 																<div class="link-header">
 																	<i class="fa fa-mobile-phone fa-2x"></i>
 																</div>
@@ -214,12 +213,11 @@
 													</div>
 													<div class="span4">
 														<div class="box-quick-link green-background">
-															<a href="http://www.zhucexia.com/review_info_iframe/"
-																rel="facebox">
+															<a href="javascript:;" rel="facebox" onclick="bindEmailWin()">
 																<div class="link-header">
 																	<i class="fa fa-table fa-2x"></i>
 																</div>
-																<div class="content-title">完善信息</div>
+																<div class="content-title">绑定邮箱</div>
 															</a>
 														</div>
 													</div>
@@ -415,6 +413,115 @@
 	        </a>       
 	    </div>     
 	</div>
+
+	<div id="facebox" style="display:none;" class="facebox">       
+        <div class="popup">         
+            <div class="content">
+            	<div class="face-block" id="bindedMobile">
+            		<div class="zh-r-tit"><b>您已绑定手机号码:<%=customer.getMobile() %></b><br><span class="black9">如需更换请先验证：</span></div>
+                    <div class="zh-r-change">       
+                        <form method="POST" action="" class="form-horizontal">
+                            <fieldset class="inlineLabels">
+                            	<div id="div_id_mobile" class="clearfix control-group">
+                            		<label for="id_mobile" class="control-label requiredField">
+                            			手机号<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="old_mobile" name="mobile" placeholder="手机号码" type="text" 
+                            			value="<%=customer.getMobile() %>" readonly="true">
+                            			<a style="height:20px;width:70px;" class="btn btn-primary" id="send_token_btn" href="javascript:void(0);" onclick="sendMsgBinded()">
+                            				<span id="code">获取验证码</span>
+                            			</a>
+                            			<div id="warning_4"><span style="color:red;"></span></div>
+                            		</div>
+                            	</div>
+                            	<div id="div_id_token" class="clearfix control-group">
+                            		<label for="id_token" class="control-label requiredField">
+                            			验证码<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_token" name="token" placeholder="验证码" type="text">
+                            			<div id="warning_5"><span id="messcode" style="color:red;"></span></div>
+                                    </div>
+                            	</div>
+                            </fieldset>
+                            <div class="form-actions">
+                            	<input class="btn" type="button" name="action" value="确认验证" onclick="toBindMobile()">
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            	<div class="face-block" id="bindMobile">
+            		<div class="zh-r-tit"><b>绑定手机号码</b><span class="black9">(*必填写项)</span></div>
+                    <div class="zh-r-change">       
+                        <form method="POST" action="" class="form-horizontal">
+                            <fieldset class="inlineLabels">
+                            	<div id="div_id_mobile" class="clearfix control-group">
+                            		<label for="id_mobile" class="control-label requiredField">
+                            			手机号<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_mobile" name="mobile" placeholder="手机号码" type="text">
+                            			<a style="height:20px;width:70px;" class="btn btn-primary" id="send_token_btn" href="javascript:void(0);" onclick="sendMsg()">
+                            				<span id="code">获取验证码</span>
+                            			</a>
+                            			<div id="warning_6"><span style="color:red;" id="span1"></span></div>
+                            		</div>
+                            	</div>
+                            	<div id="div_id_token" class="clearfix control-group">
+                            		<label for="id_token" class="control-label requiredField">
+                            			验证码<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_token_1" name="token" placeholder="验证码" type="text">
+                            			<div id="warning_7"><span id="messcode" style="color:red;"></span></div>
+                                    </div>
+                            	</div>
+                            </fieldset>
+                            <div class="form-actions">
+                            	<input class="btn" type="button" name="action" value="确认绑定" onclick="bindMobile()">
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="close" onclick="closeWin()">
+                <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
+            </a>
+        </div>
+    </div>
+    
+    <div id="facebox" style="display:none;" class="facebox">       
+        <div class="popup">         
+            <div class="content">
+            	<div class="face-block" >
+            		<div class="zh-r-tit" id="prompt"><b></b><span class="black9"></span></div>
+                    <div class="zh-r-change">       
+                        <form method="POST" action="" class="form-horizontal">
+                            <fieldset class="inlineLabels">
+                            	<div id="div_id_mobile" class="clearfix control-group">
+                            		<label for="id_mobile" class="control-label requiredField">
+                            			电子邮箱<span class="asteriskField">*</span>
+                            		</label>
+                            		<div class="controls">
+                            			<input class="textinput textInput" id="id_email" name="mobile" placeholder="电子邮箱" type="text">
+                            			<div id="warning_10"><span style="color:red;"></span></div><br>
+                            		</div>
+                            	</div>
+                            </fieldset>
+                            <div class="form-actions">
+                            	<input class="btn" type="button" name="action" value="确认绑定" onclick="sendEmail()">
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" class="close" onclick="closeWin()">
+                <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
+            </a>
+        </div>
+    </div>
+    
 <style>
 	#facebox .content {
 		width: auto !important;
@@ -547,49 +654,6 @@
 		opacity: 1;
 	}
 </style>
-	<div id="facebox" style="display:none;" class="facebox">       
-        <div class="popup">         
-            <div class="content">
-            	<div class="face-block">
-            		<div class="zh-r-tit"><b>绑定手机号码</b><span class="black9">(*必填写项)</span></div>
-                    <div class="zh-r-change">       
-                        <form method="POST" action="" class="form-horizontal">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="fyj4uLeBQqYtVsIoywdp6S4L3JlSdAqw">
-                            <fieldset class="inlineLabels">
-                            	<div id="div_id_mobile" class="clearfix control-group">
-                            		<label for="id_mobile" class="control-label requiredField">
-                            			手机号<span class="asteriskField">*</span>
-                            		</label>
-                            		<div class="controls">
-                            			<input class="textinput textInput" id="id_mobile" name="mobile" placeholder="手机号码" type="text">
-                            			<div id="warning_4"><span style="color:red;" id="span1"></span></div>
-                            			<a style="height:20px;width:70px;" class="btn btn-primary" id="send_token_btn" href="javascript:void(0);" onclick="sendMsg()">
-                            				<span>发送验证码</span>
-                            			</a>
-                            		</div>
-                            	</div>
-                            	<div id="div_id_token" class="clearfix control-group">
-                            		<label for="id_token" class="control-label requiredField">
-                            			验证码<span class="asteriskField">*</span>
-                            		</label>
-                            		<div class="controls">
-                            			<input class="textinput textInput" id="id_token" name="token" placeholder="验证码" type="text">
-                            			<div id="warning_5"><span id="messcode"></span></div>
-                                    </div>
-                            	</div>
-                            </fieldset>
-                            <div class="form-actions">
-                            	<input class="btn" type="button" name="action" value="确认绑定" onclick="cc()">
-                            </div>
-                        </form>        
-                    </div>
-                </div>
-            </div>
-            <a href="javascript:void(0);" class="close" onclick="closeWin()">
-                <img src="${root }/static/images/user/closelabel.png" class="close_image" title="close">
-            </a>
-        </div>
-    </div>
 <!-- <script>
  	$(document).ready(
 		function() {
@@ -599,77 +663,33 @@
 
 <script language="javascript">
 //导航选卡
-$(function(){
-    ch = $('.wisub').children();
-    $.each(ch, function(index, value){
-        if (value && (window.location.href ==value.href || window.location.pathname == value.href)) {
-            $(value).addClass("selected");
-        }
-    });
-});
-
-$("#id_mobile").blur(function(){
-	var phone=$("#id_mobile").val().trim();
-	var reg = /^1[3578][0-9]{9}$/; 
-	var flag = reg.test(phone);
-	alert("checkMobile中flag="+flag);
-	if(flag){
-		$.ajax({
-			url : "/zhucexia/customer/validatephone",
-			type : 'POST',
-			dataType: "json",
-			data : {
-				phonenum : phone,
-			},
-			success : function(data) {
-				var data=eval('(' + data + ')');
-				if(data.message=="该手机已占用"){					
-					$("#warning_4 span").html("该手机已占用aaaaaaaaa");
-					$("#warning_4").show();
-					alert("if中"+$("#warning_4 span").html());
-				}else{
-					$("#warning_4 span").html("true");
-					alert("else中"+$("#warning_4 span").html());
-				}
-			}
-		});
-	}else{
-		$("#warning_4 span").html("请输入正确的手机号");
-		$("#warning_4").show();
-	}
-	alert($("#warning_4 span").html());
-});
-
-//验证手机验证码
-$("#id_token").blur(function(){
-		var yzm=$(this).val();
-		if(yzm!="" || yzm!=null){
-			$.ajax({
-				url : "/zhucexia/customer/validateyzm",
-				type : 'POST',
-				dataType: "json",
-				data : {
-					"yzm" : yzm,
-				},
-				success : function(data) {
-					var data=eval("(" + data + ")");
-					if(data.message !="输入正确"){
-						validCode=false;
-						$("#warning_5 span").html(data.message);
-						$("#warning_5").show();
-					}else{
-						validCode=true;
-						$("#warning_5 span").html("验证通过");
-						$("#warning_5").show();
-					}
-				},
-			});
-		}else{
-			$("#wanrging_5 span").html("不能为空");
-			$("#warning_5").show();
-		}
-			
+	$(function(){
+	    ch = $('.wisub').children();
+	    $.each(ch, function(index, value){
+	        if (value && (window.location.href ==value.href || window.location.pathname == value.href)) {
+	            $(value).addClass("selected");
+	        }
+	    });
 	});
+	
+	
+	var mobile = '<%=customer.getMobile()%>';
+	if(mobile==""||mobile==null){
+		$("#bindedMobile").css("display","none");
+		$("#bindMobile").css("display","block");
+	}else{
+		$("#bindedMobile").css("display","block");
+		$("#bindMobile").css("display","none");
+	}
+	var email = '<%=customer.getEmail() %>';
+	if(email==""||email==null||email=="null"){
+		$("#prompt b").html("绑定电子邮箱");
+	}else{
+		$("#prompt b").html("您已绑定电子邮箱"+email);
+		$("#prompt span").html("如要解除绑定请验证");
+		$("#id_email").val('<%=customer.getEmail()%>');
+		$("#id_email").attr("readonly","true");
+	}
 </script>
 </body>
 </html>
