@@ -158,11 +158,11 @@
 												</dl>
 												<dl>
 													<dt>
-														<a href="http://www.zhucexia.com/addressbook/">
+														<a href="${root}/address/addrManage">
 														<img src="${root }/static/images/user/procurementlist.png"></a>
 													</dt>
 													<dd>
-														<a href="http://www.zhucexia.com/addressbook/">收货地址管理</a>
+														<a href="${root}/address/addrManage">收货地址管理</a>
 													</dd>
 												</dl>
 												<!--<div class="span4"><div class="box-quick-link brown-background"><a href="/orders/"><div class="link-header"><i class="fa fa-folder-open-o fa-2x"></i></div><div class="content-title">订单管理</div></a></div></div><div class="span4"><div class="box-quick-link purple-background"><a href="/unreview/items/"><div class="link-header"><i class="fa fa-comments fa-2x"></i></div><div class="content-title">评价管理</div></a></div></div><div class="span4"><div class="box-quick-link green-background"><a href="/favorites/"><div class="link-header"><i class="fa fa-star fa-2x"></i></div><div class="content-title">我的收藏</div></a></div></div><div class="span4"><div class="box-quick-link blue-background"><a href="/adressbook/"><div class="link-header"><i class="fa fa-home fa-2x"></i></div><div class="content-title">收货地址管理</div></a></div></div>-->

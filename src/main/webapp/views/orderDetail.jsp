@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <jsp:include page="/views/common/header.jsp" />
 <jsp:include page="/views/common/top.jsp" />
 <link rel="stylesheet" type="text/css"
@@ -59,7 +60,16 @@
 							<div class="box-bd">
 								<div class="clearfix xm-address-list" id="checkoutAddrList">
 										<c:if test="${!empty customerAddr}">
-											<dl class="item selected" data-isnew="true" >
+											<c:set value="${fn:split(customerAddr.addressId,',')}" var="strs"/>
+											<c:set value="${fn:split(customerAddr.address,' ')}" var="str"/>
+											<dl class="item selected"  data-isnew="true" data-consignee="${customerAddr.name}" 
+													data-tel="${customerAddr.telephone}" data-province="${strs[0]}" 
+													data-provincename="${str[0]}" 
+													data-city="${strs[1]}" data-cityname="${str[1]}" 
+													data-county="${strs[2]}" data-countyname="${customerAddr.areaRegion}" 
+													data-zipcode="${customerAddr.zip_code}" data-street="${customerAddr.street}" 
+													data-tag="${customerAddr.remark}"
+													data-id="${custoemrAddr.id }">
 									            <dt>
 									                <strong class="itemConsignee">${ customerAddr.name}</strong>
 									                <span class="itemTag tag">${customerAddr.remark}</span>
@@ -67,8 +77,8 @@
 									            <dd>
 									                <p class="tel itemTel">${customerAddr.telephone}</p>
 									                <p class="itemRegion">${customerAddr.address} ${customerAddr.areaRegion}</p>
-									                <p class="itemStreet">${customerAddr.street}</p>
-									                <input type="hidden" name="addressId" value="${customerAddr.id}">
+									                <p class="itemStreet">${customerAddr.street} (${customerAddr.zip_code})</p>
+									                <input type="hidden" name="addressId" value="${customerAddr.id}" id="Addid">
 									                 <c:if test="${saleOrder.paymentstate==0 and saleOrder.paymentcode!='cash_on_delivery'}"> 
 									                	<span class="edit-btn J_editAddr">编辑</span>
 									                 </c:if> 
@@ -137,6 +147,7 @@
 												name="userAddress[tag]" id="Tag" class="input"
 												placeholder='地址标签：如"家"、"公司"。限5个字内'>
 											<p class="tip-msg tipMsg"></p>
+											<input type="hidden" id="AddIds" name="AddrIds">
 										</div>
 									</div>
 									<div class="ft clearfix">
@@ -383,6 +394,8 @@
 
 			</div>
 		</div>
+		<!-- 选择页面，该页面为2 -->
+		<input type="hidden" value="2" id="flag">
 		<!--  预售提示 E-->
 
 		<script id="newAddrTemplate" type="text/x-dot-template">
