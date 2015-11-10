@@ -20,16 +20,14 @@
 				           		  <span id="logins" class="mm">
 					           		 	<li class="xf"> <%=customer.getUsername() %></li>
 					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/sales/userManager">个人中心</a></li>
-					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/views/myorder.jsp">我的订单</a></li>
+					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/sales/toShopCart">购物车&nbsp;&nbsp;&nbsp;</a></li>
 				           		  </span>
 			           		<!-- </a> -->
 		           		 </span> 
                	       </span>
- 
                	      <span id="ww" style="display:none;">
                	      		 <a href="javascript:" class="J_dialog mm" data="log" id="pp"><span id="logina">登录</span></a> |  
-               	            <a href="javascript:ee();" class="J_dialog mm" data="reg"><span id="turnbacka">注册</span></a> &nbsp; 
-
+               	             <a href="javascript:ee();" class="J_dialog mm" data="reg"><span id="turnbacka">注册</span></a> &nbsp; 
                	       </span>
            	             <% 
            		}else{
@@ -46,7 +44,7 @@
 				           		  <span id="a11" class="mm" id="a2">
 					           		 	<li class="xf">13916247927</li>
 					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/sales/userManager">个人中心</a></li>
-					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/views/myorder.jsp">我的订单</a></li>
+					           		 	<li class="cc"><span style="color:orange;">▷ &nbsp;</span><a href="${root }/sales/toShopCart">购物车&nbsp;&nbsp;&nbsp;</a></li>
 				           		  </span>
 			           		<!-- </a> -->
 		           		 </span>

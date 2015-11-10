@@ -127,7 +127,11 @@ public class SalaOrderController {
 		System.out.println("进入了SalaOrderController的方法---toBuildOrder");
 		return "cart";
 	}
-	
+	/*跳转到我的购物车*/
+	@RequestMapping("toShopCart")
+	public String toShopCart(){
+		return "cart";
+	}
 	/*页面上删除商品后，清除session里的相应的商品信息，同时清除该商品关联的推送的其他商品的信息*/
 	@RequestMapping("/clearSessionGood")
 	public String clearSessionGood(String ids,HttpServletRequest request ){
