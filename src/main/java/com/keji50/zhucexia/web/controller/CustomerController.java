@@ -24,6 +24,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.keji50.zhucexia.common.utils.MD5Utils;
 import com.keji50.zhucexia.dao.po.CustomerEmailPo;
@@ -331,25 +333,36 @@ public class CustomerController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/setBaseDate")
-	@ResponseBody
-	public String setBaseDate(HttpServletRequest request,HttpServletResponse response,ModelMap maps)throws Exception{
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request); 
-		DiskFileItemFactory factory = new DiskFileItemFactory();
-		ServletFileUpload uploader = new ServletFileUpload(factory);
-		List<FileItem> list = uploader.parseRequest(request);
-		for(FileItem item:list){
-			if (item.isFormField()){
-			// 处理普通表单域
-			String field = item.getFieldName();//表单域名
-			String value = item.getString("UTF-8");
-			} else {
-			//将临时文件保存到指定目录
-			String fileName = item.getName();//文件名称
-			String filepath = "${root}/static/images/user" + fileName;
-			item.write(new File(filepath));//执行保存
-			}
+	public String setBaseDate(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
+		MultipartFile file = null;
+		if(req.getFileNames().hasNext()){
+			file = req.getFile(req.getFileNames().next());
 		}
-		return null;
+		String fileName = file.getOriginalFilename();
+		String path = request.getSession().getServletContext().getRealPath("/")+"/static/images/user/";
+		System.out.println(path);
+		File files = new File(path);
+		if(!files.exists()){
+			files.mkdir();
+		}
+		File tempFile = new File(path,new Date().getTime()+String.valueOf(fileName));
+        if (!tempFile.getParentFile().exists()) {  
+            tempFile.getParentFile().mkdir();  
+        }  
+        if (!tempFile.exists()) {  
+            tempFile.createNewFile();  
+        }
+        file.transferTo(tempFile);
+        String filePath= request.getSession().getServletContext().getContextPath()+"/static/images/user/"+tempFile.getName();
+        System.out.println(filePath);
+        CustomerPo customer = new CustomerPo();
+        customer.setUsername(req.getParameter("username"));
+        customer.setPic(tempFile.getName());
+        customer.setPic_id(tempFile.getName());
+        System.out.println(customer.getUsername()+","+customer.getPic()+","+customer.getPic_id());
+        customerService.setBaseDate(customer);
+		return "home";
 	}
 	
 	/**
@@ -407,6 +420,7 @@ public class CustomerController {
 		if(result<=0){
 			i=1;
 		}
+		customerPo.setMobile(mobile);
 		return i;
 	}
 	
