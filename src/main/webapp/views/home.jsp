@@ -117,8 +117,7 @@
 										<div class="pc_personInfobox clearfix">
 											<div class="fl himg">
 												<img src="${root }/static/images/user/usercenter_head.jpg"
-													width="60" height="60"
-													onerror="this.src=&#39;/site_media/static/division/user/imgs/nophoto.gif&#39;">
+													width="60" height="60" id="headPic">
 											</div>
 											<div class="pc_personInfo_body mb5">
 												<div id="nick" style="display:none;">昵称：
@@ -231,7 +230,7 @@
 									<div class="accountView_right">
 										<h2 class="f14 mb20 mainColor">账户安全与通知</h2>
 										<!-- 安全条 -->
-										<div class="safeScroll">
+										<div class="safeScroll" style="display:none;">
 											<p class="moren"></p>
 											<p class="qiang">
 												<span class="wenzi">强</span>
@@ -244,13 +243,13 @@
 											<div class="mb20 clearfix">
 												<div class="icon-accountMail icon-accountMail-none fl mr15"></div>
 												<div class="mainColor mt3 fl">
-													<p>
+													<p id="safe_prompt1">
 														<i class="listStyle-dot"></i>
-														<span class="mr10">邮箱验证：未验证</span>
+														<span class="mr10"></span>
 														<a rel="facebox" target="_blank" class="blue"
-															href="javascript:;">验证</a>
+															href="javascript:;" onclick="bindEmailWin()">绑定</a>
 													</p>
-													<p>
+													<p id="safe_prompt2">
 														<i class="listStyle-dot"></i>
 														<span class="mr10">邮箱通知：未开通</span>
 													</p>
@@ -262,11 +261,13 @@
 												<div class="icon-accountMobile icon-accountMobile fl mr15">
 												</div>
 												<div class="mainColor mt3 fl">
-													<p>
+													<p id="safe_prompt3">
 														<i class="listStyle-dot"></i>
 														<span class="mr10">手机验证：已验证13501635413</span>
+														<a rel="facebox" target="_blank" class="blue" 
+															href="javascript:;" onclick="bindMobileWin()">绑定</a>
 													</p>
-													<p>
+													<p id="safe_prompt4">
 														<i class="listStyle-dot"></i>
 														<span class="mr10">短信通知：已开通</span>
 													</p>
@@ -313,12 +314,13 @@
 				</div>
 			</div>
 	</div>
+	
 	<div id="facebox" style="display:none" class="facebox">
 		<div class="popup">
 			<div class="content">
 				<div class="face-block">
-				  <form class="form-horizontal" id="baseDateForm" method="post"  ENCTYPE="multipart/form-data">
-					<input type="hidden" name="csrfmiddlewaretoken" value="fyj4uLeBQqYtVsIoywdp6S4L3JlSdAqw">
+				  <form class="form-horizontal" id="baseDateForm" method="post" action="/zhucexia/customer/setBaseDate"
+				  ENCTYPE="multipart/form-data">
 					<div id="div_id_username" class="clearfix control-group">
 					  <label for="id_username" class="control-label ">
 						用户名
@@ -340,20 +342,22 @@
 							头像
 						</label>
 						<div class="controls">
-							<img id="avatar" src="../static/images/user/usercenter_head.jpg" 
-							width="100" height="100">
-							<div id="container">
+							<div id="preview">
+								<img id="avatar" src="../static/images/user/usercenter_head.jpg" 
+								width="100" height="100">
+							</div>
+							<div class="file">选择图片
 								<!-- <a class="btn btn-default btn-lg " id="pickfiles" href="javascript:void(0);" 
 									style="position: relative; z-index: 1;">
 									<i class="glyphicon glyphicon-plus"></i>
 									<sapn>选择文件</sapn>
 								</a> -->
-								<input type="file" value="上传" name="image">
+								<input type="file" value="上传" name="image" onchange="previewImage(this)"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-actions">
-					  <input class="btn btn-primary" type="button" name="action" value="确定" onclick="aa()">
+					  <input class="btn btn-primary" type="submit" name="action" value="确定">
 					</div>
 				  </form>
 			</div>
@@ -363,6 +367,7 @@
 			</a>
 		</div>
 	</div>
+	
 	<div id="facebox" style="display:none;" class="facebox">
 	    <div class="popup">         
 	        <div class="content">       
@@ -652,6 +657,32 @@
 	#facebox .close {
 		opacity: 1;
 	}
+	.file {
+    position: relative;
+    display: inline-block;
+    background: #ECECEC;
+    border: 1px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #000;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+	}
+	.file input {
+	    position: absolute;
+	    font-size: 100px;
+	    right: 0;
+	    top: 0;
+	    opacity: 0;
+	}
+	.file:hover {
+	    background: #DAE1E6;
+	    border-color: #BABDC5;
+	    color: #000;
+	    text-decoration: none;
+	}
 </style>
 <!-- <script>
  	$(document).ready(
@@ -659,8 +690,9 @@
 			$("a[rel*='facebox']").facebox();
 				}); 
 </script> -->
+<div id="facebox_overlay" class="facebox_hide facebox_overlayBG" style="display: none; opacity: 0.2;"></div>
 
-<script language="javascript">
+<script type="text/javascript">
 //导航选卡
 	$(function(){
 	    ch = $('.wisub').children();
@@ -676,19 +708,29 @@
 	if(mobile==""||mobile==null){
 		$("#bindedMobile").css("display","none");
 		$("#bindMobile").css("display","block");
+		$("#safe_prompt3 span").html("绑定手机：未绑定");
+		$("#safe_prompt4 span").html("短信通知：未开通");
 	}else{
 		$("#bindedMobile").css("display","block");
 		$("#bindMobile").css("display","none");
+		$("#safe_prompt3 span").html("绑定手机："+mobile);
+		$("#safe_prompt3 a").css("display","none");
+		$("#safe_prompt4 span").html("短信通知：已开通");
 	}
 	var email = '<%=customer.getEmail() %>';
 	if(email==""||email==null||email=="null"){
 		$("#prompt b").html("绑定电子邮箱");
+		$("#safe_prompt1 span").html("绑定邮箱：未绑定");
+		$("#safe_prompt2 span").html("邮箱通知：未开通");
 	}else{
 		$("#prompt b").html("您已绑定电子邮箱"+email);
 		$("#prompt span").html("如要解除绑定请验证");
 		$("#id_email").val('<%=customer.getEmail()%>');
 		$("#id_email").attr("readonly","true");
 		$("#emailEvent").val("解除绑定");
+		$("#safe_prompt1 span").html("绑定邮箱："+email);
+		$("#safe_prompt1 a").css("display","none");
+		$("#safe_prompt2 span").html("邮箱通知：已开通");
 		
 	}
 	
@@ -698,6 +740,12 @@
 	}else{
 		$("#nick span").html(nickName)
 	}
+	
+	var pic = "<%=customer.getPic() %>";
+	if(pic!=""&&pic!=null&&pic!="null"){
+		$("#headPic").attr("str","../static/user/"+pic+".jpg")
+	}
+	
 </script>
 </body>
 </html>
