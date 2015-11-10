@@ -16,7 +16,6 @@
 		<spring.version>3.2.12.RELEASE</spring.version>
 		<mybatis.version>3.2.8</mybatis.version>
 		<aspectj.version>1.6.8</aspectj.version>
-		<atomikos.version>3.9.3</atomikos.version>
 		<druid.version>0.2.9</druid.version>
 		<mybatis.version>3.2.8</mybatis.version>
 		<org.mybatis.version>1.2.2</org.mybatis.version>
@@ -114,21 +113,6 @@
 		</dependency>
 
 		<!-- 持久相关 -->
-		<dependency>
-			<groupId>com.atomikos</groupId>
-			<artifactId>atomikos-util</artifactId>
-			<version>${atomikos.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.atomikos</groupId>
-			<artifactId>transactions</artifactId>
-			<version>${atomikos.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.atomikos</groupId>
-			<artifactId>transactions-jdbc</artifactId>
-			<version>${atomikos.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.alibaba.druid</groupId>
 			<artifactId>druid-wrapper</artifactId>
