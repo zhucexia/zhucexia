@@ -47,8 +47,12 @@ public class CustomerEmailPo extends BasePo {
 		StringBuilder validationUrl = new StringBuilder(baseValidationUrl);
 		validationUrl.append("?id=").append(id).append("&type=").append(type).append("&validationCode=").append(toMD5ValidationString());
 
+
 		System.out.println(String.format(EmailTemplate.getTemplate(type), validationUrl));
        
+
+
+
 		return String.format(EmailTemplate.getTemplate(type), validationUrl);
 	}
 
