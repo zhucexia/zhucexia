@@ -106,4 +106,8 @@ public class CustomerService {
 		Boolean flag=customerPoMapper.selectByEmail(email)==null;
 		return flag;
 	}
+	
+	public CustomerPo checkEmail(CustomerPo customer){
+		return customerPoMapper.checkEmail(customer);
+	}
 }

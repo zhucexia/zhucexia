@@ -13,7 +13,7 @@
 			<div class="pro-left-imgs">
 				<div class="big-img">
 					<a class="jqzoom" href="javascript:void(0);"><img id="bigSS"
-						src="${root }/static/images/index/goods/${go.pic}"
+						src="http://${go.pic}"
 						jqimg="${root }/static/images/product/product_hongkou_315.jpg"
 						width="315"></a>
 				</div>
@@ -24,7 +24,7 @@
 						<div class="clearfix price-wrap">
 						<dl class="pro-price">
 							<dt>价格</dt>
-							<dd><span>￥1500</span><del>￥1800</del></dd>
+							<dd><span>￥${go.price_market}</span><del>￥1800</del></dd>
 						</dl>
 						<dl class="pro-price">
 							<dt>注册时长</dt>
@@ -33,10 +33,13 @@
 						<em class="line"></em>	
 					</div>					
 					<div class="pro-attr">
+					<c:if test="${! empty go.names} }">
+					
 						<dl>
 							<dt>${go.names }：</dt>
 							<dd>${go.option_value }</dd>
 						</dl>
+					</c:if>
 						<dl>
 							<dt>申请条件：</dt>
 							<dd>${go.apply_condition }</dd>
@@ -67,41 +70,7 @@
 					</ul>
 				</div>
 				<div class="bd typo">
-					<p style="text-align: center;">
-						<span style="font-size: 24px;">套餐内容</span>
-					</p>
-					<p style="text-align: center">
-						<img src="${root }/static/images/product/product_taocanneirong.jpg"
-							alt="product_taocanneirong.jpg" width="950" height="208"
-							border="0" vspace="0" style="width: 950px; height: 208px;">
-					</p>
-					<p style="text-align: center;">
-						<span style="font-size: 24px;">注册流程<br></span>
-					</p>
-					<p>
-						<br>
-					</p>
-					<p style="text-align: center">
-						<img src="${root }/static/images/product/product_zhuceliucheng.jpg"
-							alt="product_zhuceliucheng.jpg" width="950" height="236"
-							border="0" vspace="0" style="width: 950px; height: 236px;">
-					</p>
-					<p style="text-align: center;">
-						<span style="font-size: 24px;">企业需要做什么</span>
-					</p>
-					<p>
-						<br>
-					</p>
-					<p style="text-align: center">
-						<img src="${root }/static/images/product/product_qiyezuoshenme.jpg"
-							alt="">
-					</p>
-					<p>
-						<br>
-					</p>
-					<p style="text-align: center">
-						<br>
-					</p>
+					${go.detail_content}
 				</div>
 			</div>
 		</div>
@@ -109,7 +78,6 @@
 	</div>
 			</c:forEach>
 </div>
-<<<<<<< HEAD
 <script type="text/javascript">
 	function bookOrder(id){
 			<%CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
@@ -125,7 +93,5 @@
 
 
 </script>
-=======
 
->>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
 <jsp:include page="/views/common/footer.jsp" />

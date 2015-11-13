@@ -41,24 +41,48 @@
 						class="cur">套餐</a>
 				</div>
 				<ul class="newc-list clearfix" style="display: block; top: 0px;">
-					<c:forEach items="${goodlist }" var="good">
-					<li>
-						<div class="pic">
-							<span><a href="#"
-								title="${good.name }"><img dataid="356963" width="320"
-									src="${root }/static/images/index/goods/${good.pic}"
-									alt="${good.name }" class="356963" height="256"></a></span>
-						</div>
-						<div class="dec-right">
-							<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
-						</div>
-						<div class="dec-left">
-							<h5>
-								<a href="#" title="${good.name }">${good.name }</a>
-							</h5>
-							<p>${good.apply_condition }</p>
-						</div>
-					</li>
+					<c:forEach items="${goodlist }" var="good" varStatus="status">
+					<c:choose>
+						<c:when test="${status.index%3==0 }">
+							<li style="margin-left:0;">
+								<div class="pic">
+									<span><a href="#"
+										title="${good.name }"><img dataid="356963" width="320"
+											src="http://${good.pic}"
+											alt="${good.name }" class="356963" height="256"></a></span>
+								</div>
+								<div class="dec-right">
+									<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
+								</div>
+								<div class="dec-left">
+									<h5>
+										<a href="#" title="${good.name }">${good.name }</a>
+									</h5>
+									<p>${good.apply_condition }</p>
+								</div>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<div class="pic">
+									<span><a href="#"
+										title="${good.name }"><img dataid="356963" width="320"
+											src="http://${good.pic}"
+											alt="${good.name }" class="356963" height="256"></a></span>
+								</div>
+								<div class="dec-right">
+									<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
+								</div>
+								<div class="dec-left">
+									<h5>
+										<a href="#" title="${good.name }">${good.name }</a>
+									</h5>
+									<p>${good.apply_condition }</p>
+								</div>
+							</li>
+						</c:otherwise>
+					</c:choose>
+						
 					</c:forEach>
 					<%-- <li>
 						<div class="pic">

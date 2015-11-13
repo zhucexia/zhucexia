@@ -116,8 +116,8 @@
 									<div class="pc_personInfo">
 										<div class="pc_personInfobox clearfix">
 											<div class="fl himg">
-												<img src="${root }/static/images/user/usercenter_head.jpg"
-													width="60" height="60" id="headPic">
+												<img 
+													width="100%" height="100%" id="headPic">
 											</div>
 											<div class="pc_personInfo_body mb5">
 												<div id="nick" style="display:none;">昵称：
@@ -352,12 +352,12 @@
 									<i class="glyphicon glyphicon-plus"></i>
 									<sapn>选择文件</sapn>
 								</a> -->
-								<input type="file" value="上传" name="image" onchange="previewImage(this)"/>
+								<input id="image" type="file" value="上传" name="image" onchange="previewImage(this)"/>
 							</div>
 						</div>
 					</div>
 					<div class="form-actions">
-					  <input class="btn btn-primary" type="submit" name="action" value="确定">
+					  <input class="btn btn-primary" type="button" name="action" value="确定" onclick="aa()">
 					</div>
 				  </form>
 			</div>
@@ -467,7 +467,7 @@
                             		<div class="controls">
                             			<input class="textinput textInput" id="id_mobile" name="mobile" placeholder="手机号码" type="text">
                             			<a style="height:20px;width:70px;" class="btn btn-primary" id="send_token_btn" href="javascript:void(0);" onclick="sendMsg()">
-                            				<span id="code">获取验证码</span>
+                            				<span id="code1">获取验证码</span>
                             			</a>
                             			<div id="warning_6"><span style="color:red;" id="span1"></span></div>
                             		</div>
@@ -503,6 +503,7 @@
                     <div class="zh-r-change">       
                         <form method="POST" action="" class="form-horizontal">
                             <fieldset class="inlineLabels">
+                            	<input type="hidden" name="type" id="type" value="0"/>
                             	<div id="div_id_mobile" class="clearfix control-group">
                             		<label for="id_mobile" class="control-label requiredField">
                             			电子邮箱<span class="asteriskField">*</span>
@@ -719,10 +720,12 @@
 	}
 	var email = '<%=customer.getEmail() %>';
 	if(email==""||email==null||email=="null"){
+		$("#type").val("0");
 		$("#prompt b").html("绑定电子邮箱");
 		$("#safe_prompt1 span").html("绑定邮箱：未绑定");
 		$("#safe_prompt2 span").html("邮箱通知：未开通");
 	}else{
+		$("#type").val("2");
 		$("#prompt b").html("您已绑定电子邮箱"+email);
 		$("#prompt span").html("如要解除绑定请验证");
 		$("#id_email").val('<%=customer.getEmail()%>');
@@ -743,8 +746,11 @@
 	
 	var pic = "<%=customer.getPic() %>";
 	if(pic!=""&&pic!=null&&pic!="null"){
-		$("#headPic").attr("str","../static/user/"+pic+".jpg")
+	var headPic = "../static/images/user/"+pic;
+	}else{
+		headpic = "../static/images/user/usercenter_head.jpg"
 	}
+		$("#headPic").attr("src",headPic)
 	
 </script>
 </body>

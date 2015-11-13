@@ -27,10 +27,24 @@
 		function losepass(){
 			$("#log").css("display","none");
 			$("#reg").css("display","none");
+			$(".lostmobile").hide();
+			$(".yzms").hide();
+			$(".wei").hide();
+			$(".conwei").hide();
+			/* $("#edit1").css("display","block");
+			$("#edit2").css("display","block");
+			$("#ee").css("display","none");
+			$("#ff").css("display","none"); */
 		}
 		function regist(){
 			$("#log").css("display","none");
 			$("edit").css("display","none");
+			$(".uts").hide();
+			$(".zcpwd").hide();
+			$(".zcconpwd").hide();
+			$(".pts").hide();
+			$("#messcode").hide();
+			$(".zcemail").hide();
 		}
 </script>
 <!--登录窗结束体-->
@@ -40,7 +54,8 @@
 		注 册  <a href="javascript:;" title="关闭" class="close">×</a> <br />
 	</div>
 	<div class="theme-popbod dform">
-		<form class="theme-signin" name="loginform" action="" method="post">
+		<form class="theme-signin" name="loginform" action="" method="post" >
+			<input type="hidden" name="type" value="0" />
 			<ul>
 				<li><strong>用户名：</strong> <input class="ipt" type="text"
 					name="username" placeholder="注册侠" size="20" id="username"/><span class="uts"></span></li>
@@ -69,11 +84,17 @@
 		找 回 密 码！ <a href="javascript:;" title="关闭" class="close">×</a> <br />
 	</div>
 	<div class="theme-popbod dform">
+		<!-- <div style="padding:0px 0px 20px 30px;margin-left:20px;text-align:left;font-size:15.5px;" id="edit1">
+			<a href="javascript:editByMobile();" style="color:#000;text-decoration:none">通过验证手机号找回密码</a>
+		</div>
+		<div style="padding:0px 0px 20px 30px;margin-left:20px;text-align:left;font-size:15.5px;" id="edit2">
+			<a href="javascript:editByEmail();" style="color:#000;text-decoration:none">通过验证邮箱找回密码</a>
+		</div> -->
 		<form class="theme-signin" name="editform" action="#" method="post"
-			id="ee">
+			id="ee" style="display:block">
 			<ul>
 				<li><strong>手 机 号：</strong> <input class="ipt" type="text"
-					name="phonenumber" size="20" id="mob" /><span class="lostmobile" style="color:red;"></span></li>
+					name="phonenumber" size="20" id="mob" /><span class="lostmobile"></span></li>
 				<li><strong>验 证 码：</strong> <input class="ipt" type="text"
 					name="regmsg" size="20" id="getmess" style="width:100px;"/><span class="msgs" id="messages" onclick="lostpwd()">获取短信验证码</span> <span class="yzms"></span>
 				</li>
@@ -85,12 +106,47 @@
 					value=" 确 认 " class="bj" /><span></span></li>
 			</ul>
 		</form>
+		<!-- <form class="theme-signin" name="editform1" method="post" id="ff" style="display:none" action="">
+			<input id="type1" type="hidden" name="type1" value="1" />
+			<ul>
+				<li>
+					<strong>用 户 名：</strong>
+					<input class="ipt" type="text" name="username" id="username1"/>
+					<span id="prompt_1" style="color:red;"></span>
+				</li>
+				<li>
+					<strong>电子邮箱：</strong>
+					<input class="ipt" type="text" name="email" id="email1"/>
+					<span id="prompt_2" style="color:red;"></span>
+				</li>
+				<li>
+					<strong>验 证 码：</strong>
+					<input class="ipt" type="text" name="code" id="code"/>
+					<span class="msgs" id="messages" onclick="lostpwd1()">获取短信验证码</span>
+					<span id="prompt_3" style="color:red;"></span>
+				</li>
+				<li>
+					<strong>新 密 码：</strong>
+					<input class="ipt" type="password" name="newPwd" id="newPwd"/>
+					<span id="prompt_4" style="color:red;"></span>
+				</li>
+				<li>
+					<strong>确认密码：</strong>
+					<input class="ipt" type="password" name="finalPwd" id="newPwd"/>
+					<span id="prompt_5" style="color:red;"></span>
+				</li>
+				<li>
+					<input id="editByEmail" class="btn btn-primary" type="button" name="editByEmail" value="确认"/>
+					<span id="prompt_6" style="color:red;"></span>
+				</li>
+			</ul>
+		</form> -->
 	</div>
 </div>
 <!--忘记密码窗结束体-->
 
 <!--材料-->
-<div class="theme-popover" id="cl">
+<!-- <div class="theme-popover" id="cl">
 	<div class="theme-poptit">
 		提交材料！ <a href="javascript:;" title="关闭" class="close">×</a> <br />
 	</div>
@@ -119,7 +175,7 @@
 				
 			</ul>
 		</form>		
-  <!--  <label>收货人姓名<span>*</span></label> 
+   <label>收货人姓名<span>*</span></label> 
                 <input type="text" name="userAddress[consignee]" id="Consignee" class="input" placeholder="收货人姓名" maxlength="15" autocomplete='off'>
   <br/> <label>联系电话<span>*</span></label> 
                 <input type="text" name="userAddress[tel]" class="input" id="Telephone" placeholder="11位手机号" autocomplete='off'>
@@ -136,33 +192,51 @@
                 <input type="text" name="userAddress[zipcode]" id="Zipcode" class="input" placeholder="邮政编码"  autocomplete='off'>
                 
                  <br/> <label>地址标签<span>*</span></label> 
-                <input type="text" name="userAddress[tag]" id="Tag" class="input" placeholder='地址标签：如"家"、"公司"。限5个字内'  > -->
-   <!--  <input type="button" id="btnval" value="获取值" style="padding:5px 15px;"/>
+                <input type="text" name="userAddress[tag]" id="Tag" class="input" placeholder='地址标签：如"家"、"公司"。限5个字内'  >
+    <input type="button" id="btnval" value="获取值" style="padding:5px 15px;"/>
     <input type="button" id="btntext" value="获取文本" style="padding:5px 15px;" />
-	 <input type="button" id="bb" value="获取文本" style="padding:5px 15px;" /> -->
+	 <input type="button" id="bb" value="获取文本" style="padding:5px 15px;" />
 
 
 	</div>
-</div>
+</div> -->
 <!--材料-->
 <script type="text/javascript">
-	var lost=false;	
-	 $("#conwei").blur(function(){
+	/* function editByMobile(){
+		$("#edit1").css("display","none");
+		$("#edit2").css("display","none");
+		$("#ee").css("display","block");
+	}
+	
+	function editByEmail(){
+		$("#edit1").css("display","none");
+		$("#edit2").css("display","none");
+		$("#ff").css("display","block");
+	} */
+	
+		
+	 /* $("#conwei").blur(function(){
 			var cons=$("#wei").val();
 			var conpw=$(this).val();
-			if(cons !=conpw){
-				$(".conwei").html("密码输入不一致!!!");
-				lost=false;
-			}else{
-				lost=true;
+			if(cons==conpw&&conpw!=""&&conpw!=null){
 				$(".conwei").html("输入正确");
 				$(".conwei").css({"font-weight":"bold","color":"#0099FF"});
+				$(".conwei").show();
+				lost=true;
+			}else if(conpw==""||conpw==null){
+				lost=false;
+				$(".conwei").html("请确认密码");
+				$(".conwei").show();
+			}else{
+				lost=false;
+				$(".conwei").html("两次输入密码不同");
+				$(".conwei").show();
 			}
-		}) 
+		})  */
 	//忘记密码时对输入的手机号进行是否注册过判断
 	$("#mob").blur(function(){
 		var phone=$("#mob").val();
-		if(phone!="" || phone!=null){
+		if(phone!="" && phone!=null){
 			$.ajax({
 				url : "/zhucexia/customer/validatelost",
 				type : 'POST',
@@ -178,6 +252,7 @@
 					}else{
 						lost=false;
 						$(".lostmobile").html("输入有误或未曾注册");
+						$(".lostmobile").show();
 					}
 				},
 				error:function(data) {
@@ -185,21 +260,20 @@
 					}
 			});
 		}else{
-			$(".lostmobile").html("手机不能为空");
+			$(".lostmobile").html("请输入手机号");
+			$(".lostmobile").show();
 		}
 			
 	});
 	
 	//忘记密码时发送短信
 	 function lostpwd(){
-		var phone=$.trim($("#mob").val());
+		var phone=$("#mob").val();
 		if(phone=="" || phone==null ){
-			$(".lostmobile").html("手机号不能为空");
-			lost = false;
+			$(".lostmobile").html("请输入手机号");
+			$(".lostmobile").show();
 			return ;
-		}else if(lost==false){
-			return ;
-		}
+		}else {
 			$.ajax({
 				url : "${root}/customer/mess",
 				type : 'POST',
@@ -216,8 +290,8 @@
 					var data=eval("(" + data + ")");
 				}
 			});
-		
-		} 
+		}
+	} 
 	//注册时发送短信验证	
 	function mess(){
 		var messflag = true;
@@ -305,7 +379,6 @@
 		
 		//忘记密码操作
 		 $('input[name="uppass"]').click(function() {
-			 	alert("忘记密码操作");
 		    	var newpass=$("#wei").val();
 		    	var con=$("#conwei").val();
 		    	var mess=$("#getmess").val();
@@ -313,35 +386,41 @@
 		    	
 		    	if(phone==""){
 		    		lost=false
-		    		$(".lostmobile").html("不能为空");
+		    		$(".lostmobile").html("请输入手机号");
 		    		$(".lostmobile").css({"color":"red","font-weight":"bold"});
+		    		$(".lostmobile").show();
 		    		return ;
 		    	}
 		    	if(mess==""){
 		    		lost=false
-		    		$(".yzms").html("不能为空");
+		    		$(".yzms").html("请输入验证码");
 		    		$(".yzms").css({"color":"red","font-weight":"bold"});
+		    		$(".yzms").show();
 		    		return ;
 		    	}else{
 		    		$(".yzms").html("");
+		    		$(".yzms").show();
 		    	}
 		    	if(newpass==""){
 		    		lost==false;
-		    		$(".wei").html("不能为空");
+		    		$(".wei").html("请输入新密码");
 		    		$(".wei").css({"color":"red","font-weight":"bold"});
+		    		$(".wei").show();
 		    		return ;
 		    	} else{
 		    		$(".wei").html("");
 		    	} 
 		    	if(con==""){
 		    		lost=false;
-		    		$(".conwei").html("不能为空");
+		    		$(".conwei").html("请再次输入密码");
 		    		$(".conwei").css({"color":"red","font-weight":"bold"});
+		    		$(".conwei").show();
 		    		return ;
 		    	}else if(newpass!=con){
 		    		lost=false;
-		    		$(".conwei").html("密码不一致");
+		    		$(".conwei").html("两次输入密码不同");
 		    		$(".conwei").css({"color":"red","font-weight":"bold"});
+		    		$(".conwei").show();
 		    		return ;
 		    	}else if(newpass==con){
 		    		
@@ -353,7 +432,6 @@
 		    		return;
 		    	}  
 		        if (lost==true ) {
-		        	alert("执行忘记密码！！ajax");
 		        	var name=$("#use").val();
 					var password=$("#wei").val();
 					$.ajax({
@@ -388,6 +466,61 @@
 		            return ;
 		        }
 		    });
+		//发送验证邮件前检查用户名和邮箱是否存在
+		function checkDate(){
+			var flag=true;
+			var username=$("#username1").val().trim();
+			alert(username);
+			var email=$("#email1").val().trim();
+			var reg = /^[\w][\w|\.|\_]*@[\w]+(\.[a-zA-Z]{2,4}){1,3}$/;
+			if(username==""||username==null){
+				$("#prompt_1").html("请输入用户名");
+				$("#prompt_1").show();
+				flag=false;
+			}
+			alert(flag);
+			if(!reg.test(email)){
+				$("#prompt_2").html("请输入正确的电子邮箱");
+				$("#prompt_2").show();
+				flag=false;
+			}
+			alert(flag);
+			if(flag){
+				alert("bbbbbbbbbb");
+				$.ajax({
+					async:false,
+					url:"/zhucexia/customer/checkEmail",
+					data:{"username":username,"email":email},
+					type:"post",
+					success:function(data){
+						alert(data);
+						return data;
+					}
+				});
+			}else{
+				
+			}
+		}
+		//发送修改密码验证邮件
+		function lostpwd1(){
+			
+			var email=$("#email1").val().trim();
+			alert(email);
+			var type=$("#type1").val();
+			alert(type);
+			$.ajax({
+				url:"/zhucexia/customer/sendEmail",
+				type:"post",
+				data:{'email':email,'type':type},
+				success:function(data){
+					
+				}
+			});
+		} 
+		
+		//通过邮箱修改密码
+		/* var code=$("#code").val().trim(); */
+		
 
 </script>
 <script type="text/javascript" src="${root}/static/js/includes/loginRe.js"></script>

@@ -33,5 +33,7 @@ public interface CustomerPoMapper {
 	CustomerPo selectById(int id);
 	
 	CustomerPo selectByEmail(String email);
+	
+	CustomerPo checkEmail(CustomerPo customer);
 
 }	

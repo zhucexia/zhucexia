@@ -148,6 +148,8 @@ public class CustomerController {
 		String mobile=request.getParameter("mobile");
 		String json="";
 		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
+		System.out.println("code=="+code+"验证码=="+s.getValidationCode());
+		System.out.println("mobile=="+mobile+"手机号"+s.getMobile());
 		if(s==null){
 			json="{'message':'未发送短信'}";
 		}else{
@@ -221,13 +223,11 @@ public class CustomerController {
 		String email=request.getParameter("email");
 		String smscode=request.getParameter("smscode");
 		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-context.xml");
-		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext.getBean("customerSmsValidationService");
 		String json="";
 		if(s==null){
 			return json="{'message':'未发送短信}";
 		}
-		int result=service.validateSms(s.getId(), phonenum, smscode);
+		int result=customerSmsValidationService.validateSms(s.getId(), phonenum, smscode);
 		System.out.println("验证result:"+result);
 		//验证是否成功 0成功 -1验证码不正确 -2验证码已过期
 		if(result == -1){
@@ -296,15 +296,11 @@ public class CustomerController {
 		String phone=request.getParameter("phonenum");
 		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
 		System.out.println("短信session的值"+s);
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
-				"spring-context.xml");
-		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
-				.getBean("customerSmsValidationService");
 		String json="";
 		if(s==null){
 			return json="{'message':'未发送短信'}";
 		}
-		int result=service.validateSms(s.getId(), phone,mess);
+		int result=customerSmsValidationService.validateSms(s.getId(), phone,mess);
 		System.out.println("验证短信结果result:"+result);
 		//验证是否成功 0成功 -1验证码不正确 -2验证码已过期
 		if(result == -1){
@@ -334,6 +330,7 @@ public class CustomerController {
 	 */
 	@RequestMapping("/setBaseDate")
 	public String setBaseDate(HttpServletRequest request,HttpServletResponse response)throws Exception{
+		System.out.println("11111111111111111111");
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile file = null;
 		if(req.getFileNames().hasNext()){
@@ -356,12 +353,17 @@ public class CustomerController {
         file.transferTo(tempFile);
         String filePath= request.getSession().getServletContext().getContextPath()+"/static/images/user/"+tempFile.getName();
         System.out.println(filePath);
+        String pic = tempFile.getName();
         CustomerPo customer = new CustomerPo();
         customer.setUsername(req.getParameter("username"));
-        customer.setPic(tempFile.getName());
-        customer.setPic_id(tempFile.getName());
+        customer.setPic(pic);
+        customer.setPic_id(pic);
         System.out.println(customer.getUsername()+","+customer.getPic()+","+customer.getPic_id());
-        customerService.setBaseDate(customer);
+        int flag = customerService.setBaseDate(customer);
+        if(flag>0){
+        	CustomerPo cust = (CustomerPo)request.getSession().getAttribute("customer");
+        	cust.setPic(pic);
+        }
 		return "home";
 	}
 	
@@ -434,19 +436,34 @@ public class CustomerController {
 	@ResponseBody
 	public int sendEmail(HttpServletRequest request,HttpServletResponse response){
 		CustomerPo customer = (CustomerPo)request.getSession().getAttribute("customer");
-		int id = customer.getId();
-		String email = request.getParameter("email");
+		CustomerEmailPo customerEmail = new CustomerEmailPo();
 		CustomerPo cust = new CustomerPo();
-		cust.setEmail(email);
-		cust.setId(id);
+		int type = Integer.parseInt(request.getParameter("type"));
 		String ip="";
+		String email = request.getParameter("email");
+		cust.setEmail(email);
 		try {
 			ip = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
+		if(type==1){
+			cust.setId(0);
+			customerEmail = customerEmailValidationService.sendEmail(cust, ip, EmailTemplate.RESET_PASSWORD_TEMPLATE);
+		}else{
+			int id = customer.getId();
+			cust.setId(id);
+		}
+		
 		System.out.println("ip============"+ip);
-		CustomerEmailPo customerEmail = customerEmailValidationService.sendEmail(cust, ip, EmailTemplate.VALIDATION_TEMPLATE);
+		
+		if(type==0){
+			customerEmail = customerEmailValidationService.sendEmail(cust, ip, EmailTemplate.VALIDATION_TEMPLATE);
+		}
+		
+		if(type==2){
+			customerEmail = customerEmailValidationService.sendEmail(cust, ip, EmailTemplate.UNBIND_TEMPLATE);
+		}
 		int i=0;
 		if(customerEmail==null){
 			i = 1;
@@ -468,17 +485,22 @@ public class CustomerController {
 		int resultCode = Integer.parseInt(result.get("resultCode").toString());
 		String page="";
 		String str="";
+		System.out.println(resultCode);
 		switch(resultCode){
 		case 0:
 			String email = ((CustomerEmailPo)result.get("result")).getEmail();
 			int customerId = ((CustomerEmailPo)result.get("result")).getCustomerId();
-			Boolean flag1 = customerService.selectById(customerId).getEmail()==null;
-			if(flag1){
+			if(emailType.equals("0")){
 				customerService.bindEmail(email, customerId);			
-			}else{
-				customerService.delEmail(customerId);
+				page= "validateSuccess";
 			}
-			page= "validateSuccess";
+			if(emailType.equals("2")){
+				customerService.delEmail(customerId);
+				page="unbindSuccess";
+			}
+			if(emailType.equals("1")){
+				page="changePwd";
+			}
 			break;
 		case -1:
 			page= "validateFailed1";
@@ -487,7 +509,25 @@ public class CustomerController {
 			page= "validateFailed2";
 			break;
 		}
+		System.out.println(page);
 		return page;
+	}
+	
+	//通过邮箱修改密码时检查用户名邮箱是否存在
+	@RequestMapping("/checkEmail")
+	@ResponseBody
+	public Boolean checkDate(HttpServletRequest request,HttpServletResponse response){
+		String username=request.getParameter("username");
+		String email=request.getParameter("email");
+		CustomerPo customer = new CustomerPo();
+		customer.setUsername(username);
+		customer.setEmail(email);
+		CustomerPo cust = customerService.checkEmail(customer);
+		if(cust==null){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 }

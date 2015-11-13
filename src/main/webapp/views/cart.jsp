@@ -25,7 +25,7 @@
 					<c:forEach items="${sessionScope.selectedGood}" var="item" varStatus="status">
 					<tr id="${item.value.id}">
 						<td><input type="checkbox" name="checkbox" value="${item.value.id}"></td>
-						<td class="tal"><img width="150px" height="130px" src="${root }/static/images/${item.value.pic}" alt="">
+						<td class="tal"><img width="150px" height="130px" src="http://${item.value.pic}" alt="">
 							<span class="product-text">${item.value.name}</span></td>
 						<td><span class="price">${item.value.price_market}</span>元</td>
 						<td>尚未提供公司资料</td>
@@ -58,7 +58,7 @@
 			<ul class="cart-list clearfix">
 			   <c:if test="${! empty sessionScope.unSelectedGood}">
 					<c:forEach items="${sessionScope.unSelectedGood}" var="item">
-						<li id="${item.value.id}"><img width="100px" height="100px" src="${root }/static/images/${item.value.pic}" alt=""><br> <b>银行开户</b><br>
+						<li id="${item.value.id}"><img width="100px" height="100px" src="http://${item.value.pic}" alt=""><br> <b>银行开户</b><br>
 						<span>${item.value.name}</span><br> <b class="cash">￥${item.value.price_market}</b><br> <a
 						href="javascript:void(0)" onclick="addGood(${item.value.id})" class="pay-btn">立即申购</a></li>
 			  		</c:forEach>

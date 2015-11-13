@@ -5,6 +5,16 @@ $(function() {
     });
     $('.theme-poptit .close').click(function(){
         $(this).parents('.theme-popover').slideUp(200);
+        $("#username").val("");
+		$("input[name='pwd']").val("");
+		$("input[name='conpwd']").val("");
+		$("input[name='phone']").val("");
+		$("input[name='email']").val("");
+		$("#yzm").val("");
+		$("#wei").val("");
+    	$("#conwei").val("");
+    	$("#getmess").val("");
+    	$("#mob").val("");
     });
 
     var flag = false;
@@ -59,7 +69,7 @@ $(function() {
     $(".msgs").click(function() {
         var pts=$(".pts").html() ; var los=$(".lostmobile").html();
     	validCode = false;
-    	if(($(this).html()=="获取短信验证码" || $(this).html()=="重新获取") && ($("#phone").val()!="" || $("#mob").val()!="该号已占用" ) && (pts != "该号已占用" && los!="输入有误或未曾注册")){
+    	if(($(this).html()=="获取短信验证码" || $(this).html()=="重新获取") && (($("#phone").val()!="" &&pts != "该号已占用" )||($("#mob").val()!=""&&los!="输入有误或未曾注册"))){
 	        var time = 30;
 	        var code = $(this);
             code.addClass("msgs1");
@@ -82,7 +92,7 @@ $(function() {
     //验证用户名是否注册过
     $("#username").blur(function(){
     		var name=$("#username").val();
-    		if(name != "" || name!=null){
+    		if(name != "" && name!=null){
     			$.ajax({
     				url : "/zhucexia/customer/validateuser",
     				type : 'POST',
@@ -94,6 +104,7 @@ $(function() {
     					var data=eval("(" + data + ")");
     					if(data.message=="该用户已占用"){
     						$(".uts").html("该用户已占用");
+    						$(".ust").show();
     						validCode=false;
     						if(flag==false || validCode==false){
    				    		 $(".uts").css("color","red");
@@ -120,6 +131,9 @@ $(function() {
     					var data=eval("(" + data + ")");
     				}
     			});
+    		}else{
+    			$(".uts").html("请输入用户名");
+    			$(".uts").show();
     		}
     		
     	});
@@ -127,7 +141,7 @@ $(function() {
     //验证手机是否被占用过
     $("#phone").blur(function(){
 		var phone=$("#phone").val();
-		if(phone!="" || phone!=null){
+		if(phone!="" && phone!=null){
 			$.ajax({
 				url : "/zhucexia/customer/validatephone",
 				type : 'POST',
@@ -140,6 +154,7 @@ $(function() {
 					if(data.message=="该手机已占用"){
 						
 						$(".pts").html("该手机已占用");
+						$(".pts").show();
 						validCode=false;
 						if(flag==false || validCode==false){
 				    		 $(".pts").css("color","red");
@@ -166,6 +181,9 @@ $(function() {
 					var data=eval("(" + data + ")");
 				}
 			});
+		}else{
+			$(".pts").html("请输入手机号");
+			$(".pts").show();
 		}
 		
 	});
@@ -173,13 +191,14 @@ $(function() {
     //验证手机验证码
     $("#yzm").blur(function(){
 		var yzm=$(this).val();
-		if(yzm!="" || yzm!=null){
+		var mobile=$("#phone").val();
+		if(yzm!="" && yzm!=null){
 			$.ajax({
 				url : "/zhucexia/customer/validateyzm",
 				type : 'POST',
 				dataType: "json",
 				data : {
-					yzm : yzm,
+					'yzm' : yzm,'mobile':mobile
 				},
 				success : function(data) {
 					var data=eval("(" + data + ")");
@@ -187,9 +206,12 @@ $(function() {
 						validCode=false;
 						$("#messcode").html(data.message);
 						$("#messcode").css({"color":"red","font-weight":"bold"});
+						$("#messcode").show();
 					}else{
 						validCode=true;
-						$("#messcode").html("");
+						$("#messcode").html("输入正确");
+						$("#messcode").css({"color":"#0697DA","font-weight":"bold"});
+						$("#messcode").show();
 					}
 				},
 				error:function(data) {
@@ -198,7 +220,9 @@ $(function() {
 				}
 			});
 		}else{
-			$("#messcode").html("不能为空");
+			$("#messcode").html("请输入验证码");
+			$("#messcode").css({"color":"red","font-weight":"bold"});
+			$("#messcode").show();
 		}
 			
 	});	
@@ -217,7 +241,7 @@ $(function() {
 		var mobile=$("#phone").val();
 		var email=$("#email").val();
 		var yzm=$("#yzm").val();
-    	if(name=="" || password=="" || cpassword=="" || mobile=="" || yzm=="" || email==""){
+    	if(name=="" || password=="" || cpassword=="" || mobile=="" || yzm==""){
     		$(".zcts").html("完整以上全部内容");
     		$(".zcts").css({"font-weight":"bold","color":"red"});
     		flag==false;
@@ -229,15 +253,16 @@ $(function() {
     	    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
     	    if (!reg.test(email)) {
     	    	flag==false;
+    	    	$(".zcemail").html("邮箱格式不正确");
+    	    	$(".zcemail").show();
         		return ;
-    	  }
+    	    }
     	}
-    	if($(".msgs").html()=="获取短信验证码" || $(".msgs").html()=="重新获取"){
+    	if($("#messcode").html()!="输入正确"){
     		flag==false;
     		return;
     	}   	
     	if (flag==true && validCode==true) {
-    		alert(flag);alert(validCode);
 			$.ajax({
 				url : "/zhucexia/customer/reg",
 				type : 'POST',
@@ -251,7 +276,6 @@ $(function() {
 				},
 				success : function(data) {
 					var data=eval("(" + data + ")");
-					alert(data.message);
 					if(data.message=="注册成功"){
 						$("#username").val("");
 						$("input[name='pwd']").val("");
