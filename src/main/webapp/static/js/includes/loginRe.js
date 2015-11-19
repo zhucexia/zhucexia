@@ -1,10 +1,23 @@
 $(function() {
+	var bool = false;
     $('.J_dialog').click(function(event) {
         var data = $(this).attr('data');
-        $('.theme-popover').filter('#'+data).slideDown(200);
+        //$('.theme-popover').filter('#'+data).slideDown(200);
+        if(data=='log'){
+        	$("#reg").css("display","none");
+        	$("#edit").css("display","none");
+        	$("#log").css("display","block");
+        	$("#logname").val("");
+        	$("#password").val("");
+        	$("#mess").hide();
+        }
+        if(data=='reg'){
+        	regist();
+        }
+        
     });
     $('.theme-poptit .close').click(function(){
-        $(this).parents('.theme-popover').slideUp(200);
+        $('.theme-popover').slideUp(200);
         $("#username").val("");
 		$("input[name='pwd']").val("");
 		$("input[name='conpwd']").val("");
@@ -15,6 +28,7 @@ $(function() {
     	$("#conwei").val("");
     	$("#getmess").val("");
     	$("#mob").val("");
+    	bool = true;
     });
 
     var flag = false;
@@ -77,7 +91,8 @@ $(function() {
             	validCode = true;
                 time--;
                 code.html(time + "秒");
-                if (time == 0) {
+                if (time == 0||bool) {
+                	bool=false;
                     clearInterval(t);
                     code.html("重新获取");
                     validCode = false;
@@ -244,6 +259,7 @@ $(function() {
     	if(name=="" || password=="" || cpassword=="" || mobile=="" || yzm==""){
     		$(".zcts").html("完整以上全部内容");
     		$(".zcts").css({"font-weight":"bold","color":"red"});
+    		$(".zcts").show();
     		flag==false;
     		return ;
     	}else{

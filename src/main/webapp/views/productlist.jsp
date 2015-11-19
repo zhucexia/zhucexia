@@ -27,7 +27,7 @@
 											<div class="cat-item">
 												<div class="cat-name cat-name-2" id="cat-id-114922">
 													<a
-														href="#">
+														href="javascript:newgood()">
 														最新</a>
 												</div>
 											</div>
@@ -38,7 +38,7 @@
 							<li class="li-level-1">
 								<div class="cat-item">
 									<div class="cat-name cat-name-1" id="cat-id-114852">
-										<a href="javascript:server()"> 更多免费服务</a>
+										<a href="javascript:server()"> 更多服务</a>
 									</div>
 								</div>
 							</li>
@@ -58,19 +58,18 @@
 				<div class="rtop">
 					<div class="rtop-tit">上海创业套餐</div>
 					<div class="site-tips rr">
-						当前位置：<a href="/">首页</a> >><a
-							href="http://www.zhucexia.com/usercategory/product/114179/">上海创业套餐</a>
+						当前位置：<a href="${root }/index/show">首页</a> >><span>上海创业套餐</span>
 					</div>
 				</div>
 				<div class="rmid">
 					<div class="box_content">
 						<div class="pro_list clearfix">
-							<ul>
+							<ul id="normal">
 							<c:forEach var="good" items="${ goodlist}">
 								<li><div class="pro_img">
 										<a href="${root}/good/goodsdetail?id=${good.id }"><img
 											dataid="356963" width="215"
-											src="${root }/static/images/index/goods/${good.pic}"
+											src="htpp://${good.pic}"
 											alt="${good.name }" class="356963" height="215" /></a>
 									</div>
 									<div class="pro_tit">
@@ -133,6 +132,20 @@
 										<a href="＃">宝山定制套餐</a>
 									</div></li> --%>
 							</ul>
+							<ul id="new" style="display:none;">
+								<c:forEach var="good" items="${ newgoodlist}">
+									<li><div class="pro_img">
+											<a href="${root}/good/goodsdetail?id=${good.id }"><img
+												dataid="356963" width="215"
+												src="htpp://${good.pic}"
+												alt="${good.name }" class="356963" height="215" /></a>
+										</div>
+										<div class="pro_tit">
+											<a href="${root}/good/goodsdetail?id=${good.id }">${good.name }</a>
+										</div>
+									</li>
+								</c:forEach>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -146,8 +159,7 @@
 				<div class="rtop">
 					<div class="rtop-tit">上海创业服务</div>
 					<div class="site-tips rr">
-						当前位置：<a href="/">首页</a> >><a
-							href="http://www.zhucexia.com/usercategory/product/114179/">上海创业服务</a>
+						当前位置：<a href="${root }/index/show">首页</a> >><span>上海创业服务</span>
 					</div>
 				</div>
 				<div class="rmid">
@@ -237,7 +249,15 @@
 	}
 	function good(){
 		$(".server").hide();
+		$("#new").hide();
 		$(".good").show();
+		$("#normal").show();
+	}
+	function newgood(){
+		$(".server").hide();
+		$("#normal").hide();
+		$(".good").show();
+		$("#new").show();
 	}
 </script>
 <jsp:include page="/views/common/footer.jsp" />

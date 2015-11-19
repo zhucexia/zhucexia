@@ -13,6 +13,8 @@ public interface GoodPoMapper {
 	List<GoodPo> showindexserver();
 
 	List<GoodPo> showdetailgood();
+	
+	List<GoodPo> newdetailgood();
 
 	List<GoodPo> showdetailserver();
 

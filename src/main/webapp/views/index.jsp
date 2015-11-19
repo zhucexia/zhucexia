@@ -147,10 +147,10 @@
 			</script>
 		</div>
 		<div class="index_imageset mt20">
-			<div class="w960">
+			<div class="w960" style="margin-left: 10px;">
 				<div class="title common_title">
 					<span class="common_more"><a
-						href="#">更多免费服务</a></span>
+						href="#">更多服务</a></span>
 				</div>
 				<div id="imageDemo" class="image_cont"
 					style="visibility: visible; overflow: hidden; position: relative; z-index: 2; left: 0px; width: 1040px;">

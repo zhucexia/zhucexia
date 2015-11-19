@@ -13,9 +13,9 @@
 		<form class="theme-signin" name="loginform" action="" method="post">
 			<ul>
 				<li><strong>用户名|手机号：</strong> <input class="ipt" type="text"
-					name="username" value="" size="20"/></li>
+					name="username" value="" size="20" id="logname"/></li>
 				<li class="nn"><strong> &nbsp;密 码：</strong> <input class="ipt"
-					type="password" name="password" value="" size="20" /></li>
+					type="password" name="password" value="" size="20" id="password"/></li>
 				<li ><span id="mess" style="text-align:center;color:red;font-weight:bold;"></span></li>
 				<li><strong></strong> <input class="btn btn-primary" type="button" name="submit" onclick="login()"
 					value=" 登 录 " />&emsp;<a href="javascript:losepass()" class="J_dialog mm" data="edit">忘记密码？</a>&emsp;<a href="javascript:regist() "class="J_dialog mm" data="reg">注册</a></li>
@@ -27,24 +27,31 @@
 		function losepass(){
 			$("#log").css("display","none");
 			$("#reg").css("display","none");
+			$(".msgs").html("获取短信验证码");
 			$(".lostmobile").hide();
 			$(".yzms").hide();
 			$(".wei").hide();
 			$(".conwei").hide();
-			/* $("#edit1").css("display","block");
-			$("#edit2").css("display","block");
+			$("#edit").css("display","block");
+			/*$("#edit2").css("display","block");
 			$("#ee").css("display","none");
 			$("#ff").css("display","none"); */
 		}
+		function cancel(){
+			$(".theme-poptit .close").click();
+		}
 		function regist(){
 			$("#log").css("display","none");
-			$("edit").css("display","none");
+			$("#edit").css("display","none");
+			$("#reg").css("display","block");
+			$(".msgs").html("获取短信验证码");
 			$(".uts").hide();
 			$(".zcpwd").hide();
 			$(".zcconpwd").hide();
 			$(".pts").hide();
 			$("#messcode").hide();
 			$(".zcemail").hide();
+			$(".zcts").hide();
 		}
 </script>
 <!--登录窗结束体-->
@@ -69,9 +76,11 @@
 					name="msg" size="20" id="yzm" style="width:100px;"/><span class="msgs" onclick="mess()">获取短信验证码</span><span id="messcode"></span> </li>
 				<li><strong>邮箱：</strong> <input class="ipt" type="text"
 					name="email" placeholder="您的联系邮箱" size="20" id="email"/><span class="zcemail"></span></li>
-				<li ><center><p class="zcts"></p></center></li>
-				<li> <center><input class="btn btn-primary"
-					type="button" name="reg" value=" 注 册 " /></center></li>
+				<li><center><p class="zcts"></p></center></li>
+				<li>
+					<input class="btn btn-primary" type="button" name="reg" value=" 注 册 " style="margin-left:75px;"/>
+					<input class="btn btn-primary" type="button" name="cancal" value=" 取 消 " style="margin-left:100px;color:#fff" onclick="cancel()"/>
+				</li>
 			</ul>
 		</form>
 	</div>
@@ -102,8 +111,10 @@
 					name="pwd" value="" size="20" id="wei" /><span class="wei"></span></li>
 				<li><strong>确认密码：</strong> <input class="ipt" type="password"
 					name="conpwds" value="" size="20" id="conwei"/><span class="conwei"></span></li>
-				<li><input class="btn btn-primary" type="button" name="uppass"
-					value=" 确 认 " class="bj" /><span></span></li>
+				<li>
+					<input class="btn btn-primary" type="button" name="uppass" value=" 确 认 " class="bj" style="margin-left: 75px;"/>
+					<input class="btn btn-primary" type="button" name="cancal" value=" 取 消 " style="margin-left:100px;color:#fff" onclick="cancel()"/>
+				</li>
 			</ul>
 		</form>
 		<!-- <form class="theme-signin" name="editform1" method="post" id="ff" style="display:none" action="">
@@ -271,6 +282,7 @@
 		var phone=$("#mob").val();
 		if(phone=="" || phone==null ){
 			$(".lostmobile").html("请输入手机号");
+			$(".lostmobile").css({"color":"red","font-weight":"bold"});
 			$(".lostmobile").show();
 			return ;
 		}else {
@@ -368,6 +380,7 @@
 						alert(data.message);
 					}else{
 						$("#mess").html("输入的用户名/手机号 或密码有误");
+						$("#mess").show();
 					}
 				},
 				error:function(data) {

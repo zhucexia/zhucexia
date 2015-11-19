@@ -57,21 +57,21 @@
 	src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="${root }/static/js/customer/customer.js"></script>
 	<div class="WB_miniblog">
-		<div class="topNavWrap-pindao" style="background-color:">
+		<!-- <div class="topNavWrap-pindao" style="background-color:">
 			<div class="grhead">
 				<div class="grlogo ll">
 				</div>
 				<div class="grinfo">
 					<div class="site-nav">
 						<ul class="site-nav-bd-r">
-							<!--<li class='dark user-menu'><a href="/">返回</a></li>-->
+							<li class='dark user-menu'><a href="/">返回</a></li>
 							<li class="dark user-menu" style="margin-left: 5px;">
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="second_newmenu">
 			<div class="navboxSecond">
 				<div class="subNav" id="widget-subnav">

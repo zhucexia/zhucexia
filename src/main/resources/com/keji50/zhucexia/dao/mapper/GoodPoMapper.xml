@@ -43,11 +43,15 @@
 		index_show,state,initialNum,remark,click_count,comment_count,sort,create_by,create_time,update_by,update_time
 	</sql>
 	<select id="showindexgood" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List" /> from good where index_show=1 and good_type_id=1 and state='s'
+		select <include refid="Base_Column_List" /> from good where index_show=1 and good_type_id=1 and state='s' order by id desc limit 3
 	</select>
 	
 	<select id="showdetailgood" resultMap="BaseResultMap">
 		select <include refid="Base_Column_List" /> from good where good_type_id=1 and state='s'
+	</select>
+	
+	<select id="newdetailgood" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"/> from good where good_type_id=1 and state='s' order by id desc limit 6
 	</select>
 	
 	<select id="showindexserver" resultMap="BaseResultMap">

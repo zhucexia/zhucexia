@@ -40,8 +40,10 @@ function bb(){
 					   alert("初始密码错误，请重新输入！");
 				   }else if(data==0){
 					   alert("修改密码成功！");
+					   closeWin();
 				   }else{
 					   alert("系统繁忙，请稍后重试！");
+					   closeWin();
 				   }
 			   }
 		   });
