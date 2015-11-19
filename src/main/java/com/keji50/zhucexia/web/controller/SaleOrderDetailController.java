@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.keji50.zhucexia.dao.po.CustomerAddrPo;
+import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.dao.po.GoodPo;
 import com.keji50.zhucexia.dao.po.PaymentPo;
 import com.keji50.zhucexia.dao.po.SalaOrderPo;
@@ -43,11 +44,24 @@ public class SaleOrderDetailController {
 	/*查询订单详情*/
 	@RequestMapping("/querryOrderDetail")
 	public String querryOrderDetail(HttpServletRequest request){
+		/*获取当前登录用户的信息*/
+		CustomerPo customer=(CustomerPo) request.getSession().getAttribute("customer");
 		String id=request.getParameter("id");
 		/*由id查询订单信息*/
 		SalaOrderPo saleOrder=saleOrderService.getOrder(Integer.parseInt(id));
 		/*查询用户的收货地址的信息*/
-		CustomerAddrPo customerAddr=customerAddressService.getAddr(Integer.parseInt(saleOrder.getAddress()));
+		String addressId=saleOrder.getAddress();
+		/*判断地址是否为空
+		 *1.不为空则以addressId为条件查询地址信息
+		 *2.为空则查询该用户是否存在默认地址
+		 * */
+		CustomerAddrPo customerAddr=null;
+		if(addressId!=null){
+		 customerAddr=customerAddressService.getAddr(Integer.parseInt(saleOrder.getAddress()));
+		}
+		else{
+			customerAddr=customerAddressService.query(customer.getId());
+		}
 		/*查询订单详情*/
 		Map<String,Object> maps= new HashMap<String,Object>();
 		List<Map<String,Object>> list=saleOrderDetailService.querryDetails(Integer.parseInt(id));
