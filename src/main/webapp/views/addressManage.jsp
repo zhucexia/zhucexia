@@ -177,8 +177,8 @@
 					<div class="navLt wisub" style="display:none;">
 					</div>
 					<div class="navRt wisub">
-						<a href="${root}/sales/toOrderManage"> 我的账户 </a> |      
-			            <a href="http://www.zhucexia.com/orders/"> 我的交易 </a> |
+						<a href="${root }/sales/userManager"> 我的账户 </a> |      
+			            <a href="${root}/sales/toOrderManage"> 我的交易 </a> |
 	              	</div>
               	</div>
             </div>
@@ -193,16 +193,16 @@
         					<div class="tabBox leftTab">
         						<ul class="tabLinks">
         							<li>
-        								<a href="http://www.zhucexia.com/orders/">订单管理</a>
+        								<a href="${root}/sales/toOrderManage">订单管理</a>
         							</li>
-        							<li>
+        				<!-- 			<li>
         								<a href="http://www.zhucexia.com/unreview/items/">评价管理</a>
         							</li>
         							<li>
         								<a href="http://www.zhucexia.com/favorites/">收藏管理</a>
-        							</li>
+        							</li> -->
         							<li class="selected">
-        								<a href="./助策侠网络科技有限公司 地址列表_files/助策侠网络科技有限公司 地址列表.html">收货地址管理</a>
+        								<a href="${root}/address/addrManage">收货地址管理</a>
         							</li>
         						</ul>
         					</div>

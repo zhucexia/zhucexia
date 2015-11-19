@@ -705,10 +705,11 @@ public class SalaOrderController {
 		}
 		//数据库查询的参数
 		Map<String,Object> maps=new HashMap<String,Object>();
+		System.out.println("types---"+types+"----times---"+times);
 		maps.put("types",types);
 		maps.put("times", date);
 		List<HashMap<String,Object>> list=saleOrderService.querryOrders(maps);
-		//System.out.println(list.get(0).toString());
+	//	System.out.println(list.get(0).toString());
 		request.setAttribute("list", list);
 		request.setAttribute("types", types);
 		request.setAttribute("times", times);

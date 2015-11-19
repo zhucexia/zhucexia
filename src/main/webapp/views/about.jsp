@@ -30,7 +30,7 @@
 				<div class="rtop">
 					<div class="rtop-tit">关于我们</div>
 					<div class="site-tips rr">
-						当前位置：<a href="http://www.zhucexia.com/">首页</a> &gt;&gt; 关于我们
+						当前位置：<a href="${root }/index/show">首页</a> &gt;&gt; 关于我们
 					</div>
 				</div>
 				<div class="rmid">

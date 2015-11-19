@@ -3,11 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="/views/common/header.jsp" />
 <jsp:include page="/views/common/top.jsp" />
-<div class="list-banner">
+
+	<div class="list-banner">
 	<!--广告位producttop_ad-->
 </div>
 <div id="mainmain">
-	<c:forEach items="${ good}" var="go">
+	<c:forEach items="${good}" var="go">
 	<div class="pro-main  container">
 		<div class="pro-left clearfix">
 			<div class="pro-left-imgs">
@@ -109,7 +110,6 @@
 	</div>
 			</c:forEach>
 </div>
-<<<<<<< HEAD
 <script type="text/javascript">
 	function bookOrder(id){
 			<%CustomerPo customerPo = (CustomerPo)request.getSession().getAttribute("customer");
@@ -125,7 +125,5 @@
 
 
 </script>
-=======
 
->>>>>>> branch 'master' of https://github.com/zhucexia/zhucexia.git
 <jsp:include page="/views/common/footer.jsp" />
