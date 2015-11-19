@@ -40,8 +40,10 @@ function bb(){
 					   alert("初始密码错误，请重新输入！");
 				   }else if(data==0){
 					   alert("修改密码成功！");
+					   closeWin();
 				   }else{
 					   alert("系统繁忙，请稍后重试！");
+					   closeWin();
 				   }
 			   }
 		   });
@@ -49,8 +51,17 @@ function bb(){
    }
 }	   
 
+//提交基本信息
+function aa(path){
+	var file = $("#image").val();
+	if(file==""||file==null){
+		alert("请先上传图片！")
+	}else{
+		$("#baseDateForm").submit();
+	}
+}
+
 function addBaseDataWin(){
-	alert("qqqq");
 	$(".facebox:eq(0)").css({"top":"8%","left":"36%","display":"block"});
 	$("#facebox_overlay").css("display","block");
 }
@@ -241,7 +252,7 @@ function sendMsg(){
 								alert("已向您输入的手机号发送验证码信息");
 								var validCode = false;
 								var time = 30;
-						        var code = $("#code");
+						        var code = $("#code1");
 						        code.addClass("msgs1");
 						        var t = setInterval(function() {
 						        	validCode = true;
@@ -312,6 +323,7 @@ function bindMobile() {
 
 //绑定邮箱发送验证邮件
 function sendEmail(){
+	var type=$("#type").val();
 	var email = $("#id_email").val();
 	var reg = /^[\w][\w|\.|\_]*@[\w]+(\.[a-zA-Z]{2,4}){1,3}$/;
 	var flag = reg.test(email);
@@ -319,7 +331,7 @@ function sendEmail(){
 		$.ajax({
 			url:"/zhucexia/customer/sendEmail",
 			type:"post",
-			data:{'email':email},
+			data:{'email':email,'type':type},
 			dataType:'json',
 			success:function(){
 				alert("已向您发送验证邮件，请查看并完成验证");

@@ -323,7 +323,7 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 
 /*---------------- footer ---------------------------------------------------*/
 #footermain{background: #1d2087;overflow: hidden;color: #fff;}
-#footer{line-height: 26px;display: block;padding: 20px 0;text-align:left;position:relative;}
+#footer{line-height: 37px;display: block;padding: 20px 0;text-align:left;position:relative;}
 #footer a { color:#fff;}
 .fot-nav { text-align:left;}
 .fot-nav span {padding:0 10px;}
@@ -366,7 +366,7 @@ background: #ddd;width: 146px;height: 27px;line-height:26px;text-indent:46px;pos
 .index_imageset .image_cont .l {float: left;margin-top: 75px;width: 15px;height: 46px;}
 .index_imageset .image_cont .r {float: right;width: 15px;padding-top:75px;}
 .index_imageset .image_cont .cont{float: left;width: 1000px;overflow: hidden;height: 250px;overflow: hidden;}
-.index_imageset .image_cont .cont ul li {float: left;height: 225px;width: 500px;background:#fff;margin:0 10px;}
+.index_imageset .image_cont .cont ul li {float: left;height: 225px;width: 500px;background:#fff;margin-right:20px;}
 .index_imageset .image_cont .cont ul li .pic {height: 225px;width:225px;margin:0px auto;text-align: center;display: table;background: #FFF;float:left;}
 .index_imageset .image_cont .cont ul li .dec {width:220px;float:left;padding:10px 0 0 10px;}
 .index_imageset .image_cont .cont ul li .dec h5 a{color: #000;font-size:18px;font-weight:normal;line-height:40px;}

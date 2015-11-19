@@ -278,9 +278,9 @@ CREATE TABLE `good` (
 DROP TABLE IF EXISTS `good_attr`;
 CREATE TABLE `good_attr` (
   `id` int(11) unsigned auto_increment NOT NULL COMMENT '条件属性id',
-  `good_type_id` int(11) NOT NULL COMMENT '商品类型id',
+  `good_id` int(11) NOT NULL COMMENT '商品类型id',
   `code` varchar(16) NOT NULL COMMENT '条件代码',
-  `name` varchar(64) NOT NULL COMMENT '条件名称',
+  `names` varchar(64) NOT NULL COMMENT '条件名称',
   `sort` int(11) NOT NULL COMMENT '排序序号',
   `remark` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '备注',
   `state` varchar(1) COLLATE utf8_bin DEFAULT 's' COMMENT '数据状态 c:草稿 s;审核 d:删除',

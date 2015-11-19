@@ -48,6 +48,10 @@ public class GoodService {
 		// TODO Auto-generated method stub
 		return goodPoMapper.showdetailserver();
 	}
+	
+	public List<GoodPo> newdetailgood(){
+		return goodPoMapper.newdetailgood();
+	}
 
 	public List<HashMap<String, Object>> goodsdetail(int id) {
 		// TODO Auto-generated method stub

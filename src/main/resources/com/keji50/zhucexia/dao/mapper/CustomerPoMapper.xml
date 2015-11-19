@@ -11,13 +11,15 @@
 		<result column="is_pinlessemail" property="ispinlessemail" jdbcType="VARCHAR" />
 		<result column="qq" property="qq" jdbcType="VARCHAR" />
 		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="pic" property="pic" jdbcType="VARCHAR"/>
+		<result column="pic_id" property="pic_id" jdbcType="VARCHAR"/>
 		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, username, password, mobile, email,qq,is_pinlessmobile,is_pinlessemail, create_by, create_time, update_by, update_time
+		id, username, password, mobile, email,qq,is_pinlessmobile,is_pinlessemail, pic, pic_id, create_by, create_time, update_by, update_time
 	</sql>
 	<select id="login" resultMap="BaseResultMap" parameterType="com.keji50.zhucexia.dao.po.CustomerPo">
 		select <include refid="Base_Column_List" /> from customer where password=#{password,jdbcType=VARCHAR} and (mobile=#{mobile,jdbcType=VARCHAR} OR username=#{username,jdbcType=VARCHAR})
@@ -63,6 +65,10 @@
   <select id="selectByEmail" parameterType="string" resultMap="BaseResultMap">
   	select <include refid="Base_Column_List"/>
   	from customer where email=#{email}
+  </select>
+  <select id="checkEmail" parameterType="com.keji50.zhucexia.dao.po.CustomerPo" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/>
+  	from customer where 1=1 and username=#{username} and email=#{email}
   </select>
   
   

@@ -4,6 +4,7 @@ import lombok.Getter;
 
 public enum EmailTemplate {
 	
+	UNBIND_TEMPLATE("2","点击下面链接解绑邮箱，48小时有效，链接只能使用一次，请尽快解绑！<a href='%s' target='_blank'>点击解绑</a>"),
 	VALIDATION_TEMPLATE("0", "点击下面链接激活邮箱，48小时有效，链接只能使用一次，请尽快激活！<a href='%s' target='_blank'>点击激活</a>"),
 	RESET_PASSWORD_TEMPLATE("1", "点击下面链接重置密码，48小时有效，链接只能使用一次，请尽快使用！<a href='%s' target='_blank'>点击重置</a>");
 

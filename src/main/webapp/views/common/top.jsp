@@ -32,7 +32,7 @@
            	             <% 
            		}else{
            		  %><span id="hc"><a href="javascript:;" class="J_dialog mm" data="log" id="a1"><span id="a11" style="height:auto">登录</span></a> |
-           	            <a href="javascript:" class="J_dialog mm" data="reg" id="b1"><span id="b11">注册</span></a>  &nbsp;</span>
+           	            <a href="javascript:regist()" class="J_dialog mm" data="reg" id="b1"><span id="b11">注册</span></a>  &nbsp;</span>
            	            
            	        <span id="hc1" style="display:none;">
            	        	<span class="bb"> |
@@ -143,6 +143,7 @@
 			}
 		});
 	}
+	
 </script >
 <style>
 #cs_box {width:120px; height:220px; color:#FFF; background:#5CACEE; position:fixed; right:10px; top:100px; border-radius:10px; z-index:1000}

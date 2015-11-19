@@ -77,8 +77,10 @@ public class GoodController {
 	@RequestMapping("/goodlist")
 	public String detail(HttpServletRequest request, HttpServletResponse response){
 		List<GoodPo> goodlist=goodService.showdetailgood();
+		List<GoodPo> newgoodlist=goodService.newdetailgood();
 		List<GoodPo> serverlist=goodService.showdetailserver();
 		request.setAttribute("goodlist", goodlist);
+		request.setAttribute("newgoodlist", newgoodlist);
 		request.setAttribute("serverlist", serverlist);
 		return "/productlist";
 	}
