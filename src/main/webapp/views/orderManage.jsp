@@ -70,8 +70,8 @@
                 			</span><span class="clb"></span>
                 			<span class="crb"></span>
               				<div class="navRt wisub">
-             					 <a href="${root}/sales/toOrderManage"> 我的账户 </a> |
-              					 <a href="http://www.zhucexia.com/orders/"> 我的交易 </a> |
+             					 <a href="${root }/sales/userManager"> 我的账户 </a> |
+              					 <a href="${root}/sales/toOrderManage"> 我的交易 </a> |
               				</div>
               			</div>
               		</div> 	
@@ -86,16 +86,16 @@
 						<div class="tabBox leftTab">
 							<ul class="tabLinks">
 								<li class="selected">
-									<a href="./助策侠网络科技有限公司 订单管理_files/助策侠网络科技有限公司 订单管理.html">订单管理</a>
+									<a href="${root}/sales/toOrderManage">订单管理</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a href="http://www.zhucexia.com/unreview/items/">评价管理</a>
 								</li>
 								<li>
 									<a href="http://www.zhucexia.com/favorites/">收藏管理</a>
-								</li>
+								</li> -->
 								<li>
-									<a href="http://www.zhucexia.com/addressbook/">收货地址管理</a>
+									<a href="${root}/address/addrManage">收货地址管理</a>
 								</li>
 							</ul>
 						</div>
@@ -165,7 +165,7 @@
 			          						<td>${item.name }</td>
 			          						<td>￥${item.order_money}<br>${item.payment_name }</td>
 			          						<td><fmt:formatDate value="${item.orderstate_time }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-			          							<c:if test="${item.payment_code!='cash_on_delivery'}">
+			          							<c:if test="${item.payment_code!='cash_on_delivery' or (empty item.payment_code)}">
 			          								<c:if test="${item.payment_state==0 and item.order_state==1 }">
 			          									<td>待付款</td>
 			          									<td>

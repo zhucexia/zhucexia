@@ -82,8 +82,8 @@
 					<div class="navLt wisub" style="display: none;">
 					</div>
 					<div class="navRt wisub">
-						<a href="${root }/static/助策侠网络科技有限公司 我的账户.html" class="selected">我的账户 </a> | 
-						<a href="http://www.zhucexia.com/orders/"> 我的交易 </a> |
+						<a href="${root }/sales/userManager" class="selected">我的账户 </a> | 
+						<a href="${root}/sales/toOrderManage"> 我的交易 </a> |
 					</div>
 				</div>
 			</div>
@@ -120,10 +120,10 @@
 													width="100%" height="100%" id="headPic">
 											</div>
 											<div class="pc_personInfo_body mb5">
-												<div id="nick" style="display:none;">昵称：
+												<%-- <div id="nick" style="display:none;">昵称：
 													<span class="userName"> <%=customer.getNickName() %>
 													<!--<a style=" margin-left:5px; font-size:12px;" class="blue" href="/profiles/edit/">修改资料</a>--></span>
-												</div>
+												</div> --%>
 												<div>角色：默认</div>
 												<div>用户名：<span><%=customer.getUsername() %></span></div>
 											</div>
@@ -141,7 +141,7 @@
 														<a href="${root}/sales/toOrderManage">订单管理</a>
 													</dd>
 												</dl>
-												<dl>
+												<%-- <dl>
 													<dt>
 														<a href="http://www.zhucexia.com/unreview/items/">
 															<img src="${root }/static/images/user/remarkmanagement.png">
@@ -159,7 +159,7 @@
 													<dd>
 														<a href="http://www.zhucexia.com/favorites/">我的收藏</a>
 													</dd>
-												</dl>
+												</dl> --%>
 												<dl>
 													<dt>
 														<a href="${root}/address/addrManage">
