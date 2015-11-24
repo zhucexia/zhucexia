@@ -21,13 +21,15 @@
 <html>
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<script type="text/javascript" src="${root }/zhucexia/static/js/common/jquery-1.10.2.min.js"></script>
 		<title>支付宝页面跳转同步通知页面</title>
   </head>
-  <body>
+  <body style="margin:0;">
 <%
 	//获取支付宝GET过来反馈信息
 	Map<String,String> params = new HashMap<String,String>();
 	Map requestParams = request.getParameterMap();
+	Boolean result = false;
 	for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
 		String name = (String) iter.next();
 		String[] values = (String[]) requestParams.get(name);
@@ -73,19 +75,55 @@
 				SaleOrderService saleOrderService=ApplicationContextHolder.getBean("saleOrderService");
 				String bool=saleOrderService.update(out_trade_no, payMethod, trade_no);
 				if(bool.equals("success")){
-					out.println("你的订单号为："+out_trade_no+",已验证成功<br />");
+					//out.println("你的订单号为："+out_trade_no+",已验证成功<br />");
+					result = true;
 				}
 		}
 		
 		//该页面可做页面美工编辑
-		out.println("验证成功<br />");
+		//out.println("验证成功<br />");
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 	}else{
 		//该页面可做页面美工编辑
-		out.println("验证失败");
+		//out.println("验证失败");
 	}
 %>
+	<div style="width:100%;height:54px;margin-bottom:60px;background:#1d2087">
+		<div style="height:52px;position:relative;margin:0 auto;width:1000px;">
+			<div style="top:15px;left:0;position:absolute;z-index:99">
+				<img src="/zhucexia/static/images/header/logo.png">	
+			</div>
+		</div>		
+	</div>
+	<div style="width:1000px;height:348px;position:relative;margin:0 auto;border:1px #CBCBCB solid;">
+		<div style="height:30px;padding-left:30px;background-color:#F4F4F4;border:1px #EDEEF2 solid">
+			<p style="margin:6px 0 0 0;"><strong>订单支付成功</strong></p>
+		</div>
+		<div style="height:318px;">
+			<div style="width:100px;height:100px;position:absolute;left:300px;top:120px;">
+				<img id="prompt_pic" width="100px;">				
+			</div>
+			<div style="position:absolute;left:420px;top:145px;">
+				<span id="prompt1"><strong></strong></span><br/><br/>
+				<span id="prompt2"><strong></strong></span>
+			</div>
+			<script type="text/javascript">
+				if(<%=result%>){
+					$("#prompt_pic").attr("src","/zhucexia/static/images/common/true.jpg")
+					$("#prompt1 strong").html("您的订单已支付成功");
+					$("#prompt2 strong").html("订单号为：<%=out_trade_no%>");
+				}else{
+					$("#prompt_pic").attr("src","/zhucexia/static/images/common/false.png")
+					$("#prompt1 strong").html("订单支付失败，请重新支付");
+					$("#prompt2 strong").hide();
+				}
+			</script>
+			<div style="position:absolute;left:380px;top:255px">
+				<a href="${root}/zhucexia/index/show">返回首页</a>
+			</div>
+		</div>
+	</div>	
   </body>
 </html>
