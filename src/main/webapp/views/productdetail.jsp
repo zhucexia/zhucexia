@@ -34,11 +34,15 @@
 						</dl>
 						<em class="line"></em>	
 					</div>					
+
 					<div class="pro-attr">
+					<c:if test="${! empty go.names} }">
+					
 						<dl>
 							<dt>${go.names }：</dt>
 							<dd>${go.option_value }</dd>
 						</dl>
+					</c:if>
 						<dl>
 							<dt>申请条件：</dt>
 							<dd>${go.apply_condition }</dd>

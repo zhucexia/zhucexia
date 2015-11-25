@@ -174,8 +174,6 @@ CREATE TABLE `customer_address` (
   `street` varchar(500)  DEFAULT NULL,
   `areaRegion` varchar(100)  DEFAULT NULL,
   `telephone` varchar(16)  DEFAULT NULL,
-  `addressId` varchar(30) DEFAULT NULL COMMENT'省份，城市，区域的id值',
-  `isDelete`  varchar(1)  DEFAULT '1'  COMMENT'是否删除，1，可用，0 ，不可用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户收货地址信息表';
 
@@ -409,7 +407,6 @@ CREATE TABLE `sale_order` (
   `payment_time` datetime DEFAULT NULL COMMENT '付款时间',
   `delivery_time` datetime COMMENT '发货时间',
   `cancel_time` datetime DEFAULT NULL COMMENT '取消订单时间',
-  `order_pic` varchar(128) COMMENT '订单图片地址',
   PRIMARY KEY (`id`),
   KEY `sale_order_id` (`id`),
   KEY `sale_order_no` (`order_no`),

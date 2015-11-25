@@ -81,7 +81,7 @@ public class PaymentController {
 				case "cash_on_delivery":
 					saleOrderService.update(saleOrder.getOrder_no(), "1", null);
 					request.setAttribute("order_no", saleOrder.getOrder_no());
-					url="success";
+					url="success1";
 					break;
 				default: break;
 			}

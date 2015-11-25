@@ -9,15 +9,15 @@
 		<ul style="position: relative; width: 1000px; height: 328px;">
 			<li
 				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: none; background: url(${root }/static/images/index/ads/ads1.jpg) 50% 0px no-repeat rgb(239, 239, 239);">
-				<a target="_blank" href="javascript:void(0)"></a>
+				<a target="_blank" href="http://www.zhucexia.com/#"></a>
 			</li>
 			<li
 				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: list-item; background: url(${root }/static/images/index/ads/ads2.jpg) 50% 0px no-repeat rgb(239, 239, 239);">
-				<a target="_blank" href="javascript:void(0)"></a>
+				<a target="_blank" href="http://www.zhucexia.com/#"></a>
 			</li>
 			<li
 				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: none; background: url(${root }/static/images/index/ads/ads3.jpg) 50% 0px no-repeat rgb(239, 239, 239);">
-				<a target="_blank" href="javascript:void(0)"></a>
+				<a target="_blank" href="http://www.zhucexia.com/#"></a>
 			</li>
 		</ul>
 	</div>
@@ -373,7 +373,7 @@
 		</div>
 		<!--广告位indexmiddleone_ad-->
 		<div class="mt10 t_c">
-			<a href="javascript:void(0)" target="_self"><img
+			<a href="http://www.zhucexia.com/#" target="_self"><img
 				src="${root }/static/images/index/introduct.jpg" alt=""></a>
 		</div>
 		<!--end首页主体内容-->

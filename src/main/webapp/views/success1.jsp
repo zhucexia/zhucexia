@@ -23,7 +23,7 @@
 				<img src="../static/images/common/check-mark_17-612153230.jpg" width="100px;">				
 			</div>
 			<div style="position:absolute;left:420px;top:145px;">
-				<span><strong>您的订单已支付成功</strong><span><br>
+				<span><strong>您的订单已提交成功</strong><span><br>
 				<span><strong>订单号为：${order_no}</strong></span>
 			</div>
 			<div style="position:absolute;left:380px;top:255px">
