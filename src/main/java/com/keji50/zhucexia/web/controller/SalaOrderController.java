@@ -537,9 +537,9 @@ public class SalaOrderController {
 			Map<String,Object> mapGood=(Map<String, Object>) selectedGood.get(ids[i]);
 			saleOrderDetailPo.setGood_id(Integer.parseInt(ids[i]));
 			saleOrderDetailPo.setGood_name(mapGood.get("name").toString());
-			System.out.println("good_name---------"+mapGood.get("name").toString());
-			saleOrderDetailPo.setGood_price(Float.parseFloat(mapGood.get("price_market").toString()));
-			saleOrderDetailPo.setTotal_price(Float.parseFloat(mapGood.get("price_market").toString()));
+			//System.out.println("good_name---------"+mapGood.get("name").toString());
+			saleOrderDetailPo.setGood_price(Float.parseFloat(mapGood.get("price_range").toString()));
+			saleOrderDetailPo.setTotal_price(Float.parseFloat(mapGood.get("price_range").toString()));
 			saleOrderDetailPo.setGood_num(1);
 			saleOrderDetailPo.setGood_price_id(12);
 			saleOrderDetailPo.setCreateBy(customerPo.getUsername());
@@ -636,7 +636,7 @@ public class SalaOrderController {
 	@RequestMapping("/updateAddre")
 	@ResponseBody
 	public String updateAddre (HttpServletRequest request){	
-		System.out.println("111111111111111111111111111111");
+		//System.out.println("111111111111111111111111111111");
 		/*添加收获地址----*/
 		CustomerAddrPo customerAddrPo = new CustomerAddrPo();
 		/*获取用户的id值*/
@@ -670,7 +670,7 @@ public class SalaOrderController {
 		String ids=request.getParameter("id");
 		customerAddrPo.setId(Integer.parseInt(ids));
 		int flag=customerAddrService.update(customerAddrPo);
-		System.out.println(customerAddrPo.toString());
+		//System.out.println(customerAddrPo.toString());
 		/*添加收货地址结束------*/
 		if(flag>0){
 			return "{message:"+flag+"}";
@@ -708,7 +708,7 @@ public class SalaOrderController {
 		maps.put("types",types);
 		maps.put("times", date);
 		List<HashMap<String,Object>> list=saleOrderService.querryOrders(maps);
-		//System.out.println(list.get(0).toString());
+		System.out.println(list.get(0).toString());
 		request.setAttribute("list", list);
 		request.setAttribute("types", types);
 		request.setAttribute("times", times);
@@ -724,7 +724,7 @@ public class SalaOrderController {
 	@ResponseBody
 	public String delOrder(HttpServletRequest request){
 		String id=request.getParameter("order_id");
-		System.out.println("id============="+id);
+		//System.out.println("id============="+id);
 		int flag=saleOrderService.delOrder(id);
 		if(flag>0){
 			return "{message:true}";

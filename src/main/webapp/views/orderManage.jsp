@@ -157,7 +157,7 @@
 			          						<td colspan="2">
 			          							<div class="order-item-block">
 			          								<div class="order-pitem">
-			          									<img src="${root }/static/images/${item.order_pic}" alt="" width="70">
+			          									<img src="http://${item.order_pic}" alt="" width="70">
 			          									<a href="" title="" target="_blank">${item.remark}</a>
 			          								</div>
 			          							</div>

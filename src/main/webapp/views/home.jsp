@@ -748,7 +748,7 @@
 	if(pic!=""&&pic!=null&&pic!="null"){
 	var headPic = "../static/images/user/"+pic;
 	}else{
-		headpic = "../static/images/user/usercenter_head.jpg"
+		headPic = "../static/images/user/usercenter_head.jpg"
 	}
 		$("#headPic").attr("src",headPic)
 	

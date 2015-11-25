@@ -18,7 +18,8 @@
 						<ul>
 							<li class="li-level-1">
 								<div class="cat-item">
-									<div class="cat-name cat-name-1 pos linkon" id="cat-id-114179">
+								<!-- <div class="cat-name cat-name-1 pos linkon" id="cat-id-114179"> -->
+									<div class="cat-name cat-name-1 pos<c:if test='${flag==1}'> linkon</c:if>" id="cat-id-114179">
 										<a href="javascript:good()">
 											上海创业套餐</a>
 									</div>
@@ -37,7 +38,7 @@
 							</li>
 							<li class="li-level-1">
 								<div class="cat-item">
-									<div class="cat-name cat-name-1" id="cat-id-114852">
+									<div class="cat-name cat-name-1<c:if test='${flag==2}'> pos linkon</c:if>" id="cat-id-114852">
 										<a href="javascript:server()"> 更多服务</a>
 									</div>
 								</div>
@@ -53,7 +54,9 @@
 				</div>
 			</div>
 		</div>
-		<div id="jy-right" class="good">
+		<div id="jy-right" class="good" <c:if test="${flag==1 }">style="display:block"</c:if>
+			<c:if test="${flag!=1 }">style="display:none"</c:if>
+		>
 			<div class="rcont clearfix">
 				<div class="rtop">
 					<div class="rtop-tit">上海创业套餐</div>
@@ -65,11 +68,12 @@
 					<div class="box_content">
 						<div class="pro_list clearfix">
 							<ul id="normal">
+							<c:if test="${! empty goodlist }">
 							<c:forEach var="good" items="${ goodlist}">
 								<li><div class="pro_img">
 										<a href="${root}/good/goodsdetail?id=${good.id }"><img
 											dataid="356963" width="215"
-											src="htpp://${good.pic}"
+											src="http://${good.pic}"
 											alt="${good.name }" class="356963" height="215" /></a>
 									</div>
 									<div class="pro_tit">
@@ -77,67 +81,15 @@
 									</div>
 								</li>
 							</c:forEach>
-								<%-- <li><div class="pro_img">
-										<a href="＃"><img
-											dataid="356963" width="215"
-											src="${root }/static/images/product/product_hongkou.jpg"
-											alt="虹口定制套餐" class="356963" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">虹口定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357210" width="215"
-											src="${root }/static/images/product/product_jiading.jpg"
-											alt="嘉定定制套餐" class="357210" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">嘉定定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357541" width="215"
-											src="${root }/static/images/product/product_baoshan.jpg"
-											alt="宝山定制套餐" class="357541" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">宝山定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="356963" width="215"
-											src="${root }/static/images/product/product_hongkou.jpg"
-											alt="虹口定制套餐" class="356963" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">虹口定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357210" width="215"
-											src="${root }/static/images/product/product_jiading.jpg"
-											alt="嘉定定制套餐" class="357210" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">嘉定定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357541" width="215"
-											src="${root }/static/images/product/product_baoshan.jpg"
-											alt="宝山定制套餐" class="357541" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">宝山定制套餐</a>
-									</div></li> --%>
+							</c:if>
 							</ul>
 							<ul id="new" style="display:none;">
+								<c:if test="${! empty newgoodlist }">
 								<c:forEach var="good" items="${ newgoodlist}">
 									<li><div class="pro_img">
 											<a href="${root}/good/goodsdetail?id=${good.id }"><img
 												dataid="356963" width="215"
-												src="htpp://${good.pic}"
+												src="http://${good.pic}"
 												alt="${good.name }" class="356963" height="215" /></a>
 										</div>
 										<div class="pro_tit">
@@ -145,16 +97,15 @@
 										</div>
 									</li>
 								</c:forEach>
+								</c:if>
 							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
-			
-		</div>
-		
-		
-		<div id="jy-right" class="server" style="display:none;">
+			</div>	
+		</div>	
+		<div id="jy-right" class="server" <c:if test="${flag==2 }">style="display:block"</c:if>
+			<c:if test="${flag!=2 }">style="display:none"</c:if>>
 			<div class="rcont clearfix">
 				<div class="rtop">
 					<div class="rtop-tit">上海创业服务</div>
@@ -166,72 +117,20 @@
 					<div class="box_content">
 						<div class="pro_list clearfix">
 							<ul>
-							<c:forEach var="good" items="${ serverlist}">
+							<c:if test="${! empty serverlist }">
+							<c:forEach var="good" items="${serverlist}">
 								<li><div class="pro_img">
-										<a href="＃"><img
+										<a href="${root}/good/goodsdetail?id=${good.id }"><img
 											dataid="356963" width="215"
-											src="${root }/static/images/index/banner/${good.pic}"
+											src="http://${good.pic}"
 											alt="${good.name }" class="356963" height="215" /></a>
 									</div>
 									<div class="pro_tit">
-										<a href="＃">${good.name }</a>
+										<a href="${root}/good/goodsdetail?id=${good.id }">${good.name }</a>
 									</div>
 								</li>
 							</c:forEach>
-								<%-- <li><div class="pro_img">
-										<a href="＃"><img
-											dataid="356963" width="215"
-											src="${root }/static/images/product/product_hongkou.jpg"
-											alt="虹口定制套餐" class="356963" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">虹口定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357210" width="215"
-											src="${root }/static/images/product/product_jiading.jpg"
-											alt="嘉定定制套餐" class="357210" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">嘉定定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357541" width="215"
-											src="${root }/static/images/product/product_baoshan.jpg"
-											alt="宝山定制套餐" class="357541" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">宝山定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="356963" width="215"
-											src="${root }/static/images/product/product_hongkou.jpg"
-											alt="虹口定制套餐" class="356963" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">虹口定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357210" width="215"
-											src="${root }/static/images/product/product_jiading.jpg"
-											alt="嘉定定制套餐" class="357210" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">嘉定定制套餐</a>
-									</div></li>
-								<li><div class="pro_img">
-										<a href="＃"><img
-											dataid="357541" width="215"
-											src="${root }/static/images/product/product_baoshan.jpg"
-											alt="宝山定制套餐" class="357541" height="215" /></a>
-									</div>
-									<div class="pro_tit">
-										<a href="＃">宝山定制套餐</a>
-									</div></li> --%>
+							</c:if>
 							</ul>
 						</div>
 					</div>
@@ -246,18 +145,25 @@
 	function server(){
 		$(".server").show();
 		$(".good").hide();
+		$(".linkon").removeClass("pos linkon");
+		$("#cat-id-114852").addClass("pos linkon");
+		
 	}
 	function good(){
 		$(".server").hide();
 		$("#new").hide();
 		$(".good").show();
 		$("#normal").show();
+		$(".linkon").removeClass("pos linkon");
+		$("#cat-id-114179").addClass("pos linkon");
 	}
 	function newgood(){
 		$(".server").hide();
 		$("#normal").hide();
 		$(".good").show();
 		$("#new").show();
+		$(".linkon").removeClass("pos linkon");
+		$("#cat-id-114922").addClass("pos linkon");
 	}
 </script>
 <jsp:include page="/views/common/footer.jsp" />

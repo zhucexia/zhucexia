@@ -26,7 +26,7 @@
 						<div class="clearfix price-wrap">
 						<dl class="pro-price">
 							<dt>价格</dt>
-							<dd><span>￥1500</span><del>￥1800</del></dd>
+							<dd><span>￥${go.price_range }</span><del>￥${go.price_market}</del></dd>
 						</dl>
 						<dl class="pro-price">
 							<dt>注册时长</dt>

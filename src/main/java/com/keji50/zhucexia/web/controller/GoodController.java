@@ -76,6 +76,13 @@ public class GoodController {
 	
 	@RequestMapping("/goodlist")
 	public String detail(HttpServletRequest request, HttpServletResponse response){
+		String flag=request.getParameter("flag");
+		if(flag!=null){
+			request.setAttribute("flag", flag);
+		}
+		if(flag==null){
+			request.setAttribute("flag", '1');
+		}
 		List<GoodPo> goodlist=goodService.showdetailgood();
 		List<GoodPo> newgoodlist=goodService.newdetailgood();
 		List<GoodPo> serverlist=goodService.showdetailserver();

@@ -119,7 +119,7 @@
 	    AND c.good_id=a.id -->
 	    select b.order_no ,b.id ,b.orderstate_time,b.delivery_state,b.payment_code,
 		b.payment_name,b.order_money,b.create_time,b.payment_state,b.remark,b.order_pic,
-		b.order_state,d.name from sale_order b ,customer_address d where b.address=d.id
+		b.order_state,d.name from sale_order b left outer join customer_address d on b.address=d.id
 		<choose>
 			<when test="types==0">
 				and 1=1 and b.order_state!='8'

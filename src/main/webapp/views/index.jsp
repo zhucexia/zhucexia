@@ -37,7 +37,7 @@
 		<div class="index_ser">
 			<div class="box" id="news-channel">
 				<div class="title common_title">
-					<a href="${root }/good/goodlist"
+					<a href="${root }/good/goodlist?flag=1"
 						class="cur">套餐</a>
 				</div>
 				<ul class="newc-list clearfix" style="display: block; top: 0px;">
@@ -150,7 +150,7 @@
 			<div class="w960" style="margin-left: 10px;">
 				<div class="title common_title">
 					<span class="common_more"><a
-						href="#">更多服务</a></span>
+						href="${root }/good/goodlist?flag=2">更多服务</a></span>
 				</div>
 				<div id="imageDemo" class="image_cont"
 					style="visibility: visible; overflow: hidden; position: relative; z-index: 2; left: 0px; width: 1040px;">

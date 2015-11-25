@@ -299,7 +299,7 @@
 													<div class="item-row">
 														<div class="col col-1">
 															<div class="g-pic">
-																<img src="${root }/static/images/${item.value.pic}"
+																<img src="http://${item.value.pic}"
 																	width="40" height="40" />
 															</div>
 															<div class="g-info">
@@ -309,9 +309,9 @@
 																	${item.value.name}</a>
 															</div>
 														</div>
-														<div class="col col-2">${item.value.price_market}元</div>
+														<div class="col col-2">${item.value.price_range}元</div>
 														<!--  <div class="col col-3">1</div> -->
-														<div class="col col-4">${item.value.price_market}元</div>
+														<div class="col col-4">${item.value.price_range}元</div>
 													</div>
 												</dd>
 											</c:forEach>
