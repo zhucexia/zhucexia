@@ -167,7 +167,7 @@
 								<div class="pic"> 
 									<a href="#"
 										target="_blank"><img dataid="373471" width="225"
-										src="${root }/static/images/index/banner/${server.pic}"
+										src="http://${server.pic}"
 										alt="${server.name}" class="373471" height="225"></a>
 								</div>
 								<div class="dec">

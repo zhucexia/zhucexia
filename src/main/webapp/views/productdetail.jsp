@@ -15,7 +15,7 @@
 			<div class="pro-left-imgs">
 				<div class="big-img">
 					<a class="jqzoom" href="javascript:void(0);"><img id="bigSS"
-						src="${root }/static/images/index/goods/${go.pic}"
+						src="http://${go.pic}"
 						jqimg="${root }/static/images/product/product_hongkou_315.jpg"
 						width="315"></a>
 				</div>

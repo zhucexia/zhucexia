@@ -109,11 +109,11 @@ public class SaleOrderService {
 		SalaOrderPo saleOrder=saleOrderPoMapper.getOrderByno(order_no);
 		//更改订单状态
 		//saleOrder.setOrderstate("2");
-		if(!saleOrder.getPaymentcode().equals("cash_no_delivery")){
+		if(!saleOrder.getPaymentcode().equals("cash_on_delivery")){
 			saleOrder.setPaymentstate("1");
 		}
 		if(payMethod.equals("0.00")){
-			saleOrder.setOrderstate("1");
+			saleOrder.setOrderstate("2");
 		}
 		//支付宝订单号
 		if(trade_no!=null){
@@ -124,6 +124,7 @@ public class SaleOrderService {
 		Date date = new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		saleOrder.setPaymenttime(sdf.parse(sdf.format(date)));
+		System.out.println("saleOrder-----"+saleOrder.toString());
 		int flag=saleOrderPoMapper.update(saleOrder);
 		if (flag>0){
 			return "success";
