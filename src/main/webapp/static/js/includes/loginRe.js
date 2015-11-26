@@ -31,19 +31,13 @@ $(function() {
     	bool = true;
     });
 
-    var flag = false;
-
     var rules = {
-        'username' : function(value){
-            return value.length >= 3 && value.length <= 12 && value !== '';
-        },
-        'pwd' : function(value){
-            return value.length >=6 && value.length <= 20 && value !== '';
-        },
+        'username' : /^\w{3,12}$/,
+        'pwd' : /^\w{6,20}$/,
         'conpwd' : function(value){
-            return value === $('input[name="pwd"]').val() && value !== '';
+        	return value!=""&&value==$("input[name='pwd']").val();
         },
-        'phone' : /^\d{11}/,
+        'phone' : /^1[3578][0-9]{9}$/,
         'email' : /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
 
     };
@@ -64,19 +58,23 @@ $(function() {
             name = $this.attr('name'),
             value = $this.val(),
             rule = rules[name];
-        if(!rule) {
-            flag = true;
-            return;
+        if(value==""||value==null||rule==""||rule==null){
+        	$this.next().not('.msgs').html("");
+        	return
         }else{
-        	flag = false;
+        	if($.isFunction(rule)?rule(value):rule.test(value)) {
+        		//return;
+        		$this.next().text(SUCMSG).removeClass('error-text').addClass('success-text');
+        	}else{
+        		//flag = false;
+        	}
         }
-        if($.isFunction(rule) && rule(value) || rule.constructor == RegExp && rule.test(value)){
-            $this.next().text(SUCMSG).removeClass('error-text').addClass('success-text');
+        /*if($.isFunction(rule) && rule(value) || rule.constructor == RegExp && rule.test(value)){
             flag = true;
         }else{
         	flag = false;
             $this.next().text(errormsg.name).removeClass('success-text').addClass('error-text');
-        }
+        }*/
     });
     //发送短信倒计时
     var validCode = false;
@@ -105,9 +103,10 @@ $(function() {
     })
     
     //验证用户名是否注册过
+    var validName = true;
     $("#username").blur(function(){
     		var name=$("#username").val();
-    		if(name != "" && name!=null){
+    		if(rules['username'].test(name)){
     			$.ajax({
     				url : "/zhucexia/customer/validateuser",
     				type : 'POST',
@@ -119,44 +118,22 @@ $(function() {
     					var data=eval("(" + data + ")");
     					if(data.message=="该用户已占用"){
     						$(".uts").html("该用户已占用");
-    						$(".ust").show();
-    						validCode=false;
-    						if(flag==false || validCode==false){
-   				    		 $(".uts").css("color","red");
-   				    	    }else if(flag==true && validCode==true){
-   				    	      $(".uts").css("color","#0099FF");
-   				    	    }
-    					
+    						validName=false;
     					}else{
-    						validCode=true;
-    						if($("#username").val().length>=3){
-    							validCode=true;
-    						}else{
-    							validCode=false;
-    						}	
-    						
-    						if(flag==false || validCode==false){
-      				    		 $(".uts").css("color","red");
-      				    	    }else if(flag==true && validCode==true){
-      				    	      $(".uts").css("color","#0099FF");
-      				    	    }
+    						validName=true;
     					}
-    				},
-    				error:function(data) {
-    					var data=eval("(" + data + ")");
     				}
     			});
     		}else{
-    			$(".uts").html("请输入用户名");
-    			$(".uts").show();
+    			validName=false;
     		}
-    		
     	});
 
     //验证手机是否被占用过
+    var validMobile = true;
     $("#phone").blur(function(){
 		var phone=$("#phone").val();
-		if(phone!="" && phone!=null){
+		if(rules['phone'].test(phone)){
 			$.ajax({
 				url : "/zhucexia/customer/validatephone",
 				type : 'POST',
@@ -169,38 +146,15 @@ $(function() {
 					if(data.message=="该手机已占用"){
 						
 						$(".pts").html("该手机已占用");
-						$(".pts").show();
-						validCode=false;
-						if(flag==false || validCode==false){
-				    		 $(".pts").css("color","red");
-				    	 }else{
-				    		 $(".pts").css("color","#0099FF");
-				    	 }
+						validMobile=false;
 					}else{
-						
-						if($("#phone").val().length==11){
-							validCode=true;
-						}else{
-							validCode=false;
-							$(".pts").html("手机号为11位数字");
-						}		
-						if(flag==false || validCode==false){
-				    		$(".pts").css("color","red");
-				    		
-				    	 }else if(flag==true && validCode==true){
-				    	    $(".pts").css("color","#0099FF");
-				    	 }
+						validMobile=true;
 					}
 				},
-				error:function(data) {
-					var data=eval("(" + data + ")");
-				}
 			});
 		}else{
-			$(".pts").html("请输入手机号");
-			$(".pts").show();
+			validMobile=false;
 		}
-		
 	});
     
     //验证手机验证码
@@ -218,15 +172,11 @@ $(function() {
 				success : function(data) {
 					var data=eval("(" + data + ")");
 					if(data.message !="输入正确"){
-						validCode=false;
 						$("#messcode").html(data.message);
 						$("#messcode").css({"color":"red","font-weight":"bold"});
-						$("#messcode").show();
 					}else{
-						validCode=true;
 						$("#messcode").html("输入正确");
-						$("#messcode").css({"color":"#0697DA","font-weight":"bold"});
-						$("#messcode").show();
+						$("#messcode").css({"color":"#0099FF","font-weight":"bold"});
 					}
 				},
 				error:function(data) {
@@ -237,9 +187,7 @@ $(function() {
 		}else{
 			$("#messcode").html("请输入验证码");
 			$("#messcode").css({"color":"red","font-weight":"bold"});
-			$("#messcode").show();
-		}
-			
+		}	
 	});	
     
     //头部我的订单特效
@@ -250,35 +198,36 @@ $(function() {
     	});
   //提交按钮,所有验证通过方可提交
     $('input[name="reg"]').click(function() {
+    	var flag = true;
     	var name=$("#username").val();
 		var password=$("#zcpwd").val();
 		var cpassword=$("#zcconpwd").val();
 		var mobile=$("#phone").val();
 		var email=$("#email").val();
 		var yzm=$("#yzm").val();
-    	if(name=="" || password=="" || cpassword=="" || mobile=="" || yzm==""){
-    		$(".zcts").html("完整以上全部内容");
-    		$(".zcts").css({"font-weight":"bold","color":"red"});
-    		$(".zcts").show();
-    		flag==false;
-    		return ;
-    	}else{
-    		$(".zcts").html("");
+    	if(!validName){
+    		flag = false;
     	}
-    	 if (email != '') {
-    	    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
-    	    if (!reg.test(email)) {
-    	    	flag==false;
-    	    	$(".zcemail").html("邮箱格式不正确");
-    	    	$(".zcemail").show();
-        		return ;
-    	    }
+    	if(!rules['pwd'].test(password)){
+    		flag = false;
+    	}
+    	if(!rules['conpwd'](cpassword)){
+    		flag = false;
+    	}
+    	if(!validMobile){
+    		flag = false;
+    	}
+    	if (email != '') {
+    	   var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+    	   if (!reg.test(email)) {
+    		   flag==false;
+    		   $(".zcemail").html("邮箱格式不正确");
+    	   }
     	}
     	if($("#messcode").html()!="输入正确"){
     		flag==false;
-    		return;
     	}   	
-    	if (flag==true && validCode==true) {
+    	if (flag) {
 			$.ajax({
 				url : "/zhucexia/customer/reg",
 				type : 'POST',
@@ -309,7 +258,8 @@ $(function() {
 				}
 			});
         } else {
-         
+        	$(".zcts").html("请完成带*号的全部内容");
+        	$(".zcts").css({"color":"red","font-weight":""})
         }
     });
 

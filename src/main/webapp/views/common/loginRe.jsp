@@ -45,13 +45,13 @@
 			$("#edit").css("display","none");
 			$("#reg").css("display","block");
 			$(".msgs").html("获取短信验证码");
-			$(".uts").hide();
-			$(".zcpwd").hide();
-			$(".zcconpwd").hide();
-			$(".pts").hide();
-			$("#messcode").hide();
-			$(".zcemail").hide();
-			$(".zcts").hide();
+			$(".uts").html("");
+			$(".zcpwd").html("");
+			$(".zcconpwd").html("");
+			$(".pts").html("");
+			$("#messcode").html("");
+			$(".zcemail").html("");
+			$(".zcts").html("");
 		}
 </script>
 <!--登录窗结束体-->
@@ -64,15 +64,15 @@
 		<form class="theme-signin" name="loginform" action="" method="post" >
 			<input type="hidden" name="type" value="0" />
 			<ul>
-				<li><strong>用户名：</strong> <input class="ipt" type="text"
+				<li><strong>*用户名：</strong> <input class="ipt" type="text"
 					name="username" placeholder="注册侠" size="20" id="username"/><span class="uts"></span></li>
-				<li><strong>密 码：</strong> <input class="ipt" type="password"
+				<li><strong>*密 码：</strong> <input class="ipt" type="password"
 					name="pwd" value="" size="20" id="zcpwd"/><span class="zcpwd"></span></li>
-				<li><strong>确认密码：</strong> <input class="ipt" type="password"
+				<li><strong>*确认密码：</strong> <input class="ipt" type="password"
 					name="conpwd" value="" size="20" id="zcconpwd"/><span  class="zcconpwd"></span></li>
-				<li><strong>手机号：</strong> <input class="ipt" type="text"
+				<li><strong>*手机号：</strong> <input class="ipt" type="text"
 					name="phone" placeholder="您的手机号" size="20" id="phone"/><span class="pts" ></span></li>
-				<li><strong>验证码：</strong> <input class="ipt" type="text"
+				<li><strong>*验证码：</strong> <input class="ipt" type="text"
 					name="msg" size="20" id="yzm" style="width:100px;"/><span class="msgs" onclick="mess()">获取短信验证码</span><span id="messcode"></span> </li>
 				<li><strong>邮箱：</strong> <input class="ipt" type="text"
 					name="email" placeholder="您的联系邮箱" size="20" id="email"/><span class="zcemail"></span></li>
