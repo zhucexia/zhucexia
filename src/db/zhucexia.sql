@@ -11,9 +11,9 @@ CREATE TABLE `sys_power` (
   `name` varchar(64) NOT NULL COMMENT '权限菜单名称',
   `state` varchar(1) COLLATE utf8_bin DEFAULT 's' COMMENT '数据状态 c:草稿 s;已审核 d:删除',
   `create_by` varchar(64) COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(32) COMMENT '更新人',
-  `update_time` datetime DEFAULT now() COMMENT '更新时间',
+  `update_time` datetime    COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `sys_power_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统权限表';
@@ -31,9 +31,9 @@ CREATE TABLE `sys_role` (
   `name` varchar(64) NOT NULL COMMENT '角色名称',
   `state` varchar(1) DEFAULT 's' COMMENT '数据状态 c:草稿 s;已审核 d:删除',
   `create_by` varchar(64) COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) COMMENT '更新人',
-  `update_time` datetime DEFAULT now() COMMENT '更新时间',
+  `update_time` datetime    COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `sys_role_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统角色表';
@@ -76,9 +76,9 @@ CREATE TABLE `sys_user` (
   `dept_name` varchar(64) DEFAULT NULL COMMENT '部门名称',
   `state` varchar(1) NOT NULL DEFAULT 's' COMMENT '数据状态 c:草稿 s;已审核 d:删除',  
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime DEFAULT now() COMMENT '更新时间',
+  `update_time` datetime    COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `sys_user_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统管理员信息表';
@@ -103,9 +103,9 @@ CREATE TABLE `customer` (
   `city` varchar(30) DEFAULT NULL,
   `remark` varchar(512) DEFAULT NULL,
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   `maritalstatus` varchar(50) DEFAULT NULL COMMENT '婚姻状况',
   `schooling` varchar(50) DEFAULT NULL COMMENT '受教育程度',
   `salary` varchar(50) DEFAULT NULL COMMENT '月收入',
@@ -117,9 +117,9 @@ CREATE TABLE `customer` (
   KEY `customer_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户信息表';
 
--------------------------------
+-- -----------------------------
 -- 客户短信信息表 
--------------------------------
+-- -----------------------------
 DROP TABLE IF EXISTS `customer_sms`;
 CREATE TABLE `customer_sms` (
 	`id` int(11) unsigned auto_increment NOT NULL,
@@ -130,16 +130,16 @@ CREATE TABLE `customer_sms` (
   	`ip` varchar(32) COMMENT '客户ip地址',
   	`smsid` varchar(32) COMMENT '短信厂商回执id',
   	`create_by` varchar(64) DEFAULT 'system' COMMENT '创建人',
-  	`create_time` datetime DEFAULT now() COMMENT '创建时间',
+  	`create_time` datetime    COMMENT '创建时间',
   	`update_by` varchar(64) DEFAULT 'system' COMMENT '修改人',
-  	`update_time` datetime DEFAULT now() COMMENT '修改时间',
+  	`update_time` datetime    COMMENT '修改时间',
   	PRIMARY KEY (`id`),
   	KEY `customer_sms_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户短信信息表';
 
--------------------------------
+-- -----------------------------
 -- 客户邮箱验证信息表 
--------------------------------
+-- -----------------------------
 DROP TABLE IF EXISTS `customer_email`;
 CREATE TABLE `customer_email` (
 	`id` int(11) unsigned auto_increment NOT NULL,
@@ -151,9 +151,9 @@ CREATE TABLE `customer_email` (
   	`ip` varchar(32) COMMENT '客户ip地址',
   	`state` varchar(1) DEFAULT '0' COMMENT '数据状态  0:未验证， 1:已验证',
   	`create_by` varchar(64) DEFAULT 'system' COMMENT '创建人',
-  	`create_time` datetime DEFAULT now() COMMENT '创建时间',
+  	`create_time` datetime    COMMENT '创建时间',
   	`update_by` varchar(64) DEFAULT 'system' COMMENT '修改人',
-  	`update_time` datetime DEFAULT now() COMMENT '修改时间',
+  	`update_time` datetime    COMMENT '修改时间',
   	PRIMARY KEY (`id`),
   	KEY `customer_email_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户邮箱验证信息表 ';
@@ -186,7 +186,7 @@ CREATE TABLE `customer_favorite` (
   `good_id` int(11) NOT NULL COMMENT '商品id',
   `good_name` varchar(128) NOT NULL COMMENT '商品名称',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `favorite_id` (`id`),
   KEY `favorite_good_id` (`good_id`)
@@ -204,9 +204,9 @@ CREATE TABLE `file_upload` (
   `original_name` varchar(64)  NOT NULL,
   `relative_path` varchar(128) NOT NULL,
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `file_upload_id` (`id`),
   KEY `file_upload_app_id` (`app_id`)
@@ -223,11 +223,11 @@ CREATE TABLE `good_type` (
   `sort` int(11) DEFAULT NULL COMMENT '序号',
   `remark` varchar(512) DEFAULT NULL COMMENT '备注',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人id',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人id',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   `state` varchar(1) DEFAULT 's' COMMENT '数据状态 c:草稿 s;已审核 d:删除',
-  PRIMARY KEY (`id`),f
+  PRIMARY KEY (`id`),
   KEY `good_type_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商品类型信息表';
 
@@ -260,9 +260,9 @@ CREATE TABLE `good` (
   `comment_count` int(11) DEFAULT 0 COMMENT '商品的评论数',
   `sort` int(11) DEFAULT NULL COMMENT '商品排序',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建人id',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(32) DEFAULT NULL COMMENT '修改人id',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `good_id` (`id`),
   KEY `good_code` (`code`),
@@ -284,12 +284,12 @@ CREATE TABLE `good_attr` (
   `state` varchar(1) COLLATE utf8_bin DEFAULT 's' COMMENT '数据状态 c:草稿 s;审核 d:删除',
   `option_value` varchar(1024) DEFAULT NULL COMMENT '可选值',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `good_attr_id` (`id`),
-  KEY `good_attr_good_type_id` (`good_type_id`)
+  KEY `good_attr_good_id` (`good_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='商品可选条件属性表';
 
 
@@ -304,9 +304,9 @@ CREATE TABLE `good_attr_value` (
   `attr_value` varchar(512) NOT NULL COMMENT '可选条件值',
   `sort` int(11) DEFAULT NULL COMMENT '序号',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `good_attr_value_id` (`id`),
   KEY `good_attr_value_good_id` (`good_id`),
@@ -323,9 +323,9 @@ CREATE TABLE `good_price` (
   `good_attr` varchar(100) COMMENT '商品可选条件，格式为attr1:value1,attr2:value2,attr3:value3 ..., 通过用户选择的条件， 决定商品的价格，  如果为null， 表示该商品只有一个价格， 没有可选条件。',
   `price` decimal(18,2) DEFAULT NULL COMMENT '商品价格',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `good_price_id` (`id`),
   KEY `good_price_good_id` (`good_id`)
@@ -342,9 +342,9 @@ CREATE TABLE `good_relation` (
   `related_good_name` varchar(128) NOT NULL COMMENT '关联商品名称',
   `is_necessary` varchar(1) DEFAULT '0' COMMENT '是否必要， 0不必要    1必要',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `good_relation_id` (`id`),
   KEY `good_relation_good_id` (`good_id`),
@@ -363,9 +363,9 @@ CREATE TABLE `payment` (
   `remark` varchar(512) DEFAULT NULL,
   `state` varchar(1) DEFAULT 's' COMMENT '数据状态 c:草稿 s;审核 d:删除',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人姓名',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人姓名',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `payment_id` (`id`),
   KEY `payment_code` (`code`)
@@ -398,9 +398,9 @@ CREATE TABLE `sale_order` (
   `delivery_state` varchar(1) DEFAULT '0' COMMENT '发货状态   0未发货       1,已发货',
   `remark` varchar(512) DEFAULT NULL COMMENT '备注',
   `create_by` varchar(64) DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime DEFAULT now() COMMENT '创建时间',
+  `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '修改人',
-  `update_time` datetime DEFAULT now() COMMENT '修改时间',
+  `update_time` datetime    COMMENT '修改时间',
   `alipay_trade_no` varchar(32) DEFAULT NULL COMMENT '支付宝订单号',
   `delivery_trade_no` varchar(32) DEFAULT NULL COMMENT '物流订单号',
   `orderstate_time` datetime DEFAULT NULL COMMENT '订单确认时间',
