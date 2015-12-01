@@ -38,40 +38,24 @@ public class GoodController {
 	@ResponseBody
 	public void showindexgood(HttpServletRequest request, HttpServletResponse response){
 		List<GoodPo> goodlist=goodService.showindexgood();
-		System.out.println("shouyemian:"+goodlist.size());
-		for (GoodPo goodPo : goodlist) {
-			System.out.println(goodPo.getName());
-		}
 	}
 	
 	@RequestMapping("/showindexserver")
 	@ResponseBody
 	public void showindexserver(HttpServletRequest request, HttpServletResponse response){
 		List<GoodPo> goodlist=goodService.showindexserver();
-		System.out.println("shouyemian:"+goodlist.size());
-		for (GoodPo goodPo : goodlist) {
-			System.out.println(goodPo.getName());
-		}
 	}
 	
 	@RequestMapping("/showdetailgood")
 	@ResponseBody
 	public void showdetailgood(HttpServletRequest request, HttpServletResponse response){
 		List<GoodPo> goodlist=goodService.showdetailgood();
-		System.out.println("shouyemian:"+goodlist.size());
-		for (GoodPo goodPo : goodlist) {
-			System.out.println(goodPo.getName());
-		}
 	}
 	
 	@RequestMapping("/showdetailserver")
 	@ResponseBody
 	public void showdetailserver(HttpServletRequest request, HttpServletResponse response){
 		List<GoodPo> serverlist=goodService.showdetailserver();
-		System.out.println("shouyemian:"+serverlist.size());
-		for (GoodPo goodPo : serverlist) {
-			System.out.println(goodPo.getName());
-		}
 	}
 	
 	@RequestMapping("/goodlist")
@@ -95,10 +79,8 @@ public class GoodController {
 	@RequestMapping("/goodsdetail")
 	public String goodsdetail(HttpServletRequest request, HttpServletResponse response){
 		String no=request.getParameter("id");
-		System.out.println("商品详情编号："+no);
 		int id=Integer.valueOf(no);
 		List<HashMap<String, Object>> good=goodService.goodsdetail(id);
-		System.out.println(good);
 		request.setAttribute("good", good);
 		return "/productdetail";
 	}

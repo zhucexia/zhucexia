@@ -19,16 +19,6 @@ public class GoodService {
 	@Resource(name = "goodPoMapper")
 	private GoodPoMapper goodPoMapper;
 
-	/*public CustomerPo login(String username, String password) {
-		// TODO Auto-generated method stub
-		Map<String,Object> hash=new HashMap<String,Object>();
-		hash.put("username", username);
-		hash.put("password", password);	
-		System.out.println(hash);
-		CustomerPo customer=customerPoMapper.login(hash);
-		return customer;
-	}*/
-
 	public List<GoodPo> showindexgood() {
 		// TODO Auto-generated method stub
 		return goodPoMapper.showindexgood();

@@ -40,7 +40,6 @@ public class PaymentController {
 		String orderId = request.getParameter("orderId");
          //根据orderid获取订单信息
          SalaOrderPo saleOrder = saleOrderService.getOrder(Integer.parseInt(orderId));
-         System.out.println("orderId===="+orderId+"order_no---"+saleOrder.getOrder_no());
         //地址id设置
          saleOrder.setAddress(addrId);
 		// 检查订单是否是未支付状态， 是否过期(一个月未期限)
@@ -55,7 +54,6 @@ public class PaymentController {
 			String paymentCode=request.getParameter("Checkout[pay_id]");
 			/*通难过*支付方式编号，查询支付方式的id值*/
 			PaymentPo paymentPo=paymentService.queryByCode(paymentCode);
-			System.out.println("payment----"+paymentPo);
 			/*更新订单地址信息*/
 				//根据订单id，查询地址信息
 				CustomerAddrPo customerAddrPo = customerAddresService.getAddr(Integer.parseInt(addrId));
