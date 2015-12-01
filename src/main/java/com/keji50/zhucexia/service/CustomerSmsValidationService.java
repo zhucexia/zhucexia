@@ -41,7 +41,7 @@ public class CustomerSmsValidationService extends AbstractValidationService {
 		
 		// 插入验证记录到数据表， 如插入成功， 调用短信网关发送验证短信
 		int count = customerSmsPoMapper.insert(sms);
-		System.out.println("发送短信插入数据库"+count+"---"+sms);
+		//System.out.println("发送短信插入数据库"+count+"---"+sms);
 		if (count > 0) {
 			// 异步发送验证短信
 			//smsGatewayService.sendSms(sms);
@@ -85,7 +85,6 @@ public class CustomerSmsValidationService extends AbstractValidationService {
 		CustomerSmsValidationService service = (CustomerSmsValidationService) applicationContext
 				.getBean("customerSmsValidationService");
 
-		System.out.println(service.sendValidationSms("13501635413", "192.168.1.1", SmsTemplate.VALIDATION_TEMPLATE));
-		//System.out.println(service.validateSms(5, "13501635413", "3605"));
+		//System.out.println(service.sendValidationSms("13501635413", "192.168.1.1", SmsTemplate.VALIDATION_TEMPLATE));
 	}
 }

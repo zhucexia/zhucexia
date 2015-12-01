@@ -33,12 +33,10 @@ public class UserController {
     	InputStream in = this.getClass() .getResourceAsStream("/config.properties" ); 
     	try {
 			prop.load(in);
-			System.out.println("------"+prop.get("fileupload.dir"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 	
-    	System.out.println(System.getProperty("fileupload.dir"));
     	List<GoodPo> goodlist=goodService.showindexgood();
     	List<GoodPo> serverlist=goodService.showindexserver();
     	request.setAttribute("goodlist",goodlist);

@@ -19,7 +19,6 @@ public class CustomerAddressService {
 	public int insert(CustomerAddrPo customerAddrPo) throws RuntimeException{
 		//修改已有的其他的地址为非默认地址
 		int updateFlag=customerAddrPoMapper.updateDefaultAddr();
-		System.out.println("updateFlag-----"+updateFlag);
 		if(updateFlag>=0){
 			int flag=customerAddrPoMapper.insert(customerAddrPo);
 			if(flag>0){
@@ -52,7 +51,6 @@ public int setIsDefault(String id) throws RuntimeException {
 	/*取消之前的默认地址*/
 	//修改已有的其他的地址为非默认地址
 	int updateFlag=customerAddrPoMapper.updateDefaultAddr();
-	System.out.println("updateFlag-----"+updateFlag);
 	if(updateFlag>=0){
 		int flag=customerAddrPoMapper.isDefaultById(id);
 		if(flag>0){

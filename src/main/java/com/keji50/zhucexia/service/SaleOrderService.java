@@ -54,7 +54,6 @@ public class SaleOrderService {
 				}
 				int detail=saleOrderDetailPoMapper.inserts(list);
 				if(detail>0){
-					System.out.println("detail======="+detail);
 					return id;
 				}
 				else{
@@ -91,7 +90,6 @@ public class SaleOrderService {
 			}
 			int detail=saleOrderDetailPoMapper.inserts(list);
 			if(detail>0){
-				System.out.println("detail======="+detail);
 				return saleOrder;
 			}
 			else{
@@ -124,7 +122,6 @@ public class SaleOrderService {
 		Date date = new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		saleOrder.setPaymenttime(sdf.parse(sdf.format(date)));
-		System.out.println("saleOrder-----"+saleOrder.toString());
 		int flag=saleOrderPoMapper.update(saleOrder);
 		if (flag>0){
 			return "success";
