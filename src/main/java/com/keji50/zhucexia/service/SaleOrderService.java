@@ -161,5 +161,13 @@ public class SaleOrderService {
 			throw new RuntimeException();
 		} 
 	}
+	public int completeOrder(String id) {
+		int flag=saleOrderPoMapper.completeOrder(id);
+		if(flag>0){
+			return flag;
+		}else{
+			throw new RuntimeException();
+		}
+	}
 
 }

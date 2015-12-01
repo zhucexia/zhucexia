@@ -161,12 +161,12 @@
 </head>
 <body>
    	<div class="WB_miniblog">
-   		<div class="topNavWrap-pindao" style="background-color:">
+   		<!-- <div class="topNavWrap-pindao" style="background-color:">
    			<div class="grhead">
    				<div class="grinfo">
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="second_newmenu">
 			<div class="navboxSecond">
 				<div class="subNav" id="widget-subnav">

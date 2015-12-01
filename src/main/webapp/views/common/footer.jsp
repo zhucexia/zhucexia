@@ -11,10 +11,10 @@
 	<div id="footer" class="container" >
 		<!--广告位indexmiddletwo_ad-->
 		<div class="fot-nav">
-			<a href="${root }/views/about.jsp" class="nav-alink" title="关于我们">关于我们</a><span>|</span>
+			<a href="${root }/about" class="nav-alink" title="关于我们">关于我们</a><span>|</span>
 
 			<!-- <a href="" class="nav-alink" title="媒体报道">媒体报道</a><span>|</span> -->
-			<a href="${root }/views/qa.jsp" class="nav-alink" title="常见问题">常见问题</a><span>|</span>
+			<a href="${root }/faq" class="nav-alink" title="常见问题">常见问题</a><span>|</span>
 			<!-- <a href="" class="nav-alink" title="合作园区">合作园区</a><span>|</span> -->
 			<!-- <a href="" class="nav-alink" title="联系我们">联系我们</a> -->
 

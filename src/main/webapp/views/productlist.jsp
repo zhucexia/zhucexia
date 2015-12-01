@@ -61,7 +61,7 @@
 				<div class="rtop">
 					<div class="rtop-tit">上海创业套餐</div>
 					<div class="site-tips rr">
-						当前位置：<a href="${root }/index/show">首页</a> >><span>上海创业套餐</span>
+						当前位置：<a href="${root }/">首页</a> >><span>上海创业套餐</span>
 					</div>
 				</div>
 				<div class="rmid">
@@ -110,7 +110,7 @@
 				<div class="rtop">
 					<div class="rtop-tit">上海创业服务</div>
 					<div class="site-tips rr">
-						当前位置：<a href="${root }/index/show">首页</a> >><span>上海创业服务</span>
+						当前位置：<a href="${root }/">首页</a> >><span>上海创业服务</span>
 					</div>
 				</div>
 				<div class="rmid">

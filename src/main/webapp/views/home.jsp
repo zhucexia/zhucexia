@@ -101,7 +101,7 @@
 								<div class="tabBox leftTab">
 									<ul class="tabLinks">
 										<li class="selected">
-											<a	href="${root }/static/助策侠网络科技有限公司 我的账户.html">账户总览</a>
+											<a	href="javascript:;">账户总览</a>
 										</li>
 										<!--            <li><a href="/bind">我的预约</a></li><li><a href="/sncode/">我的活动</a></li><li><a href="/">我的留言</a></li>-->
 									</ul>

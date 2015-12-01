@@ -77,7 +77,7 @@ public class CustomerEmailValidationService extends AbstractValidationService {
 			return result;
 		}
 		// 邮件验证码是否过期或失效
-		if (new Date().compareTo(email.getValidationExpire()) > 0||email.getState().equals(1)) {
+		if (new Date().compareTo(email.getValidationExpire()) > 0||email.getState().equals("1")) {
 			result.put("resultCode", -2);
 			return result;
 		}
