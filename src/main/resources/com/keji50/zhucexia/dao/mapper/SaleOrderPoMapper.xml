@@ -85,7 +85,7 @@
 				and 1=1 and c.order_state!='8'
 			</when>
 			<when test="types==1">
-				and c.order_state='1' and c.payment_state='0' and c.payment_code!='cash_on_delivery'
+				and c.order_state='1' and c.payment_state='0' and (c.payment_code!='cash_on_delivery' or  c.payment_code is null)
 			</when>
 			<when test="types==2">
 				and ((c.order_state='1' and c.payment_state='1') or (c.payment_code='cash_on_delivery' and c.order_state='1' and c.payment_state='0'))

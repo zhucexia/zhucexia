@@ -68,10 +68,18 @@
 		</property>
 	</bean>
 
-	<!-- 拦截器配置 -->
-	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/*" /> <bean 
-		class="com.keji50.zhucexia.web.interceptor.ControllerInterceptor"></bean> 
-		</mvc:interceptor> </mvc:interceptors> -->
+	<mvc:interceptors> 
+		<mvc:interceptor> 
+			<mvc:mapping path="/address/**" /> 
+		 	<mvc:mapping path="/customer/**" />
+		 	<mvc:mapping path="/payment/**" />
+		 	<mvc:mapping path="/sales/**" />
+		 	<mvc:mapping path="/details/**" />
+		 	<mvc:exclude-mapping path="/customer/login"/> 	
+			<bean 
+				class="com.keji50.zhucexia.web.interceptor.ControllerInterceptor"></bean> 
+		</mvc:interceptor> 
+	</mvc:interceptors> 
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
