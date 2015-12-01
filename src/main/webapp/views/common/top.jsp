@@ -74,7 +74,7 @@
 #cs_box span {height:20px; line-height:20px;display:block;}
 .cs_close {color:#FFF; position:absolute; right:10px; top:8px; cursor:pointer; font-size:20px;font-family:Verdana, Geneva, sans-serif}
 .cs_title {font-size:14px; margin:10px; font-weight:bold;}
-.cs_img {width:100px; height:100px; background:#FFF; margin:10px;background-image:url(/zhucexia/static/images/common/kefu.jpg) }
+.cs_img {width:100px; height:100px; background:#FFF; margin:10px;background-image:url(/static/images/common/kefu.jpg) }
 .cs_info {font-size:12px; margin:0px 10px; overflow:hidden; text-align:center;}
 .cs_btn {width:100px; height:25px; background:#7D7D7D; margin:5px 10px; border-radius:5px; font-size:12px; line-height:25px; color:#FFF; text-align:center; cursor:pointer;}
 </style>

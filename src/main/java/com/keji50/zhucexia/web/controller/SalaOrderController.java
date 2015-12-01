@@ -48,7 +48,6 @@ public class SalaOrderController {
 	public String toBuildOrder(HttpServletRequest request){
 		/*获取传递过来的商品的id值*/
 		String id = request.getParameter("id");
-		System.out.println("-----------"+id);
 		/*获取单个商品的信息，以及和它关联的商品信息*/
 		//查询单个商品信息,
 		Map<String,Object> map =  goodService.getGood(id);
@@ -99,7 +98,6 @@ public class SalaOrderController {
 		}
 		/*存储该商品和其关联产品件的关联关系*/
 		if(request.getSession().getAttribute("relationGood")!=null){
-			System.out.println("relationGood已经创建？");
 			/*且以商品信息id做为key值，关联商品id拼接字符作为value值，*/
 			Map<String,Object> relationGood=(Map<String,Object>)request.getSession().getAttribute("relationGood");
 			/*遍历查询出的关联*/
@@ -124,7 +122,6 @@ public class SalaOrderController {
 				relationGood.put(id, relationIds);
 				request.getSession().setAttribute("relationGood", relationGood);
 			} 
-		System.out.println("进入了SalaOrderController的方法---toBuildOrder");
 		return "cart";
 	}
 	/*跳转到我的购物车*/
@@ -143,7 +140,6 @@ public class SalaOrderController {
 			if(maps.get(id)==null){
 				return "cart";
 			}
-			System.out.println("进入了clearSessionGood---id"+id);
 			//从session里获取为选择的商品
 			Map<String,Object> mapUnselected=(Map<String,Object>)request.getSession().getAttribute("unSelectedGood");
 			/*1判断该商品是服务，还是基本套餐，如果是基本套餐，删除与之关联的推送服务
@@ -159,8 +155,6 @@ public class SalaOrderController {
 		    if(map.get(id)!=null){
 			//获取该商品的配置关系
 			String[] relations=map.get(id).toString().split(",");
-			//遍历商品配置关系
-			//标示是否只剩下当前一个配置关系
 			int fl=0;
 			for(String key:map.keySet()){
 				if(!key.equals(id)){
@@ -173,12 +167,15 @@ public class SalaOrderController {
 					}
 		             fl++;
 					}
-				}
+			}
+			/*删除未选择的基本套餐*/
 			if(fl==0){
 				for(int i=0;i<relations.length;i++){
-						mapUnselected.remove(relations[i]);
+					mapUnselected.remove(relations[i]);
 				}
 			}
+			//删除配置
+			maps.remove(id);
 			map.remove(id);
 			System.out.println("到了map是的地方！");
 		    }
@@ -234,9 +231,7 @@ public class SalaOrderController {
 							if(flag>0){
 								bool=true;
 							}
-								
 						}
-					//
 					if(bool){
 						//删除已选择商品中该商品信息，添加未选择商品中该商品信息
 						Map<String,Object> goodPo= (Map<String, Object>) maps.get(id);
@@ -250,9 +245,7 @@ public class SalaOrderController {
 						maps.remove(id);
 						//request.getSession().setAttribute("selectedGood",maps);
 					}
-					
-				}
-			
+				}			
 			}
 		}
 		 return "cart";
@@ -729,7 +722,6 @@ public class SalaOrderController {
 	@ResponseBody
 	public String delOrder(HttpServletRequest request){
 		String id=request.getParameter("order_id");
-		//System.out.println("id============="+id);
 		int flag=saleOrderService.delOrder(id);
 		if(flag>0){
 			return "{message:true}";

@@ -64,18 +64,15 @@ public class CustomerController {
 	@RequestMapping("/login")
 	@ResponseBody
 	public String login(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进入客户登录方法--login");
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
 		CustomerPo c=new CustomerPo();
 		c.setUsername(username);
 		c.setPassword(password);
 		c.setMobile(username);
-		System.out.println("--"+c);
 		CustomerPo customer=customerService.login(c);
 		String json="";
 		if(customer!=null){
-			System.out.println(customer.toString());
 			request.getSession().setAttribute("customer", customer);
 			if(customer.getUsername().equals(username)){
 				json="{'message':'登录成功','names':'"+customer.getUsername()+"'}";
@@ -85,7 +82,6 @@ public class CustomerController {
 		}else {
 			json="{'message':'登录失败'}";
 		}
-		System.out.println(json);
 		return json;
 	}
 	/**
@@ -97,16 +93,13 @@ public class CustomerController {
 	@RequestMapping("/mess")
 	@ResponseBody
 	public String mess(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进入发短信方法");
 		String phone=request.getParameter("phonenum");
-		System.out.println("----"+phone);
 		String ip="";
 		 try {
 			ip = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		System.out.println("ip:"+ip);
 		CustomerSmsPo sms=customerSmsValidationService.sendValidationSms(phone, ip, SmsTemplate.VALIDATION_TEMPLATE);
 		String json="";
 		if(sms!=null){
@@ -115,7 +108,6 @@ public class CustomerController {
 		}else {
 			json="{'message':'发送失败'}";
 		}
-		System.out.println(json);
 		return json;
 	}
 	
@@ -129,7 +121,6 @@ public class CustomerController {
 	@ResponseBody
 	public String clearsession(HttpServletRequest request, HttpServletResponse response){
 		request.getSession().invalidate();
-		System.out.println("进入清除缓存方法");
 		String	json="{'message':'清除缓存'}";
 		return json;
 	}
@@ -143,13 +134,10 @@ public class CustomerController {
 	@RequestMapping("/validateyzm")
 	@ResponseBody
 	public String validateyzm(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("验证客户短信验证码方法");
 		String code=request.getParameter("yzm");
 		String mobile=request.getParameter("mobile");
 		String json="";
 		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
-		System.out.println("code=="+code+"验证码=="+s.getValidationCode());
-		System.out.println("mobile=="+mobile+"手机号"+s.getMobile());
 		if(s==null){
 			json="{'message':'未发送短信'}";
 		}else{
@@ -159,7 +147,6 @@ public class CustomerController {
 				json="{'message':'输入错误'}";
 			}
 		}
-		System.out.println("短信验证结果"+json);
 		return json;
 	}
 	/**
@@ -171,7 +158,6 @@ public class CustomerController {
 	@RequestMapping("/validateuser")
 	@ResponseBody
 	public String validateuser(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("验证用户是否注册过方法");
 		String username=request.getParameter("username");
 		CustomerPo c=new CustomerPo();
 		c.setUsername(username);
@@ -182,7 +168,6 @@ public class CustomerController {
 		}else {
 			json="{'message':'该用户未占用'}";
 		}
-		System.out.println(json);
 		return json;
 	}
 	
@@ -205,7 +190,6 @@ public class CustomerController {
 		}else {
 			json="{'message':'该手机未占用'}";
 		}
-		System.out.println(json);
 		return json;
 	}
 	
@@ -228,7 +212,6 @@ public class CustomerController {
 			return json="{'message':'未发送短信}";
 		}
 		int result=customerSmsValidationService.validateSms(s.getId(), phonenum, smscode);
-		System.out.println("验证result:"+result);
 		//验证是否成功 0成功 -1验证码不正确 -2验证码已过期
 		if(result == -1){
 			json="{'message':'验证码不正确'}";
@@ -241,19 +224,16 @@ public class CustomerController {
 			c.setPassword(password);
 			c.setMobile(phonenum);
 			c.setEmail(email);
-			System.out.println(c);
 			int num=customerService.insertreg(c);			
 			if(num>0){
 				request.getSession().removeAttribute("customersms");
 				json="{'message':'注册成功'}";
 			}else {
-				System.out.println("注册失败");
 				json="{'message':'注册失败'}";
 			}
 		}
 		
 		
-		System.out.println(json);
 		return json;
 	}
 	
@@ -266,7 +246,6 @@ public class CustomerController {
 	@RequestMapping("/validatelost")
 	@ResponseBody
 	public String validatelost(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进入验证忘记密码手机验证");
 		String mobile=request.getParameter("phonenum");
 		CustomerPo c=new CustomerPo();
 		c.setMobile(mobile);
@@ -277,7 +256,6 @@ public class CustomerController {
 		}else {
 			json="{'message':'该号为占用'}";
 		}
-		System.out.println(json);
 		return json;
 	}
 	
@@ -290,18 +268,15 @@ public class CustomerController {
 	@RequestMapping("/updatepass")
 	@ResponseBody
 	public String updatepass(HttpServletRequest request, HttpServletResponse response){
-		System.out.println("进行密码修改方法");
 		String password=request.getParameter("password");
 		String mess=request.getParameter("mess");
 		String phone=request.getParameter("phonenum");
 		CustomerSmsPo s=(CustomerSmsPo) request.getSession().getAttribute("customersms");
-		System.out.println("短信session的值"+s);
 		String json="";
 		if(s==null){
 			return json="{'message':'未发送短信'}";
 		}
 		int result=customerSmsValidationService.validateSms(s.getId(), phone,mess);
-		System.out.println("验证短信结果result:"+result);
 		//验证是否成功 0成功 -1验证码不正确 -2验证码已过期
 		if(result == -1){
 			json="{'message':'验证码不正确'}";
@@ -319,7 +294,6 @@ public class CustomerController {
 		}else {
 			json="{'message':'找回失败'}";
 		}
-		System.out.println(json);
 		}
 		return json;
 	}
@@ -330,7 +304,6 @@ public class CustomerController {
 	 */
 	@RequestMapping("/setBaseDate")
 	public String setBaseDate(HttpServletRequest request,HttpServletResponse response)throws Exception{
-		System.out.println("11111111111111111111");
 		MultipartHttpServletRequest req = (MultipartHttpServletRequest)request;
 		MultipartFile file = null;
 		if(req.getFileNames().hasNext()){
@@ -338,7 +311,6 @@ public class CustomerController {
 		}
 		String fileName = file.getOriginalFilename();
 		String path = request.getSession().getServletContext().getRealPath("/")+"/static/images/user/";
-		System.out.println(path);
 		File files = new File(path);
 		if(!files.exists()){
 			files.mkdir();
@@ -352,13 +324,11 @@ public class CustomerController {
         }
         file.transferTo(tempFile);
         String filePath= request.getSession().getServletContext().getContextPath()+"/static/images/user/"+tempFile.getName();
-        System.out.println(filePath);
         String pic = tempFile.getName();
         CustomerPo customer = new CustomerPo();
         customer.setUsername(req.getParameter("username"));
         customer.setPic(pic);
         customer.setPic_id(pic);
-        System.out.println(customer.getUsername()+","+customer.getPic()+","+customer.getPic_id());
         int flag = customerService.setBaseDate(customer);
         if(flag>0){
         	CustomerPo cust = (CustomerPo)request.getSession().getAttribute("customer");
@@ -415,9 +385,7 @@ public class CustomerController {
 		cust.setMobile(mobile);
 		cust.setUpdateBy(userName);
 		cust.setUpdateTime(time);
-		System.out.println(cust.toString());
 		int result = customerService.bindMobile(cust);
-		System.out.println(result);
 		int i=0;
 		if(result<=0){
 			i=1;
@@ -455,7 +423,6 @@ public class CustomerController {
 			cust.setId(id);
 		}
 		
-		System.out.println("ip============"+ip);
 		
 		if(type==0){
 			customerEmail = customerEmailValidationService.sendEmail(cust, ip, EmailTemplate.VALIDATION_TEMPLATE);
@@ -478,14 +445,12 @@ public class CustomerController {
 	@RequestMapping("email/validate")
 	public String validateEmail(HttpServletRequest request,HttpServletResponse response){
 		int emailId = Integer.parseInt(request.getParameter("id"));
-		System.out.println(emailId);
 		String emailType = request.getParameter("type");
 		String emailValidationCode = request.getParameter("validationCode");
 		Map<String,Object> result = customerEmailValidationService.validateEmail(emailId, emailType, emailValidationCode);
 		int resultCode = Integer.parseInt(result.get("resultCode").toString());
 		String page="";
 		String str="";
-		System.out.println(resultCode);
 		switch(resultCode){
 		case 0:
 			String email = ((CustomerEmailPo)result.get("result")).getEmail();
@@ -509,7 +474,6 @@ public class CustomerController {
 			page= "validateFailed2";
 			break;
 		}
-		System.out.println(page);
 		return page;
 	}
 	

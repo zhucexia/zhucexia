@@ -26,17 +26,6 @@ public class CustomerService {
 	private CustomerPoMapper customerPoMapper;
 	@Resource(name = "customerEmailPoMapper")
 	private CustomerEmailPoMapper customerEmailPoMapper;
-
-	/*public CustomerPo login(String username, String password) {
-		// TODO Auto-generated method stub
-		Map<String,Object> hash=new HashMap<String,Object>();
-		hash.put("username", username);
-		hash.put("password", password);	
-		System.out.println(hash);
-		CustomerPo customer=customerPoMapper.login(hash);
-		return customer;
-	}*/
-
 	public CustomerPo login(CustomerPo c) {
 		// TODO Auto-generated method stub
 		CustomerPo customer=customerPoMapper.login(c);
