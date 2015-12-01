@@ -146,7 +146,6 @@ public class SalaOrderController {
 			 * 2 判断该服务是否包含在其他的已选择的基本套餐之内，如果包含就不删除，反之删除
 			 * */
 			//获取该商品类型
-			System.out.println(maps.get(id));
 			String goodType=((Map<String,Object>)maps.get(id)).get("good_type_name").toString();
 	
 			if(goodType.equals("套餐")){
@@ -177,15 +176,11 @@ public class SalaOrderController {
 			//删除配置
 			maps.remove(id);
 			map.remove(id);
-			System.out.println("到了map是的地方！");
 		    }
 			//清除session里的值，unSelectedGood
 			//request.getSession().setAttribute("unSelectedGood", mapUnselected);
 			//删除该基本套餐的配置关系
 			maps.remove(id);
-			if(maps.get(id)!=null){
-				System.out.println("selectedGood session中没有删除，当前的被选商品！");
-			}
 			//request.getSession().setAttribute("selectedGood",maps);
 			
 			}
@@ -275,7 +270,6 @@ public class SalaOrderController {
 		 * 2：判断添加在订单里的服务，是否属于当前的套餐，
 		 * */
 		/*返回json数据格式数据*/
-		System.out.println("aaaaaaaaa");
 		String names="{name:";
 		String myname="";
 		/*查询所有商品的配置关系*/
@@ -293,21 +287,18 @@ public class SalaOrderController {
 				relationMap.put(good_id, values+related_good_id+",");
 			}
 		}
-		System.out.println("bbbbbbbbbbbbbb");
 		/*遍历selectedGood session里存放的值，找出基本套餐*/
 		Map<String,Object> selectedGood=(Map<String, Object>) request.getSession().getAttribute("selectedGood");
 		for(String key:selectedGood.keySet()){
 			Map<String,Object> mapGood=(Map<String, Object>) selectedGood.get(key);
 			String good_type_name=mapGood.get("good_type_name").toString();
 			if(good_type_name.equals("服务")){
-				System.out.println("ccccccccccccccccc");
 				/*获取服务的配置关系*/
 				if(relationMap.get(key)!=null){
 					String serviceRelation=(String) relationMap.get(key);
 					/*遍历选中列表中国是否存在它关联的套餐*/
 					int fls=0;
 					for(String keys:selectedGood.keySet()){
-						System.out.println("遍历选中列表中国是否存在它关联的");
 						Map<String,Object> mapGoods=(Map<String, Object>) selectedGood.get(keys);
 						String good_type_names=mapGoods.get("good_type_name").toString();
 						if(good_type_names.trim().equals("套餐")){
@@ -317,17 +308,14 @@ public class SalaOrderController {
 							/*该基本套餐是否有该该服务的配置*/
 							int flagss=-1;
 							if(relationMap.get(keys)!=null){
-								System.out.println("============"+relationMap.get(keys).toString());
 								flagss=relationMap.get(keys).toString().lastIndexOf(","+key+",");
 							}
 							if(flags<0&&flagss<0){
-								System.out.println(keys+"代表的服务没有绑定基本套餐，请删除该项服务！");
 								myname+=mapGood.get("name").toString()+",";
 							}
 						}
 				}
 					if(fls==0){
-						System.out.println("------"+mapGood.get("name"));
 						myname+=mapGood.get("name").toString()+",";
 					}
 				}
@@ -338,7 +326,6 @@ public class SalaOrderController {
 						String good_type_names=mapGoods.get("good_type_name").toString();
 						if(good_type_names.equals("套餐")){
 							String  relations=relationMap.get(keys).toString();
-							System.out.println("relations==="+relations+"====key=="+key);
 							int bool=relations.lastIndexOf(","+key+",");
 							if(bool<0){
 								myname+=mapGood.get("name").toString()+",";
@@ -347,7 +334,6 @@ public class SalaOrderController {
 						}
 					}
 					if(flags==0){
-						System.out.println(key+"代表的服务没有绑定基本套餐，请删除该项服务");
 						myname+=mapGood.get("name").toString()+",";
 					}
 				}
@@ -361,7 +347,6 @@ public class SalaOrderController {
 		}
 		
 		names+="\""+myname+"\""+"}";
-		System.out.println(names);
 		return names;
 	}
 	/*返回购物车*/
@@ -376,7 +361,6 @@ public class SalaOrderController {
 		String[] ids=request.getParameter("goodIds").split(",");
 		/*商品总价格*/
 		String totalPrice=request.getParameter("priceTotal").toString();
-		System.out.println("totalPrice---"+totalPrice);
 		/*根据产品id，从session里获取产品信息,存入到map中*/
 		Map<String,Object> map=new HashMap<String,Object>();
 		/*selectedGood,sesion里的产品数据*/
@@ -400,7 +384,6 @@ public class SalaOrderController {
 		CustomerAddrPo customerAddrPo = new CustomerAddrPo();
 		/*获取用户的id值*/
 		CustomerPo customerPo= (CustomerPo) request.getSession().getAttribute("customer");
-		System.out.println(customerPo.toString());
 		customerAddrPo.setCustomer_id(customerPo.getId());
 		/*地址，包括省份，和城市*/
 		String addr=request.getParameter("newAddress[province]")+request.getParameter("newAddress[city]");
@@ -432,7 +415,6 @@ public class SalaOrderController {
 		/*1.获取支付方式的信息----*/
 		//确定用户所选择的支付方式
 		String payMethod=request.getParameter("Checkout[pay_id]");
-		System.out.println("进入了buildOrders方法--支付方式的id=="+payMethod);
 	    //根据支付方式id，获取支付方式的具体信息
 		PaymentPo payment=paymentService.getPayMethodById(payMethod);
 		//声明一个订单对象
@@ -475,11 +457,9 @@ public class SalaOrderController {
 		List<SaleOrderDetailPo> list= new ArrayList<SaleOrderDetailPo>();
 		for(int i=0;i<ids.length;i++){
 			SaleOrderDetailPo saleOrderDetailPo= new SaleOrderDetailPo();
-			System.out.println(ids[i]);
 			Map<String,Object> mapGood=(Map<String, Object>) selectedGood.get(ids[i]);
 			saleOrderDetailPo.setGood_id(Integer.parseInt(ids[i]));
 			saleOrderDetailPo.setGood_name(mapGood.get("name").toString());
-			System.out.println("good_name---------"+mapGood.get("name").toString());
 			saleOrderDetailPo.setGood_price(Float.parseFloat(mapGood.get("price_market").toString()));
 			saleOrderDetailPo.setTotal_price(Float.parseFloat(mapGood.get("price_market").toString()));
 			saleOrderDetailPo.setGood_num(1);
@@ -492,7 +472,6 @@ public class SalaOrderController {
 		/*生成订单明细表结束------*/
 		
 		int flags=saleOrderService.buildOrder(saleOrder,customerAddrPo,list);
-		System.out.println("id的值----"+flags);
 		/*生成订单，插入到数据库中结束--------*/
 		request.setAttribute("id", flags);
 		/*选择支付方式，进行*/
@@ -503,7 +482,6 @@ public class SalaOrderController {
 	public String buildOrder(HttpServletRequest request) throws ParseException{
 		/*获取用户的id值*/
 		CustomerPo customerPo= (CustomerPo) request.getSession().getAttribute("customer");
-		System.out.println(customerPo.toString());
 		SalaOrderPo   saleOrder= new SalaOrderPo();
 		/*1.客户信息-----*/
 		saleOrder.setCustomerid(customerPo.getId());
@@ -529,13 +507,11 @@ public class SalaOrderController {
 		String remarks="";
 		for(int i=0;i<ids.length;i++){
 			SaleOrderDetailPo saleOrderDetailPo= new SaleOrderDetailPo();
-			System.out.println(ids[i]);
 			Map<String,Object> mapGood=(Map<String, Object>) selectedGood.get(ids[i]);
 			saleOrderDetailPo.setGood_id(Integer.parseInt(ids[i]));
 			saleOrderDetailPo.setGood_name(mapGood.get("name").toString());
-			//System.out.println("good_name---------"+mapGood.get("name").toString());
-			saleOrderDetailPo.setGood_price(Float.parseFloat(mapGood.get("price_range").toString()));
-			saleOrderDetailPo.setTotal_price(Float.parseFloat(mapGood.get("price_range").toString()));
+			saleOrderDetailPo.setGood_price(Float.parseFloat(mapGood.get("price_market").toString()));
+			saleOrderDetailPo.setTotal_price(Float.parseFloat(mapGood.get("price_market").toString()));
 			saleOrderDetailPo.setGood_num(1);
 			saleOrderDetailPo.setGood_price_id(12);
 			saleOrderDetailPo.setCreateBy(customerPo.getUsername());
@@ -618,7 +594,6 @@ public class SalaOrderController {
 		/*默认地址*/
 		customerAddrPo.setIs_default("1");
 		int flag=customerAddrService.insert(customerAddrPo);
-		System.out.println(customerAddrPo.toString());
 		/*添加收货地址结束------*/
 		if(flag>0){
 			return "{message:"+flag+"}";
@@ -632,7 +607,6 @@ public class SalaOrderController {
 	@RequestMapping("/updateAddre")
 	@ResponseBody
 	public String updateAddre (HttpServletRequest request){	
-		//System.out.println("111111111111111111111111111111");
 		/*添加收获地址----*/
 		CustomerAddrPo customerAddrPo = new CustomerAddrPo();
 		/*获取用户的id值*/
@@ -666,7 +640,6 @@ public class SalaOrderController {
 		String ids=request.getParameter("id");
 		customerAddrPo.setId(Integer.parseInt(ids));
 		int flag=customerAddrService.update(customerAddrPo);
-		//System.out.println(customerAddrPo.toString());
 		/*添加收货地址结束------*/
 		if(flag>0){
 			return "{message:"+flag+"}";
