@@ -26,7 +26,6 @@
 （4）懒人系列。办理公司，包括银行开户、税务报道等，全程无需法人、股东到场。全市最方便。此外我们还有其他系列的产品陆续推出，全情服务创业者。
 ​ ">
     <meta name="robots" content="all">
-    <link rel="shortcut icon" href="http://s2.d2scdn.com/2015/09/08/FuFAbGkT1daLVYB75B5ShNWNfqBg.jpg">
     <link rel="stylesheet" type="text/css" href="${root }/static/css/common/style.css">
     <link href="${root }/static/css/plugins/mopublic.css" type="text/css" rel="stylesheet">
     <script src="${root }/static/js/common/LAB.min.js"></script>
