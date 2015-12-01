@@ -51,18 +51,18 @@
 </head>
 <body class="" onload="getSelected();">
 	<div class="WB_miniblog">
-		<div class="topNavWrap-pindao" style="background-color:">
+		<!-- <div class="topNavWrap-pindao" style="background-color:">
 			<div class="grhead">
 				<div class="grinfo">
 					<div class="site-nav">
 					</div>
 				   <div class="navRt wisub">
-					<!--<a href="http://www.zhucexia.com/home/"> 我的账户 </a> |
-					<a href="./助策侠网络科技有限公司 订单管理_files/助策侠网络科技有限公司 订单管理.html" class="selected"> 我的交易 </a> |-->
+					<a href="http://www.zhucexia.com/home/"> 我的账户 </a> |
+					<a href="./助策侠网络科技有限公司 订单管理_files/助策侠网络科技有限公司 订单管理.html" class="selected"> 我的交易 </a> |
 				   </div>
 				</div>
 			</div>
-		</div>
+		</div> -->
         <div class="second_newmenu">
                 	<div class="navboxSecond">
                 		<div class="subNav" id="widget-subnav">
@@ -177,8 +177,8 @@
 			          								<c:if test="${item.payment_state==1 and item.order_state==1 }">
 			          									<td>平台处理中</td>
 			          									<td>
-			          										<a class="blue" href="${root}/sales/">确认完成</a><br><br>
-			          										<a class="blue" href="${root}/details/querryOrderDetail?id=${item.id}" target="_blank">查看详情</a><br>
+			          										<a class="blue complete_order" order_id="${item.id }" href="javascript:;">确认完成</a><br><br>
+			          										<a class="blue" order_id="${item.id }" href="${root}/details/querryOrderDetail?id=${item.id}" target="_blank">查看详情</a><br>
 						          							<a class="blue cancel_order" order_id="${item.id }" href="javascript:void(0)">取消订单</a>
 			          									</td>	
 			          								</c:if>
@@ -201,7 +201,7 @@
 			          								<c:if test="${item.order_state==1 }">
 			          									<td>平台处理中</td>
 			          									<td>
-			          										<a class="blue" href="${root}/sales/">确认完成</a><br><br>
+			          										<a class="blue complete_order" order_id="${item.id }" href="javascript:;">确认完成</a><br><br>
 			          										<a class="blue" href="${root}/details/querryOrderDetail?id=${item.id}" target="_blank">查看详情</a><br>
 						          							<a class="blue cancel_order" order_id="${item.id }" href="javascript:void(0)">取消订单</a>
 			          									</td>
@@ -303,6 +303,22 @@
 				  })
 				}
 			  });
+			})
+			$(".complete_order").click(function(){
+				if(confirm("确定该订单服务已完成？")){
+					var pk = parseInt($(this).attr("order_id"));
+					$.ajax({
+						url:"${root}/sales/completeOrder?order_id="+pk,
+						type:"post",
+						success:function(data){
+							location.reload();
+						},
+						error:function(data){
+							alert("确认完成失败，请刷新页面后重试");
+							location.reload();
+						}
+					})
+				}
 			})
 		</script>	
 <script type="text/javascript">

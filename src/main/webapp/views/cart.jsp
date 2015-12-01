@@ -27,7 +27,7 @@
 						<td><input type="checkbox" name="checkbox" value="${item.value.id}"></td>
 						<td class="tal"><img width="150px" height="130px" src="http://${item.value.pic}" alt="">
 							<span class="product-text">${item.value.name}</span></td>
-						<td><span class="price">${item.value.price_range}</span>元</td>
+						<td><span class="price">${item.value.price_market}</span>元</td>
 						<td>尚未提供公司资料</td>
 						<td>
 						<a href="javascript:void(0);" class="cart-btn" onclick="removeOne(${status.index},${item.value.id});" name="remove">删除</a>

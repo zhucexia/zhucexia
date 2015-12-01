@@ -3,7 +3,7 @@
 <div id="top" class="top">
     <div class="container">
         <div class="logo">
-            <h1><a title="" href="${root }/index/show"><img src="${root }/static/images/header/logo.png" alt=""></a></h1></div>
+            <h1><a title="" href="${root }/"><img src="${root }/static/images/header/logo.png" alt=""></a></h1></div>
         <div class="top-tool"><img src="${root }/static/images/header/c1.jpg">4009207898
             <img src="${root }/static/images/header/c2.jpg">
            <% 
@@ -55,12 +55,12 @@
         </div>
         <div id="nav">
             <ul id="menu" class="navigation">
-                <li id="index" class="nav-lilink"><a href="${root }/index/show" class="nav-alink" title="网站首页"> 网站首页</a>
+                <li id="index" class="nav-lilink"><a href="${root }/" class="nav-alink" title="网站首页"> 网站首页</a>
                     <div class="exnav">
                         <ul class="children level-0"></ul>
                     </div>
                 </li>
-                <li id="about" class="nav-lilink"><a href="${root }/views/about.jsp" class="nav-alink" title="关于我们"> 关于我们</a>
+                <li id="about" class="nav-lilink"><a href="${root }/about" class="nav-alink" title="关于我们"> 关于我们</a>
                     <div class="exnav">
                         <ul class="children level-0"></ul>
                     </div>
@@ -76,7 +76,7 @@
 .cs_title {font-size:14px; margin:10px; font-weight:bold;}
 .cs_img {width:100px; height:100px; background:#FFF; margin:10px;background-image:url(/zhucexia/static/images/common/kefu.jpg) }
 .cs_info {font-size:12px; margin:0px 10px; overflow:hidden; text-align:center;}
-.cs_btn {width:100px; height:25px; background:#333; margin:5px 10px; border-radius:5px; font-size:12px; line-height:25px; color:#FFF; text-align:center; cursor:pointer;}
+.cs_btn {width:100px; height:25px; background:#7D7D7D; margin:5px 10px; border-radius:5px; font-size:12px; line-height:25px; color:#FFF; text-align:center; cursor:pointer;}
 </style>
 <div id='cs_box'>
 	<span class='cs_title'>在线咨询</span>
@@ -85,12 +85,12 @@
 	<span class='cs_info'>有什么可以帮到你</span>
 	<div class='cs_btn'>点击咨询</div>
 </div>
-<script src="http://www.lanrenzhijia.com/ajaxjs/lanrenzhijia.js"></script>
+<script src="/zhucexia/static/js/plugins/kefu.js"></script>
 <script>
 	myEvent(window,'load',function(){
 		cs_box.set({
 			img_path : 'http://demo.lanrenzhijia.com/2014/service1119/images/lanrenzhijia.jpg',	//设置图片路径
-			qq : '343382252',	//设置QQ号码'19276507'
+			qq : '2794329995',	//设置QQ号码'19276507'
 		});
 	});
 </script>

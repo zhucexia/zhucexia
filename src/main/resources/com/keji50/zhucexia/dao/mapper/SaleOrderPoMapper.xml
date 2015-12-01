@@ -119,30 +119,33 @@
 	    AND c.good_id=a.id -->
 	    select b.order_no ,b.id ,b.orderstate_time,b.delivery_state,b.payment_code,
 		b.payment_name,b.order_money,b.create_time,b.payment_state,b.remark,b.order_pic,
-		b.order_state,d.name from sale_order b left outer join customer_address d on b.address=d.id
+		b.order_state,d.name from (select * from sale_order c   where 
+		c.customer_id=#{customerid}
 		<choose>
 			<when test="types==0">
-				and 1=1 and b.order_state!='8'
+				and 1=1 and c.order_state!='8'
 			</when>
 			<when test="types==1">
-				and b.order_state='1' and b.payment_state='0' and b.payment_code!='cash_on_delivery'
+				and c.order_state='1' and c.payment_state='0' and c.payment_code!='cash_on_delivery'
 			</when>
 			<when test="types==2">
-				and ((b.order_state='1' and b.payment_state='1') or (b.payment_code='cash_on_delivery' and b.order_state='1' and b.payment_state='0'))
+				and ((c.order_state='1' and c.payment_state='1') or (c.payment_code='cash_on_delivery' and c.order_state='1' and c.payment_state='0'))
 			</when>
 			<when test="types==3">
-				and b.order_state='2' and payment_state='1'
+				and c.order_state='2' and c.payment_state='1'
 			</when>
 			<when test="types==4">
-				and b.order_state='9'
+				and c.order_state='9'
 			</when>
 		</choose>
 		<if test="date==null">
 			and 1=1
 		</if>
 		<if test="date!=null">
-			and b.create_time>=date
+			and c.create_time>=date
 		</if>
+		) b left outer join customer_address d on b.address=d.id
+		 and 1=1
 	</select>
 	
 	<!-- 逻辑删除 -->
@@ -152,5 +155,8 @@
 	<!-- 取消订单 -->
 	<update id="cancleOrder" parameterType="java.lang.String">
 		update sale_order set order_state='9' where id=#{id}
+	</update>
+	<update id="completeOrder" parameterType="string">
+		update sale_order set order_state='2' where id=#{id}
 	</update>
 </mapper>

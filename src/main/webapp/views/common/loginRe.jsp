@@ -376,7 +376,6 @@
 							$("#hc1").show();
 						}
 						$("#log").hide();	
-						alert(data.message);
 					}else{
 						$("#mess").html("输入的用户名/手机号 或密码有误");
 						$("#mess").show();
@@ -387,6 +386,7 @@
 					$("#mess").html("输入的用户名/手机号 或密码有误");
 				}
 			});
+			window.location.reload();
 		}
 		
 		//忘记密码操作

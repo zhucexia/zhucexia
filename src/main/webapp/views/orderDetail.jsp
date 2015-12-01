@@ -191,7 +191,7 @@
                                         </c:if>
                                         <c:if test="${saleOrder.paymentstate==1 ||(saleOrder.paymentstate==0 && saleOrder.paymentcode=='cash_on_delivery')}">
                                         	<li class="item selected" style="text-align: center"><input
-														type="radio" name="Checkout[pay_id]" checked="checked" value="${saleOrder.paymentcode}">
+														type="radio" name="Checkout[pay_id]"	 checked="checked" value="${saleOrder.paymentcode}">
 														<p>
 															${saleOrder.paymentname}		
 														</p></li>
@@ -309,9 +309,9 @@
 																	${item.value.name}</a>
 															</div>
 														</div>
-														<div class="col col-2">${item.value.price_range}元</div>
+														<div class="col col-2">${item.value.price_market}元</div>
 														<!--  <div class="col col-3">1</div> -->
-														<div class="col col-4">${item.value.price_range}元</div>
+														<div class="col col-4">${item.value.price_market}元</div>
 													</div>
 												</dd>
 											</c:forEach>

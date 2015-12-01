@@ -64,13 +64,13 @@ public class SalaOrderController {
 				selectedGood.put(map.get("id").toString(),map);
 				/*更新session里面，selectedGood的内容*/
 				request.getSession().setAttribute("selectedGood", selectedGood);
-				}
+			}
 			Map<String,Object> unSelectedGood=(Map<String,Object>)request.getSession().getAttribute("unSelectedGood");
 			/*判断是否在为推送里面存在，如果存在的话要删除推送里该商品的信息*/
 			if(unSelectedGood.get(id)!=null){
 				unSelectedGood.remove(id);
 			}
-			}
+		}
 		else{
 			Map<String,Object> selectedGood=new HashMap<String,Object>();
 			selectedGood.put(map.get("id").toString(), map);
@@ -138,66 +138,29 @@ public class SalaOrderController {
 		String[] idStr=ids.split(",");
 		for(int n=0;n<idStr.length;n++){
 			String id=idStr[n];
-		/*从session里获取当前已选择的商品信息，是否要动态的删除与（如果确定是基本套餐的话）该基本套餐关联的其他的服务*/
-		Map<String,Object> maps=(Map<String,Object>)request.getSession().getAttribute("selectedGood");
-		System.out.println("进入了clearSessionGood---id"+id);
-		//从session里获取为选择的商品
-		Map<String,Object> mapUnselected=(Map<String,Object>)request.getSession().getAttribute("unSelectedGood");
-		/*1判断该商品是服务，还是基本套餐，如果是基本套餐，删除与之关联的推送服务
-		 * 2 判断该服务是否包含在其他的已选择的基本套餐之内，如果包含就不删除，反之删除
-		 * */
-		//获取该商品类型
-		System.out.println(maps.get(id));
-		String goodType=((Map<String,Object>)maps.get(id)).get("good_type_name").toString();
-
-		if(goodType.equals("套餐")){
-		//从session里的商品关系配置relationGood中查询，该id是否为主键，来判断它是否直接从数据库中查询出了商品配置关系
-		Map<String,Object> map=(Map<String,Object>)request.getSession().getAttribute("relationGood");
-	    if(map.get(id)!=null){
-		//获取该商品的配置关系
-		String[] relations=map.get(id).toString().split(",");
-		//遍历商品配置关系
-		//标示是否只剩下当前一个配置关系
-		int fl=0;
-		for(String key:map.keySet()){
-			if(!key.equals(id)){
-				/*分别获取每个关联商品，然后在其他关联关系中查找是否存在*/
-				for(int i=0;i<relations.length;i++){
-					int flag=map.get(key).toString().lastIndexOf(","+relations[i]+",");
-					if(flag<0){
-						mapUnselected.remove(relations[i]);
-					}
-				}
-	             fl++;
-				}
+			/*从session里获取当前已选择的商品信息，是否要动态的删除与（如果确定是基本套餐的话）该基本套餐关联的其他的服务*/
+			Map<String,Object> maps=(Map<String,Object>)request.getSession().getAttribute("selectedGood");
+			if(maps.get(id)==null){
+				return "cart";
 			}
-		if(fl==0){
-			for(int i=0;i<relations.length;i++){
-					mapUnselected.remove(relations[i]);
-			}
-		}
-		map.remove(id);
-		System.out.println("到了map是的地方！");
-	    }
-		//清除session里的值，unSelectedGood
-		//request.getSession().setAttribute("unSelectedGood", mapUnselected);
-		//删除该基本套餐的配置关系
-		maps.remove(id);
-		if(maps.get(id)!=null){
-			System.out.println("selectedGood session中没有删除，当前的被选商品！");
-		}
-		//request.getSession().setAttribute("selectedGood",maps);
-		
-		}
-		else if(goodType.equals("服务")){
-		/*选中的要删除的商品如果是一项服务：
-		 * 1,如果是从数据库里查询出来的服务，则要关联删除其所推送的基本套餐
-		 * 2，如果是通过推送而添加的服务，则要判断是否仍然有其他的基本套餐需要该服务，然后把它放入未选择的session里*/
-		//从session里的商品关系配置relationGood中查询，该id是否为主键，来判断它是否直接从数据库中查询出了商品配置关系
-		Map<String,Object> map=(Map<String,Object>)request.getSession().getAttribute("relationGood");
-		if(map.get(id)!=null){
-			 //获取该商品的配置关系
+			System.out.println("进入了clearSessionGood---id"+id);
+			//从session里获取为选择的商品
+			Map<String,Object> mapUnselected=(Map<String,Object>)request.getSession().getAttribute("unSelectedGood");
+			/*1判断该商品是服务，还是基本套餐，如果是基本套餐，删除与之关联的推送服务
+			 * 2 判断该服务是否包含在其他的已选择的基本套餐之内，如果包含就不删除，反之删除
+			 * */
+			//获取该商品类型
+			System.out.println(maps.get(id));
+			String goodType=((Map<String,Object>)maps.get(id)).get("good_type_name").toString();
+	
+			if(goodType.equals("套餐")){
+			//从session里的商品关系配置relationGood中查询，该id是否为主键，来判断它是否直接从数据库中查询出了商品配置关系
+			Map<String,Object> map=(Map<String,Object>)request.getSession().getAttribute("relationGood");
+		    if(map.get(id)!=null){
+			//获取该商品的配置关系
 			String[] relations=map.get(id).toString().split(",");
+			//遍历商品配置关系
+			//标示是否只剩下当前一个配置关系
 			int fl=0;
 			for(String key:map.keySet()){
 				if(!key.equals(id)){
@@ -210,47 +173,87 @@ public class SalaOrderController {
 					}
 		             fl++;
 					}
-			}
-			/*删除未选择的基本套餐*/
+				}
 			if(fl==0){
 				for(int i=0;i<relations.length;i++){
-					mapUnselected.remove(relations[i]);
-			}
-			}
-			//删除配置
-			maps.remove(id);
-			map.remove(id);
-			//request.getSession().setAttribute("relationGood",map);
-		}else{
-			//推送过来的产品
-			//遍历商品配置关系
-			boolean bool=false;
-			for(String key:map.keySet()){
-					/*分别获取每个关联商品，然后在其他关联关系中查找是否存在*/
-					int flag=map.get(key).toString().lastIndexOf(","+id+",");
-					if(flag>0){
-						bool=true;
-					}
-						
+						mapUnselected.remove(relations[i]);
 				}
-			//
-			if(bool){
-				//删除已选择商品中该商品信息，添加未选择商品中该商品信息
-				Map<String,Object> goodPo= (Map<String, Object>) maps.get(id);
-				maps.remove(id);
-				mapUnselected.put(id, goodPo);
-				//request.getSession().setAttribute("unSelectedGood", mapUnselected);
-				//request.getSession().setAttribute("selectedGood",maps);
 			}
-			else{
-				//直接删除已选择中该商品信息
-				maps.remove(id);
-				//request.getSession().setAttribute("selectedGood",maps);
+			map.remove(id);
+			System.out.println("到了map是的地方！");
+		    }
+			//清除session里的值，unSelectedGood
+			//request.getSession().setAttribute("unSelectedGood", mapUnselected);
+			//删除该基本套餐的配置关系
+			maps.remove(id);
+			if(maps.get(id)!=null){
+				System.out.println("selectedGood session中没有删除，当前的被选商品！");
 			}
+			//request.getSession().setAttribute("selectedGood",maps);
 			
-		}
-		
-		}
+			}
+			else if(goodType.equals("服务")){
+			/*选中的要删除的商品如果是一项服务：
+			 * 1,如果是从数据库里查询出来的服务，则要关联删除其所推送的基本套餐
+			 * 2，如果是通过推送而添加的服务，则要判断是否仍然有其他的基本套餐需要该服务，然后把它放入未选择的session里*/
+			//从session里的商品关系配置relationGood中查询，该id是否为主键，来判断它是否直接从数据库中查询出了商品配置关系
+				Map<String,Object> map=(Map<String,Object>)request.getSession().getAttribute("relationGood");
+				if(map.get(id)!=null){
+					 //获取该商品的配置关系
+					String[] relations=map.get(id).toString().split(",");
+					int fl=0;
+					for(String key:map.keySet()){
+						if(!key.equals(id)){
+							/*分别获取每个关联商品，然后在其他关联关系中查找是否存在*/
+							for(int i=0;i<relations.length;i++){
+								int flag=map.get(key).toString().lastIndexOf(","+relations[i]+",");
+								if(flag<0){
+									mapUnselected.remove(relations[i]);
+								}
+							}
+				             fl++;
+						}
+					}
+					/*删除未选择的基本套餐*/
+					if(fl==0){
+						for(int i=0;i<relations.length;i++){
+							mapUnselected.remove(relations[i]);
+						}
+					}
+					//删除配置
+					maps.remove(id);
+					map.remove(id);
+					//request.getSession().setAttribute("relationGood",map);
+				}else{
+					//推送过来的产品
+					//遍历商品配置关系
+					boolean bool=false;
+					for(String key:map.keySet()){
+							/*分别获取每个关联商品，然后在其他关联关系中查找是否存在*/
+							int flag=map.get(key).toString().lastIndexOf(","+id+",");
+							if(flag>0){
+								bool=true;
+							}
+								
+						}
+					//
+					if(bool){
+						//删除已选择商品中该商品信息，添加未选择商品中该商品信息
+						Map<String,Object> goodPo= (Map<String, Object>) maps.get(id);
+						maps.remove(id);
+						mapUnselected.put(id, goodPo);
+						//request.getSession().setAttribute("unSelectedGood", mapUnselected);
+						//request.getSession().setAttribute("selectedGood",maps);
+					}
+					else{
+						//直接删除已选择中该商品信息
+						maps.remove(id);
+						//request.getSession().setAttribute("selectedGood",maps);
+					}
+					
+				}
+			
+			}
 		}
 		 return "cart";
 		
@@ -687,6 +690,8 @@ public class SalaOrderController {
 		String times=request.getParameter("date-filter");
 		/*订单类型*/
 		String types=request.getParameter("state");
+		CustomerPo customer= (CustomerPo)request.getSession().getAttribute("customer");
+		int customerId = customer.getId();
 		Date date = null;
 		//对订单类型进行判断
 		if(types==null){
@@ -707,8 +712,8 @@ public class SalaOrderController {
 		Map<String,Object> maps=new HashMap<String,Object>();
 		maps.put("types",types);
 		maps.put("times", date);
+		maps.put("customerid", customerId);
 		List<HashMap<String,Object>> list=saleOrderService.querryOrders(maps);
-		System.out.println(list.get(0).toString());
 		request.setAttribute("list", list);
 		request.setAttribute("types", types);
 		request.setAttribute("times", times);
@@ -747,5 +752,18 @@ public class SalaOrderController {
 			json="{message:false}";
 			return json;
 		}
+  }
+  @RequestMapping("completeOrder")
+  @ResponseBody
+  public String completeOrder(HttpServletRequest request){
+	  String id = request.getParameter("order_id");
+	  int flag = saleOrderService.completeOrder(id);
+	  String json = null;
+	  if(flag>0){
+		  json="true";
+	  }else{
+		  json="false";
+	  }
+	  return json;
   }
 }

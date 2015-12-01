@@ -25,5 +25,7 @@ public interface SaleOrderPoMapper {
 
 	public int delOrder(String id);
 	public int cancleOrder(String id);
+
+	public int completeOrder(String id);
  
 }
