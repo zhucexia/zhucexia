@@ -33,20 +33,6 @@
     <script type="text/javascript" src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="${root }/static/js/common/d_s.js"></script>
     <script type="text/javascript" src="${root }/static/js/plugins/jcarousellite_1.0.1.js"></script>
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-7572959-9']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
 </head>
 <body>
  <div class="bodydiv">
