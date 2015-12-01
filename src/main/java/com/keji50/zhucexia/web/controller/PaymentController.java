@@ -1,11 +1,14 @@
 package com.keji50.zhucexia.web.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -110,6 +113,19 @@ public class PaymentController {
 	public String getPayMethod(){
 		List<PaymentPo> list=paymentService.getPayMethod();
 		return "";
+	}
+	
+	/*支付宝返回结果*/
+	@RequestMapping("/return")
+	public void returnUrl(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		RequestDispatcher rd = request.getRequestDispatcher("../views/pay/return_url.jsp");
+		rd.forward(request, response);
+	}
+	
+	@RequestMapping("/notify")
+	public void notifyUrl(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
+		RequestDispatcher rd = request.getRequestDispatcher("../views/pay/notify_url.jsp");
+		rd.forward(request, response);
 	}
 	
 }

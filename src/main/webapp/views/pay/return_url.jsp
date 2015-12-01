@@ -121,7 +121,7 @@
 				}
 			</script>
 			<div style="position:absolute;left:380px;top:255px">
-				<a href="${root}/zhucexia/index/show">返回首页</a>
+				<a href="${root}/zhucexia/">返回首页</a>
 			</div>
 		</div>
 	</div>	
