@@ -26,28 +26,12 @@
 （4）懒人系列。办理公司，包括银行开户、税务报道等，全程无需法人、股东到场。全市最方便。此外我们还有其他系列的产品陆续推出，全情服务创业者。
 ​ ">
     <meta name="robots" content="all">
-    <link rel="shortcut icon" href="http://s2.d2scdn.com/2015/09/08/FuFAbGkT1daLVYB75B5ShNWNfqBg.jpg">
     <link rel="stylesheet" type="text/css" href="${root }/static/css/common/style.css">
     <link href="${root }/static/css/plugins/mopublic.css" type="text/css" rel="stylesheet">
     <script src="${root }/static/js/common/LAB.min.js"></script>
-    <script type="text/javascript" async defer src="${root }/static/js/common/ga.js"></script>
     <script type="text/javascript" src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="${root }/static/js/common/d_s.js"></script>
     <script type="text/javascript" src="${root }/static/js/plugins/jcarousellite_1.0.1.js"></script>
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-7572959-9']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
 </head>
 <body>
  <div class="bodydiv">
