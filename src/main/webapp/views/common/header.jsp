@@ -29,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="${root }/static/css/common/style.css">
     <link href="${root }/static/css/plugins/mopublic.css" type="text/css" rel="stylesheet">
     <script src="${root }/static/js/common/LAB.min.js"></script>
-    <script type="text/javascript" async defer src="${root }/static/js/common/ga.js"></script>
     <script type="text/javascript" src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="${root }/static/js/common/d_s.js"></script>
     <script type="text/javascript" src="${root }/static/js/plugins/jcarousellite_1.0.1.js"></script>
