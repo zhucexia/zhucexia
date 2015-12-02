@@ -375,7 +375,8 @@
 							$("#hc").hide();
 							$("#hc1").show();
 						}
-						$("#log").hide();	
+						$("#log").hide();
+						window.location.reload();
 					}else{
 						$("#mess").html("输入的用户名/手机号 或密码有误");
 						$("#mess").show();
@@ -386,7 +387,6 @@
 					$("#mess").html("输入的用户名/手机号 或密码有误");
 				}
 			});
-			window.location.reload();
 		}
 		
 		//忘记密码操作
@@ -482,7 +482,6 @@
 		function checkDate(){
 			var flag=true;
 			var username=$("#username1").val().trim();
-			alert(username);
 			var email=$("#email1").val().trim();
 			var reg = /^[\w][\w|\.|\_]*@[\w]+(\.[a-zA-Z]{2,4}){1,3}$/;
 			if(username==""||username==null){
@@ -490,22 +489,18 @@
 				$("#prompt_1").show();
 				flag=false;
 			}
-			alert(flag);
 			if(!reg.test(email)){
 				$("#prompt_2").html("请输入正确的电子邮箱");
 				$("#prompt_2").show();
 				flag=false;
 			}
-			alert(flag);
 			if(flag){
-				alert("bbbbbbbbbb");
 				$.ajax({
 					async:false,
 					url:"/zhucexia/customer/checkEmail",
 					data:{"username":username,"email":email},
 					type:"post",
 					success:function(data){
-						alert(data);
 						return data;
 					}
 				});

@@ -2,9 +2,9 @@
 <div id="footermain">
 	<div class="yqljBg">
 		<div class="yqlj container">
-			<h4>
+			<!-- <h4>
 				<a href="">合作伙伴</a><span>links</span>
-			</h4>
+			</h4> -->
 			<p></p>
 		</div>
 	</div>
