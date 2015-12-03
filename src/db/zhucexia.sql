@@ -14,12 +14,14 @@ CREATE TABLE `sys_power` (
   `create_time` datetime    COMMENT '创建时间',
   `update_by` varchar(32) COMMENT '更新人',
   `update_time` datetime    COMMENT '更新时间',
+  `href` varchar(192) COMMENT '模块路径',
+  `treetype` int(10)    COMMENT '模块类型',
   PRIMARY KEY (`id`),
   KEY `sys_power_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统权限表';
 
-INSERT INTO sys_power(code, name, state, create_by, update_by) VALUES ('customer_manage', '客户管理', 's', 'admin', 'admin');
-INSERT INTO sys_power(code, name, state, create_by, update_by) VALUES ('good_type_manage', '商品类型管理', 's', 'admin', 'admin');
+insert  into `sys_power`(`id`,`code`,`name`,`state`,`create_by`,`create_time`,`update_by`,`update_time`,`href`,`treetype`) values (1,'role_manage','角色管理','s','admin',NULL,'admin',NULL,'sysRole/listRole',1),(2,'customer_manage','客户管理','s','admin',NULL,'admin',NULL,'customer/index',2),(3,'salaorder_manage','订单管理','s','admin',NULL,'admin',NULL,'salaorder/index',2),(4,'goodtype-manage','商品类型管理','s','admin',NULL,'admin',NULL,'goodtype/index',3),(5,'goodattr_manage','商品条件管理','s','admin',NULL,'admin',NULL,'goodattr/index',3),(6,'goodattrvalue_manage','商品条件值管理','s',NULL,NULL,NULL,NULL,'goodattrvalue/index',3),(7,'payment_manage','支付方式管理','s','amdin',NULL,'admin',NULL,'payment/index',4),(8,'good_manage','商品管理','s','admin','2015-10-21 09:41:39','admin','2015-10-21 09:41:53','good/listGood',3),(9,'price_manage','商品价格管理','s',NULL,NULL,'1',NULL,NULL,3),(10,'message_manage','短信息管理','s',NULL,NULL,'1',NULL,NULL,0),(11,'email_manage','邮箱验证管理','s',NULL,NULL,'1',NULL,NULL,4),(12,'property','商品属性枚举','s',NULL,NULL,'1',NULL,'goodattrvalue/index',3);
+
 
 -- ----------------------------
 -- 系统角色表
@@ -38,7 +40,7 @@ CREATE TABLE `sys_role` (
   KEY `sys_role_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统角色表';
 
-INSERT INTO sys_role(code, name, state, create_by, update_by) VALUES ('sys_admin', '系统管理员', 's', 'admin', 'admin');
+insert  into `sys_role`(`id`,`code`,`name`,`state`,`create_by`,`create_time`,`update_by`,`update_time`) values (1,'001','超级管理员','s','1','2015-10-07 18:00:53','1','2015-10-15 18:01:06');
 
 
 -- ----------------------------
@@ -58,6 +60,8 @@ CREATE TABLE `sys_role_power` (
   KEY `sys_role_power_r_role_id` (`role_id`),
   KEY `sys_role_power_r_power_id` (`power_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统角色权限对应关系表';
+
+insert  into `sys_role_power`(`id`,`role_id`,`power_id`,`power_insert`,`power_delete`,`power_select`,`power_update`) values (1,1,1,'1','1','1','1'),(2,1,2,'1','1','1','1'),(3,1,3,'1','1','1','1'),(4,1,4,'1','1','1','1'),(5,1,5,'1','1','1','1'),(6,1,6,'1','1','1','1'),(7,1,7,'1','1','1','1'),(8,1,8,'1','1','1','1'),(10,1,10,'1','1','1','1'),(11,1,11,'1','1','1','1'),(12,1,12,'1','1','1','1');
 
 -- ----------------------------
 -- 系统管理员信息表
@@ -82,6 +86,8 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`),
   KEY `sys_user_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统管理员信息表';
+
+insert  into `sys_user`(`id`,`username`,`password`,`realname`,`role_id`,`mobile`,`email`,`company`,`address`,`dept_name`,`state`,`create_by`,`create_time`,`update_by`,`update_time`) values (1,'admin','admin','---','1','13162135665',NULL,'99','99','99','2',NULL,NULL,'1',NULL);
 
 -- ----------------------------
 -- 客户信息表
@@ -382,7 +388,7 @@ CREATE TABLE `sale_order` (
   `customer_id` int(11) NOT NULL COMMENT '客户id',
   `customer_name` varchar(64) NOT NULL COMMENT '客户名称',
   `order_money` decimal(18,2) NOT NULL COMMENT '订单金额',
-  `address_id` int(11) NOT NULL COMMENT '收货地址',
+  `address` int(11) NOT NULL COMMENT '收货地址',
   `mobile` varchar(16) NOT NULL COMMENT '手机号',
   `telephone` varchar(16) COMMENT '电话号码',
   `email` varchar(64) COMMENT '邮箱',
@@ -407,6 +413,7 @@ CREATE TABLE `sale_order` (
   `payment_time` datetime DEFAULT NULL COMMENT '付款时间',
   `delivery_time` datetime COMMENT '发货时间',
   `cancel_time` datetime DEFAULT NULL COMMENT '取消订单时间',
+  `order_pic` varchar(128) null ,
   PRIMARY KEY (`id`),
   KEY `sale_order_id` (`id`),
   KEY `sale_order_no` (`order_no`),

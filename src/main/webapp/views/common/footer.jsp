@@ -21,7 +21,7 @@
 		</div>
 		<div class="copyright">
 			Copyright 2015-2015. All rights reserved. 助策侠网络科技有限公司 &nbsp; <a
-				rel="nofollow" href="http://www.miibeian.gov.cn/" target="_blank">沪ICP备15039897号-1</a>
+				rel="nofollow" href="javascript:void(0)" target="_blank">沪ICP备15039897号-1</a>
 				<span class="ml5 mr5">|</span><a href="" target="_blank">后台登录入口</a>
 		</div>
 		<div class="gov" style="text-align: center"></div>
