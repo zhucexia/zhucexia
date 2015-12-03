@@ -249,7 +249,7 @@
 		var phone=$("#mob").val();
 		if(phone!="" && phone!=null){
 			$.ajax({
-				url : "/zhucexia/customer/validatelost",
+				url : "${root}/customer/validatelost",
 				type : 'POST',
 				dataType: "json",
 				data : {

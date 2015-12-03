@@ -225,9 +225,9 @@
 											<p>普通发票（纸质）</p></li>
 									</ul>
 									<p id="eInvoiceTip" class="e-invoice-tip ">
-										电子发票是税务局认可的有效凭证，可作为售后维权凭据，不随商品寄送。开票后不可更换纸质发票，如需报销请选择普通发票。<a
+										电子发票是税务局认可的有效凭证，可作为售后维权凭据，不随商品寄送。开票后不可更换纸质发票，如需报销请选择普通发票。<!-- <a
 											href="http://bbs.xiaomi.cn/thread-9285999-1-1.html"
-											target="_blank">什么是电子发票？</a>
+											target="_blank">什么是电子发票？</a> -->
 									</p>
 									<div class="invoice-info nvoice-info-1"
 										id="checkoutInvoiceElectronic" style="display: none;">
@@ -245,9 +245,9 @@
 												电子发票是纸质发票的映像，是税务局认可的有效凭证，与传统纸质发票具有同等法律效力，可作为售后维权凭据。</dd>
 											<dd>&#903; 开具电子服务于个人，开票后不可更换纸质发票，不可用于单位报销。</dd>
 											<dd>
-												&#903; 您在订单详情的"发票信息"栏可查看、下载您的电子发票。<a
+												&#903; 您在订单详情的"发票信息"栏可查看、下载您的电子发票。<!-- <a
 													href="http://bbs.xiaomi.cn/thread-9285999-1-1.html"
-													target="_blank">什么是电子发票？</a>
+													target="_blank">什么是电子发票？</a> -->
 											</dd>
 										</dl>
 										</p>
@@ -304,7 +304,7 @@
 															</div>
 															<div class="g-info">
 																<a
-																	href="http://http://localhost:8080/zhucexia/good/goodsdetail?id="
+																	href="${root }/good/goodsdetail?id="
 																	+${item.value.id} target="_blank">
 																	${item.value.name}</a>
 															</div>

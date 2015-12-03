@@ -89,7 +89,6 @@
 <script>
 	myEvent(window,'load',function(){
 		cs_box.set({
-			//img_path : 'http://demo.lanrenzhijia.com/2014/service1119/images/lanrenzhijia.jpg',	设置图片路径
 			qq : '2794329995',	//设置QQ号码'19276507'
 		});
 	});
