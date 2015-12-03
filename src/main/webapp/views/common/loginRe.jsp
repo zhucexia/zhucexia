@@ -18,7 +18,10 @@
 					type="password" name="password" value="" size="20" id="password"/></li>
 				<li ><span id="mess" style="text-align:center;color:red;font-weight:bold;"></span></li>
 				<li><strong></strong> <input class="btn btn-primary" type="button" name="submit" onclick="login()"
-					value=" 登 录 " />&emsp;<a href="javascript:losepass()" class="J_dialog mm" data="edit">忘记密码？</a>&emsp;<a href="javascript:regist() "class="J_dialog mm" data="reg">注册</a></li>
+					value=" 登 录 " />&emsp;
+					<input class="btn btn-primary" style="color:#fff" type="button" name="" onclick="losepass()" value="忘记密码？"/>&emsp;
+					<input class="btn btn-primary" style="color:#fff" type="button" name="" onclick="regist()" value="注册"/>
+				</li>
 			</ul>
 		</form>
 	</div>
