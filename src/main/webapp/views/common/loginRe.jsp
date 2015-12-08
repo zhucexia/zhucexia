@@ -3,6 +3,7 @@
 <html>
 <head>
 <link type="text/css" rel="stylesheet" href="${root }/static/css/includes/loginRe.css">
+<script type="text/javascript" src="${root}/static/js/includes/loginRe.js"></script>
 </head>
 <body>
 <div class="theme-popover" id="log">
@@ -27,6 +28,7 @@
 	</div>
 </div>
 <script type="text/javascript">
+		var roots = '${root}';
 		function losepass(){
 			$("#log").css("display","none");
 			$("#reg").css("display","none");
@@ -450,7 +452,7 @@
 		        	var name=$("#use").val();
 					var password=$("#wei").val();
 					$.ajax({
-						url : "/zhucexia/customer/updatepass",
+						url : "${root}/customer/updatepass",
 						type : 'POST',
 						dataType: "json",
 						data : {
@@ -500,7 +502,7 @@
 			if(flag){
 				$.ajax({
 					async:false,
-					url:"/zhucexia/customer/checkEmail",
+					url:"${root}/customer/checkEmail",
 					data:{"username":username,"email":email},
 					type:"post",
 					success:function(data){
@@ -519,7 +521,7 @@
 			var type=$("#type1").val();
 			alert(type);
 			$.ajax({
-				url:"/zhucexia/customer/sendEmail",
+				url:"${root}/customer/sendEmail",
 				type:"post",
 				data:{'email':email,'type':type},
 				success:function(data){
@@ -533,6 +535,5 @@
 		
 
 </script>
-<script type="text/javascript" src="${root}/static/js/includes/loginRe.js"></script>
 </body>
 </html>

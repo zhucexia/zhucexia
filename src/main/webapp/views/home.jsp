@@ -694,6 +694,7 @@
 <div id="facebox_overlay" class="facebox_hide facebox_overlayBG" style="display: none; opacity: 0.2;"></div>
 
 <script type="text/javascript">
+var roots = '${root}';
 //导航选卡
 	$(function(){
 	    ch = $('.wisub').children();

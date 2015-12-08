@@ -32,7 +32,7 @@ function bb(){
 	   }
 	   if(flag){ 
 		   $.ajax({
-			   url:"/zhucexia/customer/changePwd",
+			   url:roots+"/customer/changePwd",
 			   data:{"oldPwd":oldPwd,"newPwd":newPwd},
 			   type:"post",
 			   success:function(data){
@@ -159,7 +159,7 @@ function toBindMobile(){
 function sendMsgBinded(){
 	var mobile = $("#old_mobile").val();
 	$.ajax({
-		url:"/zhucexia/customer/mess",
+		url:roots+"/customer/mess",
 		data: {"phonenum":mobile},
 		type : 'POST',
 		dataType: "json",
@@ -198,7 +198,7 @@ function toBindMobile(){
 	var mobile = $("#old_mobile").val().trim();
 	if(yzm!="" && yzm!=null){
 		$.ajax({
-			url : "/zhucexia/customer/validateyzm",
+			url : roots+"/customer/validateyzm",
 			type : 'POST',
 			dataType: "json",
 			data : {"yzm" : yzm,"mobile":mobile},
@@ -226,7 +226,7 @@ function sendMsg(){
 	if(flag){
 		//验证手机是否可用
 		$.ajax({
-			url : "/zhucexia/customer/validatephone",
+			url : roots+"/customer/validatephone",
 			type : 'POST',
 			dataType: "json",
 			data : {
@@ -241,7 +241,7 @@ function sendMsg(){
 					$("#warning_6").hide();
 					//发送验证码
 					$.ajax({
-						url:"/zhucexia/customer/mess",
+						url:roots+"/customer/mess",
 						data: {"phonenum":phone},
 						type : 'POST',
 						dataType: "json",
@@ -288,7 +288,7 @@ function bindMobile() {
 	var mobile = $("#id_mobile").val().trim();
 	if(yzm!="" && yzm!=null){
 		$.ajax({
-			url : "/zhucexia/customer/validateyzm",
+			url : roots+"/customer/validateyzm",
 			type : 'POST',
 			dataType: "json",
 			data : {"yzm" : yzm,"mobile":mobile},
@@ -299,7 +299,7 @@ function bindMobile() {
 					$("#warning_7").show();
 				}else{
 					$.ajax({
-						url:"/zhucexia/customer/bindMobile",
+						url:roots+"/customer/bindMobile",
 						data : {"mobile":mobile},
 						type : "post",
 						success : function(data){
@@ -329,7 +329,7 @@ function sendEmail(){
 	var flag = reg.test(email);
 	if(flag){
 		$.ajax({
-			url:"/zhucexia/customer/sendEmail",
+			url:roots+"/customer/sendEmail",
 			type:"post",
 			data:{'email':email,'type':type},
 			dataType:'json',
@@ -343,15 +343,4 @@ function sendEmail(){
 		$("#warning_10").show();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
 

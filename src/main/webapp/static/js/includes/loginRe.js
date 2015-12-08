@@ -108,7 +108,7 @@ $(function() {
     		var name=$("#username").val();
     		if(rules['username'].test(name)){
     			$.ajax({
-    				url : "/zhucexia/customer/validateuser",
+    				url : roots+"/customer/validateuser",
     				type : 'POST',
     				dataType: "json",
     				data : {
@@ -135,7 +135,7 @@ $(function() {
 		var phone=$("#phone").val();
 		if(rules['phone'].test(phone)){
 			$.ajax({
-				url : "/zhucexia/customer/validatephone",
+				url : roots+"/customer/validatephone",
 				type : 'POST',
 				dataType: "json",
 				data : {
@@ -163,7 +163,7 @@ $(function() {
 		var mobile=$("#phone").val();
 		if(yzm!="" && yzm!=null){
 			$.ajax({
-				url : "/zhucexia/customer/validateyzm",
+				url : roots+"/customer/validateyzm",
 				type : 'POST',
 				dataType: "json",
 				data : {
@@ -229,7 +229,7 @@ $(function() {
     	}   	
     	if (flag) {
 			$.ajax({
-				url : "/zhucexia/customer/reg",
+				url : roots+"/customer/reg",
 				type : 'POST',
 				dataType: "json",
 				data : {
