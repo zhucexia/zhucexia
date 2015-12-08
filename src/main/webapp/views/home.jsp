@@ -746,9 +746,9 @@
 	
 	var pic = "<%=customer.getPic() %>";
 	if(pic!=""&&pic!=null&&pic!="null"){
-	var headPic = "../static/images/user/"+pic;
+	var headPic = pic;
 	}else{
-		headPic = "../static/images/user/usercenter_head.jpg"
+		headPic = "${root}/static/images/user/usercenter_head.jpg"
 	}
 		$("#headPic").attr("src",headPic)
 	

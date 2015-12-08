@@ -172,14 +172,16 @@ CREATE TABLE `customer_address` (
   `id` int(11) unsigned auto_increment NOT NULL,
   `customer_id` int(11)  NOT NULL,
   `name` varchar(100)  DEFAULT NULL,
-  `mobile` varchar(11)  DEFAULT NULL COMMENT '手机号',
+  `phone_number` varchar(11)  DEFAULT NULL COMMENT '手机号',
   `address` varchar(500)  DEFAULT NULL,
   `zip_code` varchar(16)  DEFAULT NULL,
   `is_default` varchar(1)  DEFAULT NULL COMMENT '是否是默认地址',
   `remark` varchar(500)  DEFAULT NULL,
   `street` varchar(500)  DEFAULT NULL,
   `areaRegion` varchar(100)  DEFAULT NULL,
+  `addressId` varchar(30) DEFAULT NULL,
   `telephone` varchar(16)  DEFAULT NULL,
+  `isDelete`  varchar(1) DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='客户收货地址信息表';
 
@@ -388,8 +390,8 @@ CREATE TABLE `sale_order` (
   `customer_id` int(11) NOT NULL COMMENT '客户id',
   `customer_name` varchar(64) NOT NULL COMMENT '客户名称',
   `order_money` decimal(18,2) NOT NULL COMMENT '订单金额',
-  `address` int(11) NOT NULL COMMENT '收货地址',
-  `mobile` varchar(16) NOT NULL COMMENT '手机号',
+  `address` int(11) COMMENT '收货地址',
+  `mobile` varchar(16)  COMMENT '手机号',
   `telephone` varchar(16) COMMENT '电话号码',
   `email` varchar(64) COMMENT '邮箱',
   `zip_code` varchar(8) COMMENT '邮政编码',
