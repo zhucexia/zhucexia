@@ -22,7 +22,7 @@
 	
 	<!-- 订单详情，包含商品的信息 -->
 	<select id="querryDetails" resultType="java.util.HashMap" parameterType="int">
-		select a.good_id ,a.good_price as price_range,a.order_id ,b.name,b.pic,b.id
+		select a.good_id ,a.good_price as price_market,a.order_id ,b.name,b.pic,b.id
 		from sale_order_detail a ,good b where 1=1 and order_id=#{id,jdbcType=DECIMAL}
 		and a.good_id=b.id
 	</select>

@@ -2,6 +2,7 @@ package com.keji50.zhucexia.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -309,8 +311,23 @@ public class CustomerController {
 		if(req.getFileNames().hasNext()){
 			file = req.getFile(req.getFileNames().next());
 		}
+		/*读取config配置文件里的配置*/
+    	Properties prop = new Properties(); 
+    	String tempPath=null;
+    	String tempPaths=null;
+    	InputStream in = this.getClass() .getResourceAsStream("/config.properties" ); 
+    	try {
+			prop.load(in);
+			tempPath=(String) prop.get("fileupload.dir");
+			tempPaths=(String) prop.get("www.url");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 	
 		String fileName = file.getOriginalFilename();
-		String path = request.getSession().getServletContext().getRealPath("/")+"/static/images/user/";
+		 String face="/resour/upload/img/customer/";
+		String path = tempPath+face;
 		File files = new File(path);
 		if(!files.exists()){
 			files.mkdir();
@@ -323,11 +340,11 @@ public class CustomerController {
             tempFile.createNewFile();  
         }
         file.transferTo(tempFile);
-        String filePath= request.getSession().getServletContext().getContextPath()+"/static/images/user/"+tempFile.getName();
+        String filePath= tempPaths+face+tempFile.getName();
         String pic = tempFile.getName();
         CustomerPo customer = new CustomerPo();
         customer.setUsername(req.getParameter("username"));
-        customer.setPic(pic);
+        customer.setPic(filePath);
         customer.setPic_id(pic);
         int flag = customerService.setBaseDate(customer);
         if(flag>0){
