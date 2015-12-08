@@ -349,7 +349,7 @@ public class CustomerController {
         int flag = customerService.setBaseDate(customer);
         if(flag>0){
         	CustomerPo cust = (CustomerPo)request.getSession().getAttribute("customer");
-        	cust.setPic(pic);
+        	cust.setPic(filePath);
         }
 		return "home";
 	}

@@ -747,7 +747,7 @@ var roots = '${root}';
 	
 	var pic = "<%=customer.getPic() %>";
 	if(pic!=""&&pic!=null&&pic!="null"){
-	var headPic = pic;
+		var headPic ="http://"+ pic;
 	}else{
 		headPic = "${root}/static/images/user/usercenter_head.jpg"
 	}
