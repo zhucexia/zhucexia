@@ -32,7 +32,7 @@ public class ControllerInterceptor implements HandlerInterceptor {
 		if(session.getAttribute("customer")==null){
 			String paths =request.getServletPath();
 			paths=paths.substring(0,paths.lastIndexOf("/"));
-			response.sendRedirect("/zhucexia/");
+			response.sendRedirect("/");
 			return false;
 		}
 		else{
