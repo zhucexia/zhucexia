@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%	request.setCharacterEncoding("UTF-8");
+	String root = request.getContextPath();
+	request.setAttribute("root",root);%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,7 +13,7 @@
 	<div style="width:100%;height:54px;margin-bottom:60px;background:#1d2087">
 		<div style="height:52px;position:relative;margin:0 auto;width:1000px;">
 			<div style="top:15px;left:0;position:absolute;z-index:99">
-				<img src="/zhucexia/static/images/header/logo.png">	
+				<img src="${root }/static/images/header/logo.png">	
 			</div>
 		</div>		
 	</div>
@@ -20,7 +23,7 @@
 		</div>
 		<div style="height:318px;">
 			<div style="width:100px;height:100px;position:absolute;left:300px;top:120px;">
-				<img src="/zhucexia/static/images/common/check-mark_17-612153230.jpg" width="100px;">				
+				<img src="${root }/static/images/common/check-mark_17-612153230.jpg" width="100px;">				
 			</div>
 			<div style="position:absolute;left:420px;top:145px;">
 				<span><strong>您的订单已支付成功</strong><span><br>

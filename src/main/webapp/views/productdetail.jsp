@@ -18,7 +18,7 @@
 					<a class="jqzoom" href="javascript:void(0);"><img id="bigSS"
 						src="http://${go.pic}"
 						jqimg="${root }/static/images/product/product_hongkou_315.jpg"
-						width="315"></a>
+						width="452"></a>
 				</div>
 			</div>
 			<div class="pro-left-txts clearfix">

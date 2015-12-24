@@ -1,0 +1,57 @@
+body{
+	margin:0;
+	padding:0;
+	background-color:rgb(236, 235, 235);
+	width:100%;
+}
+div.bg{
+	max-width:1024px;
+	background-color:white;
+}
+img.cover{
+	width:100%;
+}
+div.clear{
+	clear:both;
+}
+div.briefIntroducation{
+	width:96%;
+	margin:auto auto;
+	margin-top:5px;
+}
+span.price{
+	font-size:1.5em;
+	color:red;
+	font-weight:bold;
+}
+span.marketPrice{
+	font-size:1em;
+	text-decoration:line-through;
+	margin-left:3%;
+}
+span.content{
+	margin-left:10%;
+	padding-bottom:1.0%;
+	border-bottom:2px solid black;
+}
+/* a.orders{
+	margin:3px 10%;
+	padding:8px 25%;
+	width:100%;
+	background:yellow;
+	text-decoration:none;
+} */
+div.div1{
+	width:100%;
+	background-color:white;
+	border-top:1px solid black;
+	position:fixed;
+	bottom:0px;
+	left:0px;			 
+}
+li{
+	display:inline;
+}
+span.emails{
+	margin-top:12px;
+}

@@ -18,10 +18,13 @@
 <%@ page import="com.keji50.zhucexia.service.out.alipay.config.AlipayConfig"%>
 <%@ page import="com.keji50.zhucexia.service.SaleOrderService"%>
 <%@ page import="com.keji50.zhucexia.common.utils.ApplicationContextHolder"%>
+<%	request.setCharacterEncoding("UTF-8");
+	String root = request.getContextPath();
+	request.setAttribute("root",root);%>
 <html>
   <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<script type="text/javascript" src="${root }/zhucexia/static/js/common/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="${root }/static/js/common/jquery-1.10.2.min.js"></script>
 		<title>支付宝页面跳转同步通知页面</title>
   </head>
   <body style="margin:0;">
@@ -93,7 +96,7 @@
 	<div style="width:100%;height:54px;margin-bottom:60px;background:#1d2087">
 		<div style="height:52px;position:relative;margin:0 auto;width:1000px;">
 			<div style="top:15px;left:0;position:absolute;z-index:99">
-				<img src="/zhucexia/static/images/header/logo.png">	
+				<img src="${root }/static/images/header/logo.png">	
 			</div>
 		</div>		
 	</div>
@@ -111,17 +114,17 @@
 			</div>
 			<script type="text/javascript">
 				if(<%=result%>){
-					$("#prompt_pic").attr("src","/zhucexia/static/images/common/true.jpg")
+					$("#prompt_pic").attr("src","${root}/static/images/common/true.jpg")
 					$("#prompt1 strong").html("您的订单已支付成功");
 					$("#prompt2 strong").html("订单号为：<%=out_trade_no%>");
 				}else{
-					$("#prompt_pic").attr("src","/zhucexia/static/images/common/false.png")
+					$("#prompt_pic").attr("src","${root}/static/images/common/false.png")
 					$("#prompt1 strong").html("订单支付失败，请重新支付");
 					$("#prompt2 strong").hide();
 				}
 			</script>
 			<div style="position:absolute;left:380px;top:255px">
-				<a href="${root}/zhucexia/">返回首页</a>
+				<a href="${root}/">返回首页</a>
 			</div>
 		</div>
 	</div>	

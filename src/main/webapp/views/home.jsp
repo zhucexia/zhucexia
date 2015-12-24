@@ -319,7 +319,7 @@
 		<div class="popup">
 			<div class="content">
 				<div class="face-block">
-				  <form class="form-horizontal" id="baseDateForm" method="post" action="/zhucexia/customer/setBaseDate"
+				  <form class="form-horizontal" id="baseDateForm" method="post" action="${root }/customer/setBaseDate"
 				  ENCTYPE="multipart/form-data">
 					<div id="div_id_username" class="clearfix control-group">
 					  <label for="id_username" class="control-label ">
@@ -343,7 +343,7 @@
 						</label>
 						<div class="controls">
 							<div id="preview">
-								<img id="avatar" src="../static/images/user/usercenter_head.jpg" 
+								<img id="avatar" src="${root }/static/images/user/usercenter_head.jpg" 
 								width="100" height="100">
 							</div>
 							<div class="file">选择图片
@@ -694,6 +694,7 @@
 <div id="facebox_overlay" class="facebox_hide facebox_overlayBG" style="display: none; opacity: 0.2;"></div>
 
 <script type="text/javascript">
+var roots = '${root}';
 //导航选卡
 	$(function(){
 	    ch = $('.wisub').children();
@@ -746,7 +747,7 @@
 	
 	var pic = "<%=customer.getPic() %>";
 	if(pic!=""&&pic!=null&&pic!="null"){
-	var headPic = pic;
+		var headPic ="http://"+ pic;
 	}else{
 		headPic = "${root}/static/images/user/usercenter_head.jpg"
 	}

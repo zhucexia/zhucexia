@@ -3,6 +3,7 @@
 <html>
 <head>
 <link type="text/css" rel="stylesheet" href="${root }/static/css/includes/loginRe.css">
+<script type="text/javascript" src="${root}/static/js/includes/loginRe.js"></script>
 </head>
 <body>
 <div class="theme-popover" id="log">
@@ -18,12 +19,16 @@
 					type="password" name="password" value="" size="20" id="password"/></li>
 				<li ><span id="mess" style="text-align:center;color:red;font-weight:bold;"></span></li>
 				<li><strong></strong> <input class="btn btn-primary" type="button" name="submit" onclick="login()"
-					value=" 登 录 " />&emsp;<a href="javascript:losepass()" class="J_dialog mm" data="edit">忘记密码？</a>&emsp;<a href="javascript:regist() "class="J_dialog mm" data="reg">注册</a></li>
+					value=" 登 录 " />&emsp;
+					<input class="btn btn-primary" style="color:#fff" type="button" name="" onclick="losepass()" value="忘记密码？"/>&emsp;
+					<input class="btn btn-primary" style="color:#fff" type="button" name="" onclick="regist()" value="注册"/>
+				</li>
 			</ul>
 		</form>
 	</div>
 </div>
 <script type="text/javascript">
+		var roots = '${root}';
 		function losepass(){
 			$("#log").css("display","none");
 			$("#reg").css("display","none");
@@ -249,7 +254,7 @@
 		var phone=$("#mob").val();
 		if(phone!="" && phone!=null){
 			$.ajax({
-				url : "/zhucexia/customer/validatelost",
+				url : "${root}/customer/validatelost",
 				type : 'POST',
 				dataType: "json",
 				data : {
@@ -375,7 +380,8 @@
 							$("#hc").hide();
 							$("#hc1").show();
 						}
-						$("#log").hide();	
+						$("#log").hide();
+						window.location.reload();
 					}else{
 						$("#mess").html("输入的用户名/手机号 或密码有误");
 						$("#mess").show();
@@ -386,7 +392,6 @@
 					$("#mess").html("输入的用户名/手机号 或密码有误");
 				}
 			});
-			window.location.reload();
 		}
 		
 		//忘记密码操作
@@ -447,7 +452,7 @@
 		        	var name=$("#use").val();
 					var password=$("#wei").val();
 					$.ajax({
-						url : "/zhucexia/customer/updatepass",
+						url : "${root}/customer/updatepass",
 						type : 'POST',
 						dataType: "json",
 						data : {
@@ -482,7 +487,6 @@
 		function checkDate(){
 			var flag=true;
 			var username=$("#username1").val().trim();
-			alert(username);
 			var email=$("#email1").val().trim();
 			var reg = /^[\w][\w|\.|\_]*@[\w]+(\.[a-zA-Z]{2,4}){1,3}$/;
 			if(username==""||username==null){
@@ -490,22 +494,18 @@
 				$("#prompt_1").show();
 				flag=false;
 			}
-			alert(flag);
 			if(!reg.test(email)){
 				$("#prompt_2").html("请输入正确的电子邮箱");
 				$("#prompt_2").show();
 				flag=false;
 			}
-			alert(flag);
 			if(flag){
-				alert("bbbbbbbbbb");
 				$.ajax({
 					async:false,
-					url:"/zhucexia/customer/checkEmail",
+					url:"${root}/customer/checkEmail",
 					data:{"username":username,"email":email},
 					type:"post",
 					success:function(data){
-						alert(data);
 						return data;
 					}
 				});
@@ -521,7 +521,7 @@
 			var type=$("#type1").val();
 			alert(type);
 			$.ajax({
-				url:"/zhucexia/customer/sendEmail",
+				url:"${root}/customer/sendEmail",
 				type:"post",
 				data:{'email':email,'type':type},
 				success:function(data){
@@ -535,6 +535,5 @@
 		
 
 </script>
-<script type="text/javascript" src="${root}/static/js/includes/loginRe.js"></script>
 </body>
 </html>

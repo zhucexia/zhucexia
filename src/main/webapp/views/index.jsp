@@ -8,16 +8,16 @@
 	<div class="bd">
 		<ul style="position: relative; width: 1000px; height: 328px;">
 			<li
-				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: none; background: url(${root }/static/images/index/ads/ads1.jpg) 50% 0px no-repeat rgb(239, 239, 239);">
-				<a target="_blank" href="http://www.zhucexia.com/#"></a>
+				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: none; background: url(${root }/static/images/index/ads/ads1.jpeg) 50% 0px no-repeat rgb(239, 239, 239);">
+				<!-- <a target="_blank" href="http://www.zhucexia.com/#"></a> -->
 			</li>
 			<li
-				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: list-item; background: url(${root }/static/images/index/ads/ads2.jpg) 50% 0px no-repeat rgb(239, 239, 239);">
-				<a target="_blank" href="http://www.zhucexia.com/#"></a>
+				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: list-item; background: url(${root }/static/images/index/ads/ads2.jpeg) 50% 0px no-repeat rgb(239, 239, 239);">
+				<!-- <a target="_blank" href="http://www.zhucexia.com/#"></a> -->
 			</li>
 			<li
-				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: none; background: url(${root }/static/images/index/ads/ads3.jpg) 50% 0px no-repeat rgb(239, 239, 239);">
-				<a target="_blank" href="http://www.zhucexia.com/#"></a>
+				style="position: absolute; width: 1000px; left: 0px; top: 0px; display: none; background: url(${root }/static/images/index/ads/ads3.jpeg) 50% 0px no-repeat rgb(239, 239, 239);">
+				<!-- <a target="_blank" href="http://www.zhucexia.com/#"></a> -->
 			</li>
 		</ul>
 	</div>
@@ -46,17 +46,17 @@
 						<c:when test="${status.index%3==0 }">
 							<li style="margin-left:0;">
 								<div class="pic">
-									<span><a href="#"
-										title="${good.name }"><img dataid="356963" width="320"
+									<span><%-- <a href="#"
+										title="${good.name }"> --%><img dataid="356963" width="320"
 											src="http://${good.pic}"
-											alt="${good.name }" class="356963" height="256"></a></span>
+											alt="${good.name }" class="356963" height="256"><!-- </a> --></span>
 								</div>
 								<div class="dec-right">
 									<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
 								</div>
 								<div class="dec-left">
-									<h5>
-										<a href="#" title="${good.name }">${good.name }</a>
+									<h5 style="font-size:18px;font-weight:normal;color:#000;">
+										<%-- <a href="#" title="${good.name }"> --%>${good.name }<!-- </a> -->
 									</h5>
 									<p>${good.apply_condition }</p>
 								</div>
@@ -65,17 +65,17 @@
 						<c:otherwise>
 							<li>
 								<div class="pic">
-									<span><a href="#"
-										title="${good.name }"><img dataid="356963" width="320"
+									<span><%-- <a href="#"
+										title="${good.name }"> --%><img dataid="356963" width="320"
 											src="http://${good.pic}"
-											alt="${good.name }" class="356963" height="256"></a></span>
+											alt="${good.name }" class="356963" height="256"><!-- </a> --></span>
 								</div>
 								<div class="dec-right">
 									<a href="${root}/good/goodsdetail?id=${good.id}" title="${good.name }">立刻申请</a>
 								</div>
 								<div class="dec-left">
-									<h5>
-										<a href="#" title="${good.name }">${good.name }</a>
+									<h5 style="font-size:18px;font-weight:normal;color:#000;">
+										<%-- <a href="#" title="${good.name }"> --%>${good.name }<!-- </a> -->
 									</h5>
 									<p>${good.apply_condition }</p>
 								</div>
@@ -115,15 +115,15 @@
 								<li
 								style="overflow: hidden; float: left; width: 500px; height: 225px;">
 								<div class="pic"> 
-									<a href="#"
-										target="_blank"><img dataid="373471" width="225"
+									<!-- <a href="#"
+										target="_blank"> --><img dataid="373471" width="225"
 										src="http://${server.pic}"
-										alt="${server.name}" class="373471" height="225"></a>
+										alt="${server.name}" class="373471" height="225"><!-- </a> -->
 								</div>
 								<div class="dec">
-									<h5>
-										<a href="#"
-											target="_blank">${server.name}</a>
+									<h5 style="font-size:18px;font-weight:normal;color:#000;">
+										<!-- <a href="#"
+											target="_blank"> -->${server.name}<!-- </a> -->
 									</h5>
 									<p><%-- ${server.detail_content} --%></p>
 									<div class="index-btn">
@@ -143,8 +143,8 @@
 		</div>
 		<!--广告位indexmiddleone_ad-->
 		<div class="mt10 t_c">
-			<a href="http://www.zhucexia.com/#" target="_self"><img
-				src="${root }/static/images/index/introduct.jpg" alt=""></a>
+			<!-- <a href="http://www.zhucexia.com/#" target="_self"> --><img
+				src="${root }/static/images/index/introduct.jpeg" alt=""><!-- </a> -->
 		</div>
 		<!--end首页主体内容-->
 	</div>
