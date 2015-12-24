@@ -86,4 +86,7 @@
     <select id="getAllMeal" resultMap="BaseResultMap">
     	select <include refid="Base_Column_List"/> from good where 1=1 and  good_type_id=1 and state='s'
     </select>
+    <select id="getGoodById" resultMap="BaseResultMap">
+    	select <include refid="Base_Column_List"/> from good where 1=1 and id=#{id}
+    </select>
 </mapper>

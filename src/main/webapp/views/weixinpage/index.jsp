@@ -61,7 +61,7 @@
 							</div>
 						</div>
 						<div class="p_list_h3" >
-							<a href="" class="p_list_btn" >立即注册</a>
+							<a href="${root}/weixinGood/goodDetail?id=${good.id}" class="p_list_btn" >立即注册</a>
 						</div>
 						<div class="retina-1px-border-bottom" ></div>
 					</div>

@@ -65,5 +65,7 @@ public class GoodService {
 		return goodPoMapper.getAllMeal();
 	}
 
-
+	public GoodPo getGoodById(int id){
+		return goodPoMapper.getGoodById(id);
+	}
 }

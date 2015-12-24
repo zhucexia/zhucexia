@@ -13,7 +13,7 @@ import com.keji50.zhucexia.dao.po.GoodPo;
 import com.keji50.zhucexia.service.GoodService;
 
 @Controller
-@RequestMapping("/weixinindex")
+@RequestMapping("/weixinIndex")
 public class IndexController {
 	
 	@Resource(name="goodService")

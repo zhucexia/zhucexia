@@ -47,3 +47,5 @@ p{font-size: 16px;padding-top:15px;color:#555;margin: 0;text-align: center;}
 .bottom_menu{position:fixed;bottom:45px;left:15px;width:35%;border:1px solid #CDCDCD;display:none;}
 .bottom_menu_cld{border-bottom:1px solid #CDCDCD;font-size:15px;color:#555;padding:10px;}
 .bottom_menu_cld a{text-decoration:none;color:#555;}
+.good_detail{margin-top:10px;width:100%;}
+.good_detail p img{width:100%;}

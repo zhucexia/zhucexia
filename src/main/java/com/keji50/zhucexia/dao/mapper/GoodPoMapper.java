@@ -28,4 +28,6 @@ public interface GoodPoMapper {
 	
 	public List<GoodPo> getAllMeal();
 	
+	public GoodPo getGoodById(int id);
+	
 }
