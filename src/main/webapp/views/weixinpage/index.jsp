@@ -1,6 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,com.keji50.zhucexia.dao.po.CustomerPo" pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<% CustomerPo customer = (CustomerPo)request.getAttribute("customer");%>
 <%
 	// Set request data code convertion
 	request.setCharacterEncoding("UTF-8");
@@ -73,15 +75,22 @@
 	<div class="bottom" >
 		<ul class="bottom_nav" >
 			<li class="bottom_nav_btn cur" >
-				<a href="${root }/weixinindex/goodList">注册公司</a>
+				<a href="#">注册公司</a>
 			</li>
 			<li class="bottom_nav_btn" >
-				<a href="">我的订单</a>
+				<a href="javascript:myorder();">我的订单</a>
 			</li>
 			<li class="bottom_nav_btn" style="border:none;">
 				<a href="">个人中心</a>
 			</li>
 		</ul>
 	</div>
+	<script type="text/javascript">
+		function myorder(){
+			if(customer==null){
+				location.href("${root}/WXUser/toLogin?aim=1")
+			}
+		}
+	</script>
 </body>
 </html>

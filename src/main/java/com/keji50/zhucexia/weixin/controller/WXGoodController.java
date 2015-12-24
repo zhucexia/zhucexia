@@ -15,7 +15,7 @@ import com.keji50.zhucexia.dao.po.GoodPo;
 import com.keji50.zhucexia.service.GoodService;
 
 @Controller
-@RequestMapping("weixinGood")
+@RequestMapping("WXGood")
 public class WXGoodController {
 	
 	@Resource(name="goodService")

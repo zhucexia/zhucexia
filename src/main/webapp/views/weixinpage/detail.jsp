@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" import="java.util.*,com.keji50.zhucexia.dao.po.CustomerPo" pageEncoding="UTF-8" %>
+<% CustomerPo customer = (CustomerPo)request.getAttribute("customer");%>
 <%
 	// Set request data code convertion
 	request.setCharacterEncoding("UTF-8");
@@ -49,7 +50,7 @@
 				<span class="icono-mail emails"></span>
 			</li>
 			<li class="bottom_nav_btn" style="width:59%;">
-				<a href="#" class="orders" style="background:yellow;">免费下单</a>
+				<a href="javascript:placeOrder();" class="orders" style="background:#2294FF;">免费下单</a>
 			</li>
 			<li class="bottom_nav_btn" style="width:20%;">
 				<span class="icono-mail emails"></span>
@@ -57,8 +58,12 @@
 		</ul>	
 	</div>
 	<script type="text/javascript">
-		alert("aaaaaaa");
-		$(".good_detail p img").css("width","100%");
+		$(".good_detail p img").css({"width":"100%","height":""});
+		function placeOrder(){
+			if(customer==null){
+				location.href("${root}/WXUser/toLogin?aim=2")
+			}
+		}
 	</script>
 </body>
 </html>
