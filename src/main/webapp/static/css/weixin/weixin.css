@@ -1,0 +1,49 @@
+body{padding: 0;margin: 0;background-color: #F5F5F9;max-width: 1024px;}
+.divbody{padding-bottom: 58px;}
+.logo{padding: 32px 0;}
+.logo_img{width: 200px;height: 100px;margin: 0 auto;padding-right: 8px;}
+.logo_img img{width: 100%;}
+.form_box{padding: 0 10px;margin: 0;background-color: #fff;}
+.form_box_li{height: 50px;}
+.form_box_li .form_box_ipt{width: 100%;height: 100%;}
+.form_box_li .form_box_ipt input{border:none;padding: 0;width: 100%;height: 100%;font-size: 15px;}
+.retina-1px-border-bottom{height:1px; position:relative;background-color:#DCDCDC}
+.wid100Btn{padding: 0 10px;}
+.wid100Btn input{border:none;border-radius: 3px;width: 100%;height: 45px;background-color: #2294ff;color: #fff;font-size: 16px;}
+p{font-size: 16px;padding-top:15px;color:#555;margin: 0;text-align: center;}
+.city_box{background-color:#f6f6f6;box-shadow: 0 0 5px rgba(0,0,0,0.1);position:fixed;width:100%;left:0;top:0;height:44px;z-index:222;}
+.ui_list_btn_left{position:absolute;left:0;top:0;height:44px;line-height:44px;}
+.cityname{padding-left:10px;font-size:16px;}
+.cityname .icon{vertical-align:middle;margin-right:3px;font-size:18px;}
+.iconfont{font-family:"iconfont" !important;font-size:16px;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:0.2px;}
+.ui_list_btn_right_icon{position:absolute;right:10px;top:0;line-height:44px;color:#aaabb2}
+.bannerBox{width:100%;}
+.plistBox{padding-top:12px;padding-bottom:0;}
+.p_list{padding:0 10px;background-color:#fff;}
+.p_list_h1{position:relative;height:58px;}
+.p_list_name{font-size:18px;position:absolute;left:0;top:0;line-height:58px;font-weight:bold;}
+.p_price{font-size:12px;position: absolute;top:0;right:0;line-height:58px;color:#ff9102;}
+.cs{font-size:32px;}
+.p_list_h2{padding-top:10px;padding-bottom:15px;}
+.p_list_h2_title{padding-top:8px;padding-bottom:10px;color:#999;font-size:12px;}
+.p_list_h3{padding-top:6px;padding-bottom:18px;}
+.p_list_btn{padding:9px 0;width:100%;font-size:16px;background-color:#2294ff;text-align:center;text-decoration:blink;color:#fff;display:inline-block;border-radius:3px;}
+.bottom{position:fixed;bottom:0;left:0;width:100%;height:45px;background:#F6F6F6;border:1px solid #CDCDCD;}
+.bottom_nav{padding:0;margin:0;}
+.bottom_nav_btn{float:left;width:33%;height:46px;line-height:46px;text-align:center;border-right:1px solid #CDCDCD;list-style-type:none; }
+.bottom_nav_btn a{text-decoration:blink;color:#555;width:100%;display:inline-block;}
+.bottom_nav .cur a{color:#2294ff !important}
+.head{width:100%;height:58px;}
+.head_logo{height:58px;position:absolute;left:0;top:0;width:30%;}
+.head_p{line-height:38px;font-size:15px;position:absolute;right:10px;width:65%;padding-top:20px;color:#8F8F8F;}
+.order{position:relative;left:0;top:10px;margin:0 10px;padding:5px;border:1px solid #DCDCDC;background-color:#fff;margin-bottom:20px;}
+.order_head{position:relative;left:0;top:0;width:100%;color:#555;font-size:12px;border:1px solid #DCDCDC;background-color:#DFDFDF;}
+.order_code{margin:2px;}
+.order_body{position:relative;left:0;top:0;width:100%;height:70px;color:#555;font-size:12px;border:1px solid #DCDCDC;margin-top:10px;}
+.order_img{position:absolute;left:0;top:0;height:70px;}
+.order_price{position:absolute;top:5px;left:30%;}
+.order_addr{position:absolute;top:22px;left:30%;}
+.order_state{position:absolute;top:53px;left:30%;}
+.bottom_menu{position:fixed;bottom:45px;left:15px;width:35%;border:1px solid #CDCDCD;display:none;}
+.bottom_menu_cld{border-bottom:1px solid #CDCDCD;font-size:15px;color:#555;padding:10px;}
+.bottom_menu_cld a{text-decoration:none;color:#555;}

@@ -61,7 +61,9 @@ public class GoodService {
 		return goodPoMapper.getRelations();
 	}
 	
-	
+	public List<GoodPo> getAllMeal(){
+		return goodPoMapper.getAllMeal();
+	}
 
 
 }

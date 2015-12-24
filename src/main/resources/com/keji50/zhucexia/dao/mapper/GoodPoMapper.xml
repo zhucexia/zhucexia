@@ -82,4 +82,8 @@
     <select id="getRelations" resultType="java.util.HashMap">
     	select good_id,related_good_id ,related_good_name from good_relation 
     </select>
+    <!-- 查询全部套餐 -->
+    <select id="getAllMeal" resultMap="BaseResultMap">
+    	select <include refid="Base_Column_List"/> from good where 1=1 and  good_type_id=1 and state='s'
+    </select>
 </mapper>

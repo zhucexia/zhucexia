@@ -26,4 +26,6 @@ public interface GoodPoMapper {
 
 	public List<Map<String, Object>> getRelations();
 	
+	public List<GoodPo> getAllMeal();
+	
 }
