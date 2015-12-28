@@ -9,9 +9,10 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<context:component-scan base-package="com.keji50.zhucexia.service" use-default-filters="false">
+	<context:component-scan base-package="com.keji50.**.service" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
+
 
 	<!-- 支持 @AspectJ 标记 -->
 	<aop:aspectj-autoproxy />

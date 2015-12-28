@@ -89,4 +89,11 @@
     <select id="getGoodById" resultMap="BaseResultMap">
     	select <include refid="Base_Column_List"/> from good where 1=1 and id=#{id}
     </select>
+    
+    
+    <!-- 微信端的数据操控 -->
+    <!-- 查询单个产品的信息和该产品的产品类型 -->
+    <select id="wxGetGood" resultType="java.util.HashMap">
+    	select a.name,a.price_market from good;
+    </select>
 </mapper>

@@ -25,6 +25,7 @@
 	<div class="bg">
 		<div style="width:100%">
 			<img src="http://${good.pic}" class="cover" />
+			<input type="hidden" value="${good.id}" id="ids">
 		</div>
 		<div class="briefIntroducation">
 			<span class="price">${good.price_market}<span style="font-size:12px">元</span></span>
@@ -49,7 +50,7 @@
 				<span class="icono-mail emails"></span>
 			</li>
 			<li class="bottom_nav_btn" style="width:59%;">
-				<a href="#" class="orders" style="background:yellow;">免费下单</a>
+				<a href="javascript:void(0);" onclick="bookOrders()" class="orders" style="background:yellow;">免费下单</a>
 			</li>
 			<li class="bottom_nav_btn" style="width:20%;">
 				<span class="icono-mail emails"></span>
@@ -59,6 +60,11 @@
 	<script type="text/javascript">
 		alert("aaaaaaa");
 		$(".good_detail p img").css("width","100%");
+		/*免费下单购买套餐*/
+		function bookOrders(){
+			var ids=$("#ids").val();
+			location.href="${root}/wxsales/toBookOrders?ids="+ids+"";
+		}
 	</script>
 </body>
 </html>
