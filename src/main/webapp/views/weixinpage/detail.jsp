@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*,com.keji50.zhucexia.dao.po.CustomerPo" pageEncoding="UTF-8" %>
-<% CustomerPo customer = (CustomerPo)request.getAttribute("customer");%>
+<% CustomerPo customer = (CustomerPo)request.getSession().getAttribute("customer");%>
 <%
 	// Set request data code convertion
 	request.setCharacterEncoding("UTF-8");
@@ -60,9 +60,11 @@
 	<script type="text/javascript">
 		$(".good_detail p img").css({"width":"100%","height":""});
 		function placeOrder(){
-			if(customer==null){
-				location.href("${root}/WXUser/toLogin?aim=2")
-			}
+			<%if(customer==null){%>
+				location.href="${root}/WXUser/toLogin?aim=2";
+			<%}else{%>
+				location.href="";
+			<%}%>
 		}
 	</script>
 </body>

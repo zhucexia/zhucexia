@@ -78,7 +78,7 @@
 	<select id="querryOrders" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 	    select b.order_no ,b.id ,b.orderstate_time,b.delivery_state,b.payment_code,
 		b.payment_name,b.order_money,b.create_time,b.payment_state,b.remark,b.order_pic,
-		b.order_state,d.name from (select * from sale_order c   where 
+		b.order_state,d.name,d.address,d.street,d.areaRegion from (select * from sale_order c   where 
 		c.customer_id=#{customerid}
 		<choose>
 			<when test="types==0">

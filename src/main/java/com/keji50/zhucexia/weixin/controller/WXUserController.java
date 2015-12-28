@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.service.CustomerService;
-import com.keji50.zhucexia.weixin.service.WXUserService;
+import com.keji50.zhucexia.service.weixin.WXUserService;
 
 @Controller
 @RequestMapping("/WXUser")
@@ -36,14 +36,13 @@ public class WXUserController {
 		if(cust==null){
 			i=1;
 		}else{
-			request.setAttribute("customer", cust);
+			request.getSession().setAttribute("customer", cust);
 		}
 		return i;
 	}
 	
 	@RequestMapping("/userCenter")
 	public String userCenter(HttpServletRequest request,HttpServletResponse response){
-		
-		return "";
+		return "weixinpage/userCenter";
 	}
 }

@@ -18,7 +18,7 @@
 	<script language="javascript" src="${root}/static/js/common/jquery.min.js"></script>
 	<script src="${root}/static/js/common/hammer.min.js"></script>
 	<script src="${root}/static/js/common/jquery.hammer.js"></script>
-	<script language="javascript" src="${root}/static/js/common/dialog-h5-min.js"></script>
+	<script language="javascript" src="${root}/static/js/weixin/login.js"></script>
 	<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css">
 </head>
 <body>
@@ -51,9 +51,10 @@
 		</div>
 		<div id="regist" style="display:none;">
 			<ul class="form_box" >
+				<input type="hidden" name="mark" id="mark"/>
 				<li class="form_box_li" >
 					<div class="form_box_ipt" >
-						<input name="mobile" type="text" placeholder="手机号"/>
+						<input id="reg_name" name="mobile" type="text" placeholder="手机号"/>
 					</div>
 				</li>
 				<div class="retina-1px-border-bottom" ></div>
@@ -82,75 +83,26 @@
 			</ul>
 			<div class="retina-1px-border-bottom" ></div>
 			<div class="wid100Btn" style="padding-top:20px;" >
-				<input type="button" value="提交"/>
+				<input type="button" value="提交" id="regist"/>
 			</div>
 		</div>
 		<div style="margin-top:20px;">
-			<a href="javascript:regpage();" style="position:absolute;left:20px;text-decoration:blink;color:#5971A8;" >忘记密码？</a>
-			<a href="javascript:;"style="text-decoration:blink;color:#5971A8;position:absolute;right:20px;">注册</a>
+			<a href="javascript:lostPwdPage();" style="position:absolute;left:20px;text-decoration:blink;color:#5971A8;" >忘记密码？</a>
+			<a href="javascript:regPage();"style="text-decoration:blink;color:#5971A8;position:absolute;right:20px;">注册</a>
 		</div>
 	</div>
-<!-- 	<style type="text/css">
-		body{padding: 0;margin: 0;background-color: #F5F5F9;max-width: 1024px;}
-		.divbody{padding-bottom: 58px;}
-		.logo{padding: 32px 0;}
-		.logo_img{width: 200px;height: 100px;margin: 0 auto;padding-right: 8px;}
-		.logo_img img{width: 100%;}
-		.form_box{padding: 0 10px;margin: 0;background-color: #fff;}
-		.form_box_li{height: 50px;position:relative;}
-		.form_box_li .form_box_ipt{width: 100%;height: 100%;}
-		.form_box_li .form_box_ipt input{border:none;padding: 0;width: 100%;height: 100%;font-size: 15px;}
-		.retina-1px-border-bottom{height:1px; position:relative;background-color:#DCDCDC}
-		.wid100Btn{padding: 0 10px;}
-		.wid100Btn input{border:none;border-radius: 3px;width: 100%;height: 45px;background-color: #2294ff;color: #fff;font-size:16px;}
-		p{font-size: 16px;padding-top:15px;color:#555;margin: 0;text-align: center;}
-	</style> -->
 	<script type="text/javascript">
-		function regpage(){
+		function lostPwdPage(){
 			$("#login").css("display","none");
 			$("#regist").css("display","block");
+			$("#mark").val("lostPwd");
 		}
-		function login(){
-			var mobile = $("#login_name").val();
-			var password = $("#login_pwd").val();
-			var reg1 = /^1[3578][0-9]{9}$/;
-			var reg2 = /^[\w|_-]{6,20}$/;
-			var flag = true;
-			$("#do_login").click(function (){
-				if(!reg1.test(mobile)){
-					flag = false;
-				}
-				if(!reg2.test(password)){
-					flag = false;
-				}
-				if(flag){
-					$.ajax({
-						url:"${root}/WXUser/login",
-						type:"post",
-						data:{"mobile":mobile,"password":password},
-						success:function(data){
-							if(data==0){
-								var aim = ${aim};
-								if(aim==1){
-									location.href="${root}/";									
-								}
-								if(aim==2){
-									location.href="${root}/"
-								}
-								if(aim==2){
-									location.href="${root}/WXUser/userCenter"
-								}
-							}
-							if(data==1){
-								alert("手机号或密码错误！")
-							}
-						}
-					});
-				}else{
-					alert("请输入正确的手机号和密码！")
-				}
-			});
+		function regPage(){
+			$("#login").css("#display","none");
+			$("#regist").css("display","block");
+			$("#mark").val("regist");
 		}
+			
 	</script>
 </body>
 </html>

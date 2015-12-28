@@ -1,4 +1,4 @@
-package com.keji50.zhucexia.weixin.service;
+package com.keji50.zhucexia.service.weixin;
 
 import javax.annotation.Resource;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.keji50.zhucexia.dao.mapper.CustomerPoMapper;
 import com.keji50.zhucexia.dao.po.CustomerPo;
 
-@Service("WXUserSercie")
+@Service("WXUserService")
 public class WXUserService {
 	
 	@Resource(name="customerPoMapper")

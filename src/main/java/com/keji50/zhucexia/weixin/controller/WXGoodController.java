@@ -15,13 +15,13 @@ import com.keji50.zhucexia.dao.po.GoodPo;
 import com.keji50.zhucexia.service.GoodService;
 
 @Controller
-@RequestMapping("WXGood")
+@RequestMapping("/WXGood")
 public class WXGoodController {
 	
 	@Resource(name="goodService")
 	private GoodService goodService;
 	
-	@RequestMapping("goodDetail")
+	@RequestMapping("/goodDetail")
 	public String goodDetail(HttpServletRequest request,HttpServletResponse response){
 		int id = Integer.parseInt(request.getParameter("id"));
 		GoodPo good = goodService.getGoodById(id);
