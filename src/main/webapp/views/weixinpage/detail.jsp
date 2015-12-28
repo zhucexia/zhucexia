@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" import="java.util.*,com.keji50.zhucexia.dao.po.CustomerPo" pageEncoding="UTF-8" %>
+<% CustomerPo customer = (CustomerPo)request.getSession().getAttribute("customer");%>
 <%
 	// Set request data code convertion
 	request.setCharacterEncoding("UTF-8");
@@ -51,6 +52,7 @@
 			</li>
 			<li class="bottom_nav_btn" style="width:59%;">
 				<a href="javascript:void(0);" onclick="bookOrders()" class="orders" style="background:yellow;">免费下单</a>
+				<a href="javascript:placeOrder();" class="orders" style="background:#2294FF;">免费下单</a>
 			</li>
 			<li class="bottom_nav_btn" style="width:20%;">
 				<span class="icono-mail emails"></span>
@@ -58,12 +60,18 @@
 		</ul>	
 	</div>
 	<script type="text/javascript">
-		alert("aaaaaaa");
 		$(".good_detail p img").css("width","100%");
 		/*免费下单购买套餐*/
 		function bookOrders(){
 			var ids=$("#ids").val();
 			location.href="${root}/wxsales/toBookOrders?ids="+ids+"";
+		$(".good_detail p img").css({"width":"100%","height":""});
+		function placeOrder(){
+			<%if(customer==null){%>
+				location.href="${root}/WXUser/toLogin?aim=2";
+			<%}else{%>
+				location.href="";
+			<%}%>
 		}
 	</script>
 </body>
