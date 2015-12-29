@@ -35,7 +35,10 @@
 	</select>
 	<insert id="insertreg" parameterType="com.keji50.zhucexia.dao.po.CustomerSmsPo">
     insert into customer(username, password, mobile, email, create_time)
-    values(#{username,jdbcType=VARCHAR},  #{password,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR}, #{email,jdbcType=TIMESTAMP},now())
+    values(#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR},#{email,jdbcType=TIMESTAMP},now())
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+    	select LAST_INSERT_ID()
+    </selectKey>
   </insert>
   <update id="updatepass" parameterType="com.keji50.zhucexia.dao.po.CustomerSmsPo">
   		update customer set password=#{password,jdbcType=VARCHAR} where 1=1 and mobile=#{mobile,jdbcType=VARCHAR}

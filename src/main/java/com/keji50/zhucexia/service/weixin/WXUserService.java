@@ -20,4 +20,17 @@ public class WXUserService {
 		cust.setPassword(password);
 		return customerPoMapper.login(cust);
 	}
+	
+	public CustomerPo validatephone(CustomerPo c){
+		CustomerPo customer=customerPoMapper.validatephone(c);
+		return customer;
+	}
+	
+	public int insertreg(CustomerPo cust) {
+		return customerPoMapper.insertreg(cust);
+	}
+	
+	public int updatepass(CustomerPo c) {
+		return customerPoMapper.updatepass(c);
+	}
 }

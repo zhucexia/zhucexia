@@ -1,10 +1,12 @@
+<%@page import="com.keji50.zhucexia.dao.po.CustomerPo"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%
 	// Set request data code convertion
 	request.setCharacterEncoding("UTF-8");
 	// Application common variables
 	String root = request.getContextPath();
-	request.setAttribute("root",root);	
+	request.setAttribute("root",root);
+	CustomerPo customer=(CustomerPo)request.getSession().getAttribute("customer");
 %>
 <!DOCTYPE html>
 <html>
@@ -28,22 +30,24 @@
 				width:100%;
 				font-size:2em;
 				text-align:center;
-				border-bottom:1px solid black;
 				padding-top:10px;
 				padding-bottom:10px;
 			}
 			li{
-				margin-top:12px;
-				margin-bottom:12px;
+				position:relative;
+				margin-left:40px;
+				height:52px;
 				font-size:1.2em;
 				border-bottom:1px solid rgb(249, 249, 249);
-				padding-bottom:6px;
 			}
 			a{
+				position:absolute;
+				width:100%;
+				line-height:52px;
 				text-decoration:none;
 				color:black;
-			
 			}
+			.retina-1px-border-bottom{height:1px; position:relative;background-color:#DCDCDC}
 		</style>
 		<script type="text/javascript" src="${root}/static/js/common/jquery-2.1.1.min.js">
 				</script>		
@@ -54,17 +58,26 @@
 			<div class="personal1">
 				个人中心
 			</div>
-			<div style="width:100%;">
-				<ul style="list-style-type:none;">
+			<div style="width:100%;border-top:1px solid black;border-bottom:1px solid black;">
+				<ul style="list-style-type:none;padding:0;margin:0px;">
 					<li>
-						<a href="manageAddress.html" >
-							收货地址<i class="icono-caretRight" style="float:right;" ></i>
+						<a href="javascript:;" >
+							收货地址<i class="icono-caretRight" style="float:right;margin:16px;" ></i>
 						</a>
-						</li>
-					<li>
-						修改密码<i class="icono-caretRight" style="float:right"></i></li>
+					</li>
+					<div class="retina-1px-border-bottom" ></div>
+					<li style="border-bottom:1px solid #F9F9F9;">
+						<a href="javascript:changePwd();">
+							修改密码<i class="icono-caretRight" style="float:right;margin:16px;"></i>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
+		function changePwd(){
+			location.href="${root}/WXUser/toChangePwd";
+		}
+	</script>
 </html>

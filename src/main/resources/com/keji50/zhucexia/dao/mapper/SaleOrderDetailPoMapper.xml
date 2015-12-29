@@ -33,7 +33,7 @@
 			#{item.order_id},#{item.order_no})
   	   </foreach>
   	   <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
-  			select LAST_INSERT_ID() 
+  			select LAST_INSERT_ID()
   		</selectKey>
 	</insert>
 </mapper>

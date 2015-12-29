@@ -4,7 +4,7 @@ body{padding: 0;margin: 0;background-color: #F5F5F9;max-width: 1024px;}
 .logo_img{width: 200px;height: 100px;margin: 0 auto;padding-right: 8px;}
 .logo_img img{width: 100%;}
 .form_box{padding: 0 10px;margin: 0;background-color: #fff;}
-.form_box_li{height: 50px;}
+.form_box_li{height: 50px;position:relative;}
 .form_box_li .form_box_ipt{width: 100%;height: 100%;}
 .form_box_li .form_box_ipt input{border:none;padding: 0;width: 100%;height: 100%;font-size: 15px;}
 .retina-1px-border-bottom{height:1px; position:relative;background-color:#DCDCDC}

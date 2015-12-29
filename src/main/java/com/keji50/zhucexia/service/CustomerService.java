@@ -39,7 +39,6 @@ public class CustomerService {
 	}
 
 	public CustomerPo validatephone(CustomerPo c) {
-		// TODO Auto-generated method stub
 		CustomerPo customer=customerPoMapper.validatephone(c);
 		return customer;
 	}
@@ -57,7 +56,6 @@ public class CustomerService {
 	}
 
 	public int updatepass(CustomerPo c) {
-		// TODO Auto-generated method stub
 		return customerPoMapper.updatepass(c);
 	}
 	
