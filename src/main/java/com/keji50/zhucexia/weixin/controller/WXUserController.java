@@ -16,6 +16,7 @@ import com.keji50.zhucexia.dao.po.CustomerSmsPo;
 import com.keji50.zhucexia.service.CustomerEmailValidationService;
 import com.keji50.zhucexia.service.CustomerService;
 import com.keji50.zhucexia.service.CustomerSmsValidationService;
+import com.keji50.zhucexia.service.out.sms.SmsTemplate;
 import com.keji50.zhucexia.service.weixin.WXUserService;
 
 @Controller
