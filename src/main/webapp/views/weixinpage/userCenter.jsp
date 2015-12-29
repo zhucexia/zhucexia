@@ -61,7 +61,7 @@
 			<div style="width:100%;border-top:1px solid black;border-bottom:1px solid black;">
 				<ul style="list-style-type:none;padding:0;margin:0px;">
 					<li>
-						<a href="javascript:;" >
+						<a href="${root }/WXAddr/toManageAddr" >
 							收货地址<i class="icono-caretRight" style="float:right;margin:16px;" ></i>
 						</a>
 					</li>

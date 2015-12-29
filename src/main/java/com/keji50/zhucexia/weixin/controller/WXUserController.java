@@ -16,7 +16,6 @@ import com.keji50.zhucexia.dao.po.CustomerSmsPo;
 import com.keji50.zhucexia.service.CustomerEmailValidationService;
 import com.keji50.zhucexia.service.CustomerService;
 import com.keji50.zhucexia.service.CustomerSmsValidationService;
-import com.keji50.zhucexia.service.out.sms.SmsTemplate;
 import com.keji50.zhucexia.service.weixin.WXUserService;
 
 @Controller
@@ -35,6 +34,13 @@ public class WXUserController {
 		String aim =request.getParameter("aim");
 		String sign="login";
 		request.setAttribute("sign",sign);
+		if(aim.equals("2")){
+			String ids=request.getParameter("ids");
+			request.setAttribute("ids", ids);
+		}
+		else{
+			request.setAttribute("ids", "-1");
+		}
 		request.setAttribute("aim", aim);
 		return "weixinpage/login";
 	}

@@ -26,6 +26,7 @@
 	<div class="bg">
 		<div style="width:100%">
 			<img src="http://${good.pic}" class="cover" />
+			<input type="hidden" value="${good.id}" id="ids">
 		</div>
 		<div class="briefIntroducation">
 			<span class="price">${good.price_market}<span style="font-size:12px">元</span></span>
@@ -58,12 +59,14 @@
 		</ul>	
 	</div>
 	<script type="text/javascript">
-		$(".good_detail p img").css({"width":"100%","height":""});
+		$(".good_detail p img").css("width","100%");
+		/*免费下单购买套餐*/
 		function placeOrder(){
+			var ids=$("#ids").val();
 			<%if(customer==null){%>
-				location.href="${root}/WXUser/toLogin?aim=2";
+				location.href="${root}/WXUser/toLogin?aim=2&ids="+ids+"";
 			<%}else{%>
-				location.href="";
+				location.href="${root}/WXOrder/toBookOrders?ids="+ids+"";
 			<%}%>
 		}
 	</script>

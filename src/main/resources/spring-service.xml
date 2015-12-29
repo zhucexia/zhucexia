@@ -13,6 +13,7 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
+
 	<!-- 支持 @AspectJ 标记 -->
 	<aop:aspectj-autoproxy />
 	<context:annotation-config />

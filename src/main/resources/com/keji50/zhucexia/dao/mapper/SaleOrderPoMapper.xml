@@ -118,4 +118,15 @@
 	<update id="completeOrder" parameterType="string">
 		update sale_order set order_state='2' where id=#{id}
 	</update>
+	
+	<!-- 微信端数据操作 -->
+	<!-- 微信端添加订单 -->
+	<insert id="wxAdd" parameterType="com.keji50.zhucexia.dao.po.SalaOrderPo">
+		insert into sale_order(type,order_no,customer_id,order_money,address,telephone,zip_code,order_state,orderstate_time,order_pic,remark)
+	    values(#{type},CONCAT(DATE_FORMAT(now(), '%Y%m%d%h%i%s'),LPAD(LAST_INSERT_ID()+1, 11, '0')),#{customerid},#{ordermoney},
+		#{address},#{telephone},#{zipcode},#{orderstate},#{orderstatetime},#{order_pic},#{remark})
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+  			select LAST_INSERT_ID() 
+  		</selectKey>
+	</insert>
 </mapper>

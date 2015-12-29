@@ -1,0 +1,42 @@
+			#div1 ul{
+				margin:0px 0px;
+				padding:0px;
+				width:100%;
+			}
+			#div1 li{
+				list-style-type:none;
+				font-size:16px;
+				margin:6px 6px;
+				padding:3px 3px;
+				border-bottom:1px solid rgb(240, 240, 240);
+			}
+			#div1 li:nth-child(odd){
+				margin:9px 6px;
+				padding:3px 3px;
+				background-color:rgb(248, 248, 248);
+			}
+			.liprovince{
+				font-size:36px;
+				background-color:black;
+			}
+			.licity{
+				font-size:24px;
+				background-color:black;
+			}
+			#div1{
+				max-width:1024px;
+				display:none;
+			
+			}
+			.div1{
+				width:100%;
+				height:100%;
+				position:absolute;
+				top:0px;
+				left:0px;
+				z-index:2;
+				margin:0;
+				padding:0;
+				background-color:white;
+				
+			}
