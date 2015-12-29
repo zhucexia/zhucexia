@@ -6,6 +6,10 @@
 	String root = request.getContextPath();
 	request.setAttribute("root",root);
 	int aim =Integer.parseInt((String)request.getAttribute("aim"));
+	
+	if(aim==2){
+	 int ids =Integer.parseInt((String)request.getAttribute("ids"));
+	}	
 %>
 <!DOCTYPE html>
 <html>
@@ -18,14 +22,13 @@
 	<script language="javascript" src="${root}/static/js/common/jquery.min.js"></script>
 	<script src="${root}/static/js/common/hammer.min.js"></script>
 	<script src="${root}/static/js/common/jquery.hammer.js"></script>
-	<script language="javascript" src="${root}/static/js/weixin/login.js"></script>
 	<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css">
 </head>
 <body>
 	<div class="divbody">
 		<div class="logo">
 			<div class="logo_img">
-				<img src="${root}static/images/header/logo.png">
+				<img src="${root}/static/images/header/logo.png">
 			</div>
 			<p>登录注册侠</p>
 		</div>
@@ -102,7 +105,50 @@
 			$("#regist").css("display","block");
 			$("#mark").val("regist");
 		}
-			
+		$("#do_login").click(function (){
+			var mobile = $("#login_name").val();
+			var password = $("#login_pwd").val();
+			var reg1 = /^1[3578][0-9]{9}$/;
+			var reg2 = /^[\w|_-]{6,20}$/;
+			var flag = true;
+			if(!reg1.test(mobile)){
+				flag = false;
+			}
+			if(!reg2.test(password)){
+				flag = false;
+			}
+			if(flag){
+				$.ajax({
+					url:"${root}/WXUser/login",
+					type:"post",
+					data:{"mobile":mobile,"password":password},
+					success:function(data){
+						if(data==0){
+							var aim =${aim};
+							var ids=${ids};
+							if(aim==1){
+								location.href="${root}/WXOrder/orderManage";									
+							}
+							if(aim==2&&ids>-1){
+								location.href="${root}/WXOrder/toBookOrders?ids="+ids;
+							}
+							if(aim==3){
+								location.href="${root}/WXUser/userCenter"
+							}
+						}
+						if(data==1){
+							alert("手机号或密码错误！");
+						}
+					}
+				});
+			}else{
+				alert("请输入正确的手机号和密码！");
+			}
+		});
+
+		$("#regist").click(function(){
+			var mobile = $("#reg_name").val();
+		});			
 	</script>
 </body>
 </html>

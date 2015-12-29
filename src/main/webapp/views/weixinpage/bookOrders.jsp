@@ -128,6 +128,7 @@
 									var area=document.createElement("li");
 									area.id=areas[e].id;
 									area.innerHTML=areas[e].name;
+									area.name=areas[e].zipcode;
 									/*选择区域添加一个单击事件*/
 									area.onclick=function(){
 										/*获取省份元素*/
@@ -141,8 +142,12 @@
 										/*获取当前被选中的县区元素*/
 										var AreaId=this.id;
 										var AreaName=this.innerHTML;
+										var zipCode=this.name;
 										var address=ProvinceName+" "+CityName+" "+AreaName;
+										var areaId=ProvinceId+","+CityId+","+AreaId;
 										$("#area").attr("value",address);
+										$("#areaId").attr("value",areaId);
+										$("#zipcode").attr("value",zipCode);
 										document.getElementById("div1").style.display="none";
 										document.getElementById("bg").style.display="block";
 										
@@ -164,6 +169,14 @@
 			function returnsBook(){
 				document.getElementById("div1").style.display="none";
 				document.getElementById("bg").style.display="block";
+			}
+			/*提交定单信息*/
+			function bookOrders(){
+				/*验证表单信息*/
+				
+				/*提交表单信息*/
+				$("#form1").submit();
+				
 			}
 		</script>		
 	</head>
@@ -190,36 +203,43 @@
 				</li>
 			</ul>
 			<div class="address">填写地址信息</div>
+			<form action="${root}/WXOrder/buildOrders" method="post" id="form1">
 			<div>
-				<ul class="addr">
+				<ul class="addr">			
 					<li>
-						<input type="text" placeholder="地区" onclick="createProvince();" id="area"/>
+						<input type="text" placeholder="地区" onclick="createProvince();" id="area" name="area"/>
+						<input type="hidden" id="areaId" name="areaId"/>
+						<input type="hidden" name="goodId" value="${goodPo.id}">
+						<input type="hidden" name="order_money" value="${goodPo.price_market }">
 					</li>
 					<li>
-						<input  type="text" placeholder="街道地址"/>
+						<input  type="text" placeholder="街道地址" name="address"/>
 					</li>
 					<li>
-						<input type="text" placeholder="姓名">
+						<input type="text" placeholder="姓名" name="consignor" />
 					</li>
 					<li>
-						<input type="text" placeholder="联系电话">
+						<input type="text" placeholder="联系电话" name="telephone"/>
 					</li>
 					<li>
-						<input type="text" placeholder="邮编">
+						<input type="text" placeholder="邮编" id="zipcode" readonly="readonly" name="zipcode">
 						<div class="clear"></div>
 					</li>
-				</ul> 
+				</ul>
+				
 			</div>
 			<div class="next">
-					<a href="#" style="width:100%;padding-top:8px;padding-bottom:8px;text-align:center;margin:0px;background-color:#2294ff;text-decoration:none;display:block;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;">下一步，支付</a>
+					<a href="#" style="width:100%;padding-top:8px;padding-bottom:8px;text-align:center;margin:0px;background-color:#2294ff;text-decoration:none;display:block;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;"
+						onclick="bookOrders();">下一步，支付</a>
 		    </div>
+		    </form> 
 		</div>
 		<div id="div1" class="div1">
 			<div id="return" style="border-bottom:1px solid rgb(203, 203, 203);margin:6px 0px;padding-bottom:0px;padding-left:12px;">
 			<a style="display:block;color:black;" href="javascript:void(0);" onclick="returnsBook();">
 			     <font size='14px;' style="float:left;margin:0px;padding:0px;"><</font>  
 			     <p style="float:left;margin:0px;margin-top:20px;">收货地址管理</p>
-				<div style="clear:both;"></div>
+				 <div style="clear:both;"></div>
 			</a>
 			</div>
 			<ul id="citys">

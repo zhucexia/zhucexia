@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.keji50.zhucexia.dao.po.CustomerPo;
-import com.keji50.zhucexia.service.CustomerService;
 import com.keji50.zhucexia.service.weixin.WXUserService;
 
 @Controller
@@ -22,6 +21,13 @@ public class WXUserController {
 	@RequestMapping("/toLogin")
 	public String toLogin(HttpServletRequest request,HttpServletResponse response){
 		String aim =request.getParameter("aim");
+		if(aim.equals("2")){
+			String ids=request.getParameter("ids");
+			request.setAttribute("ids", ids);
+		}
+		else{
+			request.setAttribute("ids", "-1");
+		}
 		request.setAttribute("aim", aim);
 		return "weixinpage/login";
 	}

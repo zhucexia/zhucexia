@@ -51,7 +51,6 @@
 				<span class="icono-mail emails"></span>
 			</li>
 			<li class="bottom_nav_btn" style="width:59%;">
-				<a href="javascript:void(0);" onclick="bookOrders()" class="orders" style="background:yellow;">免费下单</a>
 				<a href="javascript:placeOrder();" class="orders" style="background:#2294FF;">免费下单</a>
 			</li>
 			<li class="bottom_nav_btn" style="width:20%;">
@@ -62,15 +61,12 @@
 	<script type="text/javascript">
 		$(".good_detail p img").css("width","100%");
 		/*免费下单购买套餐*/
-		function bookOrders(){
-			var ids=$("#ids").val();
-			location.href="${root}/wxsales/toBookOrders?ids="+ids+"";
-		$(".good_detail p img").css({"width":"100%","height":""});
 		function placeOrder(){
+			var ids=$("#ids").val();
 			<%if(customer==null){%>
-				location.href="${root}/WXUser/toLogin?aim=2";
+				location.href="${root}/WXUser/toLogin?aim=2&ids="+ids+"";
 			<%}else{%>
-				location.href="";
+				location.href="${root}/WXOrder/toBookOrders?ids="+ids+"";
 			<%}%>
 		}
 	</script>

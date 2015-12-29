@@ -27,5 +27,8 @@ public interface SaleOrderPoMapper {
 	public int cancleOrder(String id);
 
 	public int completeOrder(String id);
+	
+	/*微信端生成订单*/
+	public int wxAdd(SalaOrderPo saleOrder);
  
 }

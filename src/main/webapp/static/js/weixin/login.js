@@ -10,6 +10,7 @@ $("#do_login").click(function (){
 			if(!reg2.test(password)){
 				flag = false;
 			}
+			alert('111111111111');
 			if(flag){
 				$.ajax({
 					url:"${root}/WXUser/login",
@@ -17,12 +18,14 @@ $("#do_login").click(function (){
 					data:{"mobile":mobile,"password":password},
 					success:function(data){
 						if(data==0){
-							var aim = ${aim};
+							var aim ='${aim}';
+							alert('22222222222222222222');
 							if(aim==1){
 								location.href="${root}/WXOrder/orderManage";									
 							}
 							if(aim==2){
-								location.href="${root}/"
+								var ids='${ids}';
+								location.href="${root}/wxsales/toBookOrders?ids="+ids;
 							}
 							if(aim==3){
 								location.href="${root}/WXUser/userCenter"

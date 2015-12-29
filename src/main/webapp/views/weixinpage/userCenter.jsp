@@ -57,7 +57,7 @@
 			<div style="width:100%;">
 				<ul style="list-style-type:none;">
 					<li>
-						<a href="manageAddress.html" >
+						<a href="${root }/WXAddr/toManageAddr" >
 							收货地址<i class="icono-caretRight" style="float:right;" ></i>
 						</a>
 						</li>
