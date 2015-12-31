@@ -43,7 +43,9 @@
 							反选&emsp;&emsp;<a href="javascript:;" id="removeselected">删除所选产品</a>&emsp;&emsp;已选择<span id="selectedTotal">0</span>件商品
 						</td>
 						<td><span id="priceTotal">0.00</span>元</td>
+
 						<td><!--  <a href="http://localhost/static/table/123.xlsx" target="_self" class="cart-btn">提交材料</a>--> <a
+
 							href="javascript:;"  onclick="validateGood();" class="cart-btn">付款</a></td>
 					</tr>
 				</tfoot>

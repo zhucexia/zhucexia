@@ -16,6 +16,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 		<link rel="styleSheet" type="text/css" href="${root}/static/css/weixin/icono.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css">
 		<title>
 			地址添加
 		</title>
@@ -74,10 +75,10 @@
 				</ul>
 			</div>
 		</div>
-	</body>
+	
 	<script type="text/javascript">
 		function changePwd(){
 			location.href="${root}/WXUser/toChangePwd";
 		}
 	</script>
-</html>
+<jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>

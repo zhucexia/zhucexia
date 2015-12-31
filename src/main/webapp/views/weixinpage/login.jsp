@@ -9,7 +9,7 @@
 	int aim =Integer.parseInt((String)request.getAttribute("aim"));
 	String sign=(String)request.getAttribute("sign");
 	CustomerPo customer = (CustomerPo)request.getSession().getAttribute("customer");
-	if(aim==2){
+		if(aim==2){
 	 int ids =Integer.parseInt((String)request.getAttribute("ids"));
 	}	
 %>
@@ -24,6 +24,7 @@
 	<script language="javascript" src="${root}/static/js/common/jquery.min.js"></script>
 	<script src="${root}/static/js/common/hammer.min.js"></script>
 	<script src="${root}/static/js/common/jquery.hammer.js"></script>
+	
 	<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css">
 </head>
 <body>
@@ -50,6 +51,9 @@
 				</li>
 			</ul>
 			<div class="retina-1px-border-bottom"></div>
+			<div class="err_mes" id="err_mes1">
+				<span></span>
+			</div>
 			<div class="wid100Btn" style="padding-top:20px;">
 				<input id="do_login" type="button" value="登录" />
 			</div>
@@ -87,6 +91,9 @@
 				</li>
 			</ul>
 			<div class="retina-1px-border-bottom" ></div>
+			<div class="err_mes" id="err_mes2">
+				<span></span>
+			</div>
 			<div class="wid100Btn" style="padding-top:20px;" >
 				<input type="button" value="提交" id="regist_btn"/>
 			</div>
@@ -97,17 +104,19 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		<%if(sign.equals("change")){%>
-			lostPwdPage();
-			$("#reg_name").attr("value","${customer.mobile}");
-			$("#reg_name").attr("readonly","readonly");
-		<%}%>
 		function lostPwdPage(){
 			$("#login").css("display","none");
 			$("#regist").css("display","block");
 			$("#reg_btn").css("display","none");
 			$("#mark").val("lostPwd");
 		}
+		window.onload=function(){
+		<%if(sign.equals("change")){%>
+			lostPwdPage();
+			$("#reg_name").attr("value","${customer.mobile}");
+			$("#reg_name").attr("readonly","readonly");
+		<%}%>
+		};
 		function regPage(){
 			$("#login").css("display","none");
 			$("#regist").css("display","block");
@@ -121,11 +130,11 @@
 				type:"post",
 				success:function(data){
 					if(data==-2){
-						alert("验证码过期");
+						$("#err_mes2 span").html("验证码过期");
 					}else if(data==-1){
-						alert("验证码错误");
+						$("#err_mes2 span").html("验证码错误");
 					}else if(data==1){
-						alert("系统繁忙，请稍后再试");
+						$("#err_mes2 span").html("系统繁忙，请稍后再试");
 					}else if(data==0){
 						var aim = ${aim}
 						if(aim==1){
@@ -133,7 +142,9 @@
 						}
 						if(aim==2){
 							var ids=${ids};
+
 							location.href="${root}/WXOrder/toBookOrders?ids="+ids;
+
 						}
 						if(aim==3){
 							location.href="${root}/WXUser/userCenter";
@@ -166,19 +177,20 @@
 								location.href="${root}/WXOrder/orderManage";									
 							}
 							if(aim==2){
-								location.href="${root}/"
+								var ids=${ids};
+								location.href="${root}/WXOrder/toBookOrders?ids="+ids+"";
 							}
 							if(aim==3){
 								location.href="${root}/WXUser/userCenter"
 							}
 						}
 						if(data==1){
-							alert("手机号或密码错误！");
+							$("#err_mes1 span").html("手机号或者密码错误");
 						}
 					}
 				});
 			}else{
-				alert("请输入正确的手机号和密码！");
+				$("#err_mes1 span").html("请输入正确的手机号和密码");
 			}
 		});
 		function lostPwd(mobile,password,code){
@@ -188,21 +200,22 @@
 				type:"post",
 				success:function(data){
 					if(data==-2){
-						alert("验证码过期");
+						$("#err_mes2 span").html("验证码过期");
 					}else if(data==-1){
-						alert("验证码错误");
+						$("#err_mes2 span").html("验证码错误");
 					}else if(data==1){
-						alert("系统繁忙，请稍后再试");
+						$("#err_mes2 span").html("系统繁忙，请稍后再试");
 					}else if(data==0){
 						var aim=${aim};
 						if(aim==1){
 							location.href="${root}/WXOrder/orderManage";
 						}
 						if(aim==2){
-							location.href="${root}/"
+							var ids=${ids};
+							location.href="${root}/WXOrder/toBookOrders?ids="+ids+"";
 						}
 						if(aim==3){
-							location.href="${root}/WXUser/userCenter"
+							location.href="${root}/WXUser/userCenter";
 						}
 					}
 				}
@@ -252,12 +265,12 @@
 								sentMess(mobile);
 							}
 						}else{
-							alert("手机号不可用");
+							$("#err_mes2 span").html("手机号不可用");
 						}
 					}
 				});
 			}else{
-				alert("请输入正确的手机号");
+				$("#err_mes2 span").html("请输入正确的手机号");
 			}
 		});
 		$("#regist_btn").click(function(){
@@ -292,50 +305,5 @@
 			}
 		});
 			
-		$("#do_login").click(function (){
-			var mobile = $("#login_name").val();
-			var password = $("#login_pwd").val();
-			var reg1 = /^1[3578][0-9]{9}$/;
-			var reg2 = /^[\w|_-]{6,20}$/;
-			var flag = true;
-			if(!reg1.test(mobile)){
-				flag = false;
-			}
-			if(!reg2.test(password)){
-				flag = false;
-			}
-			if(flag){
-				$.ajax({
-					url:"${root}/WXUser/login",
-					type:"post",
-					data:{"mobile":mobile,"password":password},
-					success:function(data){
-						if(data==0){
-							var aim =${aim};
-							var ids=${ids};
-							if(aim==1){
-								location.href="${root}/WXOrder/orderManage";									
-							}
-							if(aim==2&&ids>-1){
-								location.href="${root}/WXOrder/toBookOrders?ids="+ids;
-							}
-							if(aim==3){
-								location.href="${root}/WXUser/userCenter"
-							}
-						}
-						if(data==1){
-							alert("手机号或密码错误！");
-						}
-					}
-				});
-			}else{
-				alert("请输入正确的手机号和密码！");
-			}
-		});
-
-		$("#regist").click(function(){
-			var mobile = $("#reg_name").val();
-		});			
 	</script>
-</body>
-</html>
+<jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>

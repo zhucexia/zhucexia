@@ -109,5 +109,4 @@
 				<input type="button" value="新增收货地址" onclick="addAddr();">
 			</div>
 		</div>
-	</body>
-</html>
+<jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>

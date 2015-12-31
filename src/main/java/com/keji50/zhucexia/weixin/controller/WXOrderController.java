@@ -94,9 +94,11 @@ public class WXOrderController {
 		Timestamp times=new Timestamp(System.currentTimeMillis());
 		saleOrder.setOrderstatetime(times);
 		int flag=orderService.buildOrders(saleOrder, addrPo, goodId);
+
 		request.setAttribute("id", flag);
 		/*判断是否数据插入成功*/
-		return "weixinpage/success";
+		return "weixinpage/success";		
+
 	}
 	/*订单管理中心*/
 	@RequestMapping("/orderManage")
@@ -217,5 +219,52 @@ public class WXOrderController {
 		String signature = Sha1Util.getSha1((signValue));
 		request.setAttribute("signature", signature);
 		return "";
+
+	@RequestMapping("/orderDetail")
+	public String orderDetail(HttpServletRequest request,HttpServletResponse response){
+		int id=Integer.parseInt(request.getParameter("id"));
+		Map<String,Object> order = orderService.getOrderById(id);
+		request.setAttribute("order", order);
+		return "weixinpage/orderDetail";
+	}
+	
+	@RequestMapping("/delOrder")
+	@ResponseBody
+	public int delOrder(HttpServletRequest request,HttpServletResponse response){
+		int i;
+		String id=request.getParameter("order_id");
+		int flag=orderService.delOrder(id);
+		if(flag>0){
+			return i=0;
+		}else{
+			return i=1;
+		}
+	}
+	
+	@RequestMapping("/cancleOrder")
+	@ResponseBody
+	public int cancleOrder(HttpServletRequest request,HttpServletResponse response){
+		int i;
+		String id=request.getParameter("order_id");
+		int flag=orderService.cancleOrder(id);
+		if(flag>0){
+			return i=0;
+		}else{
+			return i=1;
+		}
+	}
+	
+	@RequestMapping("/completeOrder")
+	@ResponseBody
+	public int completeOrder(HttpServletRequest request,HttpServletResponse response){
+		int i;
+		String id=request.getParameter("id");
+		int flag=orderService.completeOrder(id);
+		if(flag>0){
+			return i=0;
+		}else{
+			return i=1;
+		}
+
 	}
 }

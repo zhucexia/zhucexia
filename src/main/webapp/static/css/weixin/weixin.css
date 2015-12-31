@@ -30,21 +30,19 @@ p{font-size: 16px;padding-top:15px;color:#555;margin: 0;text-align: center;}
 .p_list_btn{padding:9px 0;width:100%;font-size:16px;background-color:#2294ff;text-align:center;text-decoration:blink;color:#fff;display:inline-block;border-radius:3px;}
 .bottom{position:fixed;bottom:0;left:0;width:100%;height:45px;background:#F6F6F6;border:1px solid #CDCDCD;}
 .bottom_nav{padding:0;margin:0;}
-.bottom_nav_btn{float:left;width:33%;height:46px;line-height:46px;text-align:center;border-right:1px solid #CDCDCD;list-style-type:none; }
-.bottom_nav_btn a{text-decoration:blink;color:#555;width:100%;display:inline-block;}
+.bottom_nav_btn{float:left;margin:0;width:33%;height:46px;line-height:46px;text-align:center;border-right:1px solid #CDCDCD;list-style-type:none; }
+.bottom_nav_btn a{text-decoration:blink;position:relative;color:#555;width:100%;display:inline-block;}
 .bottom_nav .cur a{color:#2294ff !important}
 .head{width:100%;height:58px;}
 .head_logo{height:58px;position:absolute;left:0;top:0;width:30%;}
 .head_p{line-height:38px;font-size:15px;position:absolute;right:10px;width:65%;padding-top:20px;color:#8F8F8F;}
 .order{position:relative;left:0;top:10px;margin:0 10px;padding:5px;border:1px solid #DCDCDC;background-color:#fff;margin-bottom:20px;}
-.order_head{position:relative;left:0;top:0;width:100%;color:#555;font-size:12px;border:1px solid #DCDCDC;background-color:#DFDFDF;}
-.order_code{margin:2px;}
-.order_body{position:relative;left:0;top:0;width:100%;height:70px;color:#555;font-size:12px;border:1px solid #DCDCDC;margin-top:10px;}
-.order_img{position:absolute;left:0;top:0;height:70px;}
-.order_price{position:absolute;top:5px;left:30%;}
-.order_addr{position:absolute;top:22px;left:30%;}
-.order_state{position:absolute;top:53px;left:30%;}
+.order_head{position:relative;left:0;top:0;width:100%;color:#555;font-size:15px;border:1px solid #DCDCDC;background-color:#DFDFDF;}
+.order_code{margin:4px;}
+.order_body{position:relative;left:0;top:0;width:100%;height:100px;color:#555;font-size:14px;border:1px solid #DCDCDC;margin-top:10px;}
+.order_body div{position:relative;padding:3px 0;}
 .bottom_menu{position:fixed;background-color:#F6F6F6;bottom:45px;left:15px;width:35%;border:1px solid #CDCDCD;display:none;}
 .bottom_menu_cld{border-bottom:1px solid #CDCDCD;font-size:15px;color:#555;padding:10px;}
 .bottom_menu_cld a{text-decoration:none;color:#555;}
 .good_detail{margin-top:10px;width:100%;}
+.err_mes{font-size:12px;padding:0 10px;color:red;}
