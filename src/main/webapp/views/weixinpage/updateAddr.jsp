@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
@@ -17,17 +17,102 @@
 		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css">
-		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/icono.min.css"/>
-		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/order.css"/>
-		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/address.css"/>
-		<script type="text/javascript" src="${root}/static/js/order/address_all.js">
+		<title>
+			修改收货地址
+		</title>
+		<style>
+			#div1 ul{
+				width:100%;
+				padding-left:12px;
+			}
+			#div1 li{
+				list-style-type:none;
+				font-size:16px;
+				margin:6px 6px;
+				padding:3px 3px;
+				border-bottom:1px solid rgb(240, 240, 240);
+				width:100%;
+			}
+			#div1 li:nth-child(odd){
+				background-color:rgb(248, 248, 248);
+			}
+			.liprovince{
+				font-size:36px;
+				background-color:black;
+			}
+			.licity{
+				font-size:24px;
+				background-color:black;
+			}
+			#div1{
+				max-width:1024px;
+			
+			}
+			.personal{
+				max-width:1024px;
+				margin:0px;
+				padding:0px 0px;
+				
+			}
+			.manageHeader{
+				width:100%;
+				font-size:1.2em;
+				border-bottom:1px solid black;
+				padding-top:10px;
+				padding-bottom:0px;
+				position:fixed;
+				top:0px;
+				background-color:white;
+			}
+			a{
+				text-decoration:none;
+				color:black;
+			}
+			i.rights{
+				float:right;
+			}
+			input[type=text]{
+				border-width:0px;
+				outline:none;
+				margin-left:12px;
+				margin-top:12px;
+				margin-bottom:12px;
+				width:83%;
+				height:25px;
+				font-size:18px
+				
+			}
+			input[type=text]:focus{
+				border:none;
+				border-bottom:1px solid black;
+			}
+			a.delete{
+				float:left;
+				margin-left:20px;
+				padding:8px;
+			}
+			input[type=button]{
+				float:right;
+				background-color:red;
+				padding:8px 24px;
+				margin-right:20px;
+			}
+			div.manageFoot{
+				padding:6px;
+				width:100%;
+				position:fixed;
+				bottom:0px;
+				background-color:rgb(250, 250, 250);
+			}
+		</style>
+		<link rel="styleSheet" type="text/css" href="${root}/static/css/weixin/icono.min.css"/>
+		<script type="text/javascript" src="${root}/static/js/cart/address_all.js">
 				</script>
-		<script type="text/javascript" src="${root}/static/js/common/jquery-1.7.1.min.js">
-				</script>
-		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="${root}/static/js/common/jquery-2.1.1.min.js">
+				</script>		
 		<script type="text/javascript">
 			function createProvince(){
+				$("#flag").val("2");
 				document.getElementById("div1").style.display="block";
 				document.getElementById("bg").style.display="none";
 				var ul=document.getElementById("citys");
@@ -53,7 +138,7 @@
 						prov.id=province.id;
 						prov.innerHTML=province.name;
 						prov.style.background="rgb(112, 112, 112)";
-						prov.style.font="bold 30px/30px arial,sans-serif";
+						prov.style.font="bold 36px/30px arial,sans-serif";
 						/*prov.style.position="fixed";*/
 						prov.style.margin="0px 6px";
 						prov.style.top="45px";
@@ -96,7 +181,7 @@
 								prov.id=province.id;
 								prov.innerHTML=province.name;
 								prov.style.background="rgb(112, 112, 112)";
-								prov.style.font="bold 30px/30px arial,sans-serif";
+								prov.style.font="bold 36px/30px arial,sans-serif";
 								/*prov.style.position="fixed";*/
 								prov.style.margin="0px 6px";
 								prov.style.top="45px";
@@ -144,14 +229,17 @@
 										/*获取当前被选中的县区元素*/
 										var AreaId=this.id;
 										var AreaName=this.innerHTML;
-										var zipCode=this.name;
+										var zipcode=this.name;
 										var address=ProvinceName+" "+CityName+" "+AreaName;
-										var areaId=ProvinceId+","+CityId+","+AreaId;
 										$("#area").attr("value",address);
-										$("#areaId").attr("value",areaId);
-										$("#zipcode").attr("value",zipCode);
+										/*省，城，区的id值*/
+										var addressId=ProvinceId+","+CityId+","+AreaId;
+										$("#addressId").attr("value",addressId);
+										/**/
+										$("#zipCode").attr("value",zipcode);
 										document.getElementById("div1").style.display="none";
 										document.getElementById("bg").style.display="block";
+										$("#flag").val("1");
 										
 									}
 									uls.appendChild(area);
@@ -168,87 +256,64 @@
 					ul.appendChild(b);
 			}
 			}
-			function returnsBook(){
+		function submits(){	
+			$("#form1").submit();	
+		}
+		function backs(){
+			var flag=$("#flag").val();
+			if(flag=="1"){
+				location.href="${root }/WXAddr/toManageAddr";
+
+			}
+			else{
 				document.getElementById("div1").style.display="none";
 				document.getElementById("bg").style.display="block";
+				$("#flag").val("1");
 			}
-			/*提交定单信息*/
-			function bookOrders(){
-				/*验证表单信息*/
-				
-				/*提交表单信息*/
-				$("#form1").submit();
-				
-			}
+		}
 		</script>		
-	</head>
-	<body>
-		<div class="bg" id="bg">
-			<div class="headerClass">
-				<div class="pay">1.确认订单</div>
-				<div class="order">2.支付</div>
-				<div class="clear"></div>
+	</head>	
+	<body >
+		<div class="personal">
+			<div class="manageHeader">
+				<a href="javascript:backs();">
+					<i class="icono-caretLeft"></i>收货地址管理
+					<input type="hidden" id="flag" value="${flag}">
+				</a>
 			</div>
-			<div class="hrs"></div>
-			<ul class="goodsName">
-				<li>
-					<span>购买产品</span>
-					<span class="rights">${goodPo.name}</span>
-				</li>
-				<li>
-					<span>产品类型</span>
-					<span class="rights" >${goodPo.good_type_name}</span>
-				</li>
-				<li>
-					<span>产品价格</span>
-					<span class="rights" style="color:#ff9102;font-weight:bold;">${goodPo.price_market}元</span>
-				</li>
-			</ul>
-			<div class="address">填写地址信息</div>
-			<form action="${root}/WXOrder/buildOrders" method="post" id="form1">
-			<div>
-				<ul class="addr">			
-					<li>
-						<input type="text" placeholder="地区" onclick="createProvince();" id="area" name="area"/>
-						<input type="hidden" id="areaId" name="areaId"/>
-						<input type="hidden" name="goodId" value="${goodPo.id}">
-						<input type="hidden" name="order_money" value="${goodPo.price_market }">
-					</li>
-					<li>
-						<input  type="text" placeholder="街道地址" name="address"/>
-					</li>
-					<li>
-						<input type="text" placeholder="姓名" name="consignor" />
-					</li>
-					<li>
-						<input type="text" placeholder="联系电话" name="telephone"/>
-					</li>
-					<li>
-						<input type="text" placeholder="邮编" id="zipcode" readonly="readonly" name="zipcode">
-						<div class="clear"></div>
-					</li>
-				</ul>
-				
+			<form action="${root }/WXAddr/updateAddr" method="post" id="form1">
+			<c:if test="${!empty addrPo }">
+			<div style="margin-top:46px;" >
+				<div id="bg">
+					<input type="text" placeholder="所在地区" onclick="createProvince();" 
+						id="area" value="${addrPo.address} ${addrPo.areaRegion}" name="address"/>
+					<i class="icono-caretRight rights"></i><br/>
+					<input type="text" placeholder="详细地址" id="address" value="${addrPo.street}" name="street">
+					<i class="icono-caretRight rights"></i><br/>
+					<input type="text" placeholder="请选择收货人姓名" id="realname" value="${addrPo.name}" name="name">
+					<i class="icono-caretRight rights"></i><br/>
+					<input type="text" placeholder="请输入收货人联系电话" id="telephone" value="${addrPo.telephone }" name="telephone">
+					<i class="icono-caretRight rights"></i><br/>
+					<input type="text" placeholder="请输入邮编" id="zipCode" value="${addrPo.zip_code }" name="zip_code">
+					<i class="icono-caretRight rights"></i><br/>
+					<input type="hidden" value="${addrPo.id}" name="id">
+					<input type="hidden" value="${addrPo.addressId }" name="addressId" id="addressId">		
+				</div>
+				<div id="div1" style="display:none;">
+					<ul id="citys">
+					</ul>
+					<ul	id="city" style="display:none;">
+					</ul>
+					<ul id="areaRegion" style="display:none;">
+					</ul>
+				</div>
 			</div>
-			<div class="next">
-					<a href="#" style="width:100%;padding-top:8px;padding-bottom:8px;text-align:center;margin:0px;background-color:#2294ff;text-decoration:none;display:block;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;"
-						onclick="bookOrders();">下一步，支付</a>
-		    </div>
-		    </form> 
+			<div class="manageFoot">
+				<a class="delete" href="${root}/WXAddr/delAddr/?id=${addrPo.id}">删除</a>
+				<input type="button" value="保存" onclick="submits();">
+			</div>
+			</c:if>
+			</form>
 		</div>
-		<div id="div1" class="div1">
-			<div id="return" style="border-bottom:1px solid rgb(203, 203, 203);margin:6px 0px;padding-bottom:0px;padding-left:12px;">
-			<a style="display:block;color:black;" href="javascript:void(0);" onclick="returnsBook();">
-			     <font size='14px;' style="float:left;margin:0px;padding:0px;"><</font>  
-			     <p style="float:left;margin:0px;margin-top:20px;">收货地址管理</p>
-				 <div style="clear:both;"></div>
-			</a>
-			</div>
-			<ul id="citys">
-			</ul>
-			<ul	id="city" style="display:none;">
-			</ul>
-			<ul id="areaRegion" style="display:none;">
-			</ul>
-		</div>
-<jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>
+	</body>
+</html>

@@ -7,11 +7,11 @@
 	String root = request.getContextPath();
 	request.setAttribute("root",root);
 	int aim =Integer.parseInt((String)request.getAttribute("aim"));
-	if(aim==2){
-		int ids=Integer.parseInt((String)request.getAttribute("ids"));
-	}
 	String sign=(String)request.getAttribute("sign");
 	CustomerPo customer = (CustomerPo)request.getSession().getAttribute("customer");
+		if(aim==2){
+	 int ids =Integer.parseInt((String)request.getAttribute("ids"));
+	}	
 %>
 <!DOCTYPE html>
 <html>
@@ -142,7 +142,9 @@
 						}
 						if(aim==2){
 							var ids=${ids};
-							location.href="${root}/WXOrder/toBookOrders?ids="+ids+"";
+
+							location.href="${root}/WXOrder/toBookOrders?ids="+ids;
+
 						}
 						if(aim==3){
 							location.href="${root}/WXUser/userCenter";

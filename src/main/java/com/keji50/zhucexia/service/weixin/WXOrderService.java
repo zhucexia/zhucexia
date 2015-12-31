@@ -89,7 +89,11 @@ public class WXOrderService {
 			throw new RuntimeException();
 		}
 	}
-	
+
+	public SalaOrderPo getOrderPo(int parseInt) {
+		return saleOrderPoMapper.getOrder(parseInt);
+
+	}
 	public int delOrder(String id) throws RuntimeException {
 		
 		int flag=saleOrderPoMapper.delOrder(id);

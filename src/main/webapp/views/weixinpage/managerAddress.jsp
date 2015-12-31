@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%
+	// Set request data code convertion
+	request.setCharacterEncoding("UTF-8");
+	// Application common variables
+	String root = request.getContextPath();
+	request.setAttribute("root",root);	
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -59,15 +66,18 @@
 				outline-color:red;	
 			}
 		</style>
-		<script type="text/javascript" src="jquery-2.1.1.min.js">
-				</script>		
-		
+		<script type="text/javascript" src="jquery-2.1.1.min.js" ></script>
+		<script type="text/javascript">
+			function addAddr(){
+				location.href="${root}/WXAddr/toAddAddr";
+			}
+		</script>
 	</head>	
 	<body >
 		<div class="personal">
 			<div class="manageHeader">
-				<a href="personalCenter.html">
-					<i class="icono-caretLeft"></i>收货地址管理
+				<a href="${root}/WXUser/userCenter">
+					<i class="icono-caretLeft"></i>收货地址管理	
 				</a>
 			</div>
 			<div style="width:100%;margin-top:46px">
@@ -75,8 +85,8 @@
 				<c:if test="${!empty list }">
 				<c:forEach var="item" items="${list}">
 					<li>
-						<a href="adress1.html">
-							<div style="background:rgb(231, 231, 231);">
+						<a href="${root }/WXAddr/toUpdateAddr?id=${item.id}">
+							<div style="background:rgb(231, 231, 231);padding-left: 4px;">
 								<div style="float:left;width:90%">
 									<p>
 										<span>${item.name }</span>
@@ -96,7 +106,7 @@
 				</ul>
 			</div>
 			<div style="width:100%;">
-				<input type="button" value="新增收货地址"/>
+				<input type="button" value="新增收货地址" onclick="addAddr();">
 			</div>
 		</div>
 <jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>
