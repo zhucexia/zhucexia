@@ -85,4 +85,8 @@ public class WXOrderService {
 			throw new RuntimeException();
 		}
 	}
+
+	public SalaOrderPo getOrderPo(int parseInt) {
+		return saleOrderPoMapper.getOrder(parseInt);
+	}
 }

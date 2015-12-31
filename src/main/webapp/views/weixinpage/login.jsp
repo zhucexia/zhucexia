@@ -132,7 +132,8 @@
 							location.href="${root}/WXOrder/orderManage";
 						}
 						if(aim==2){
-							
+							var ids=${ids};
+							location.href="${root}/WXOrder/toBookOrders?ids="+ids;
 						}
 						if(aim==3){
 							location.href="${root}/WXUser/userCenter";
