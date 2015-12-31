@@ -160,13 +160,14 @@ public class WXUserController {
 		}
 		return i;
 	}
-	
+	 
 	@RequestMapping("/toChangePwd")
 	public String toChangePwd(HttpServletRequest request, HttpServletResponse response){
 		String sign = "change";
 		String aim="3";
 		request.setAttribute("sign", sign);
 		request.setAttribute("aim", aim);
+		request.setAttribute("ids", "-1");
 		return "weixinpage/login";
 	}
 }

@@ -71,19 +71,7 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="bottom" >
-		<ul class="bottom_nav" >
-			<li class="bottom_nav_btn cur" >
-				<a href="#">注册公司</a>
-			</li>
-			<li class="bottom_nav_btn" >
-				<a href="javascript:myorder();">我的订单</a>
-			</li>
-			<li class="bottom_nav_btn" style="border:none;">
-				<a href="javascript:userCenter();">个人中心</a>
-			</li>
-		</ul>
-	</div>
+
 	<script type="text/javascript">
 		function myorder(){
 			<%if(customer==null){%>
@@ -100,5 +88,4 @@
 			<%}%>
 		}
 	</script>
-</body>
-</html>
+<jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>

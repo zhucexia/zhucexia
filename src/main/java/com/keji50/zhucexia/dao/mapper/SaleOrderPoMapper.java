@@ -30,5 +30,7 @@ public interface SaleOrderPoMapper {
 	
 	/*微信端生成订单*/
 	public int wxAdd(SalaOrderPo saleOrder);
+	
+	public HashMap<String,Object> getOrderById(int id);
  
 }

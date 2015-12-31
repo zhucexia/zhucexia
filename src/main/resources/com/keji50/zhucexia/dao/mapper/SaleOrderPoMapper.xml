@@ -129,4 +129,11 @@
   			select LAST_INSERT_ID() 
   		</selectKey>
 	</insert>
+	<select id="getOrderById" resultType="java.util.HashMap">
+		select a.order_no ,a.id ,a.orderstate_time,a.delivery_state,a.payment_code,
+		a.payment_name,a.order_money,a.create_time,a.payment_state,a.remark,a.order_pic,
+		a.order_state,b.name,b.address,b.street,b.areaRegion
+		from sale_order a left join customer_address b on a.address=b.id where a.id=#{id}
+	</select>
+	
 </mapper>

@@ -17,9 +17,10 @@
 		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-		<link rel="styleSheet" type="text/css" href="${root}/static/css/weixin/icono.min.css"/>
-		<link rel="styleSheet" type="text/css" href="${root}/static/css/weixin/order.css"/>
-		<link rel="styleSheet" type="text/css" href="${root}/static/css/weixin/address.css"/>
+		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css">
+		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/icono.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/order.css"/>
+		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/address.css"/>
 		<script type="text/javascript" src="${root}/static/js/order/address_all.js">
 				</script>
 		<script type="text/javascript" src="${root}/static/js/common/jquery-1.7.1.min.js">
@@ -249,5 +250,4 @@
 			<ul id="areaRegion" style="display:none;">
 			</ul>
 		</div>
-	</body>
-</html>
+<jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>

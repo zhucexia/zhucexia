@@ -34,6 +34,10 @@ public class WXOrderService {
 		return saleOrderPoMapper.querryOrders(maps);
 	}
 	
+	public HashMap<String,Object> getOrderById(int id){
+		return saleOrderPoMapper.getOrderById(id);
+	}
+	
 	/*生成订单，添加到数据库，1.添加地址到数据库，2.添加订单信息到数据库，3，添加商品详情信息到数据库*/
 	public int buildOrders(SalaOrderPo saleOrder,CustomerAddrPo addrPo,String goodId) throws DataAccessException{
 		/*添加地址*/
@@ -82,6 +86,36 @@ public class WXOrderService {
 			
 		}
 		else{
+			throw new RuntimeException();
+		}
+	}
+	
+	public int delOrder(String id) throws RuntimeException {
+		
+		int flag=saleOrderPoMapper.delOrder(id);
+		if(flag>0){
+			return flag;
+		}
+		else{
+			throw new RuntimeException();
+		} 
+	}
+	
+	public int cancleOrder(String id) {
+		int flag=saleOrderPoMapper.cancleOrder(id);
+		if(flag>0){
+			return flag;
+		}
+		else{
+			throw new RuntimeException();
+		} 
+	}
+	
+	public int completeOrder(String id) {
+		int flag=saleOrderPoMapper.completeOrder(id);
+		if(flag>0){
+			return flag;
+		}else{
 			throw new RuntimeException();
 		}
 	}

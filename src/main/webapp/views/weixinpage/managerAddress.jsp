@@ -99,5 +99,4 @@
 				<input type="button" value="新增收货地址"/>
 			</div>
 		</div>
-	</body>
-</html>
+<jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>
