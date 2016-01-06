@@ -9,7 +9,7 @@ public interface SaleOrderDetailPoMapper {
 
 	public int inserts(List<SaleOrderDetailPo> list);
 
-	public List<Map<String, Object>> getOrderDetail(int id);
+	public SaleOrderDetailPo getOrderDetail(int id);
 
 	public List<Map<String, Object>> querryDetails(int id);
 

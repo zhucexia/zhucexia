@@ -17,6 +17,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 		<link rel="styleSheet" type="text/css" href="icono.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css"/>
 		<title>
 			地址管理
 		</title>
@@ -105,8 +106,8 @@
 				 </c:if>					
 				</ul>
 			</div>
-			<div style="width:100%;">
-				<input type="button" value="新增收货地址" onclick="addAddr();">
+			<div style="margin:0 10px;margin-top:40px;">
+				<a class="p_list_btn" href="javascript:addAddr();">新增收货地址</a>
 			</div>
 		</div>
 <jsp:include page="/views/weixinpage/foot.jsp"></jsp:include>

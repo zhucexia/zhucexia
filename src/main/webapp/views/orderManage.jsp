@@ -221,7 +221,6 @@
 						          						</td>
 			          								</c:if>	
 			          							</c:if>
-
 			          					</tr>
 			          				</tbody>
 			          				</c:forEach>

@@ -237,7 +237,7 @@ public class WXOrderController {
 	@ResponseBody
 	public int delOrder(HttpServletRequest request,HttpServletResponse response){
 		int i;
-		String id=request.getParameter("order_id");
+		String id=request.getParameter("id");
 		int flag=orderService.delOrder(id);
 		if(flag>0){
 			return i=0;
@@ -250,7 +250,7 @@ public class WXOrderController {
 	@ResponseBody
 	public int cancleOrder(HttpServletRequest request,HttpServletResponse response){
 		int i;
-		String id=request.getParameter("order_id");
+		String id=request.getParameter("id");
 		int flag=orderService.cancleOrder(id);
 		if(flag>0){
 			return i=0;

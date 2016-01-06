@@ -15,7 +15,7 @@ body{
 				top:0px;
 			}
 
-			div.order{
+			div.b{
 				padding:6px 0px;
 				text-align:center;
 				width:50%;
@@ -23,7 +23,7 @@ body{
 				float:right;	
 				margin:0px;
 			}
-			div.pay{
+			div.a{
 			    padding:6px 0px;
 				text-align:center;
 				width:49%;
@@ -31,10 +31,6 @@ body{
 				float:left;
 				margin:0px;
 			}
-			div.clear{
-				clear:both;
-			}
-			
 			.hrs{
 				width:100%;
 				height:8px;

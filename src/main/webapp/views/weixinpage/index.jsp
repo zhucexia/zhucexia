@@ -58,7 +58,7 @@
 						<div class="p_list_h2" >
 							<div class="p_list_h2_title">服务内容:</div>
 							<div style="width:100%;">
-								<img src="${good.detail_content }" style="width:50%;">
+								<img src="${good.detail_content }" style="width:100%;">
 							</div>
 						</div>
 						<div class="p_list_h3" >

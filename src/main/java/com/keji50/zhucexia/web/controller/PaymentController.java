@@ -21,19 +21,23 @@ import com.keji50.zhucexia.dao.po.CustomerAddrPo;
 import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.dao.po.PaymentPo;
 import com.keji50.zhucexia.dao.po.SalaOrderPo;
+import com.keji50.zhucexia.dao.po.SaleOrderDetailPo;
 import com.keji50.zhucexia.service.CustomerAddressService;
 import com.keji50.zhucexia.service.PaymentService;
+import com.keji50.zhucexia.service.SaleOrderDetailService;
 import com.keji50.zhucexia.service.SaleOrderService;
 
 @Controller
 @RequestMapping(value = "/payment")
 public class PaymentController {
     @Resource(name="paymentService")
-    private   PaymentService  paymentService;
+    private PaymentService  paymentService;
 	@Resource(name="saleOrderService")
 	private SaleOrderService saleOrderService;
 	@Resource(name="customerAddressService")
 	private CustomerAddressService customerAddresService;
+	@Resource(name="saleOrderDetailService")
+	private SaleOrderDetailService saleOrderDetailService;
 	
 	@RequestMapping(value = "/pay", method = RequestMethod.POST)
 	public String pay(HttpServletRequest request, HttpServletResponse response) throws DataAccessException, ParseException {
@@ -72,10 +76,11 @@ public class PaymentController {
 			if((totalPrice-0)>0.00000001){
 				switch(paymentCode){
 				case "alipay":
+					SaleOrderDetailPo orderDetail = saleOrderDetailService.getOrderDetail(Integer.parseInt(orderId));
 					request.setAttribute("WIDout_trade_no", saleOrder.getOrder_no()); // 订单号
-					request.setAttribute("WIDsubject", "测试订单");                           // 订单名称
-					request.setAttribute("WIDtotal_fee", totalPrice.toString());                            // 订单金额
-					request.setAttribute("WIDbody", "测试订单描述");                           // 订单描述
+					request.setAttribute("WIDsubject", "注册侠"+orderDetail.getGood_name());  // 订单名称
+					request.setAttribute("WIDtotal_fee", totalPrice.toString());             // 订单金额
+					request.setAttribute("WIDbody", orderDetail.getGood_name());            // 订单描述
 					request.setAttribute("WIDshow_url", "http://test/zhucexia/order/3");   // 订单地址
 				    url= "pay/alipayapi";
 				    break;
@@ -115,17 +120,5 @@ public class PaymentController {
 		return "";
 	}
 	
-	/*支付宝返回结果*/
-	@RequestMapping("/return")
-	public void returnUrl(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		RequestDispatcher rd = request.getRequestDispatcher("../views/pay/return_url.jsp");
-		rd.forward(request, response);
-	}
-	
-	@RequestMapping("/notify")
-	public void notifyUrl(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
-		RequestDispatcher rd = request.getRequestDispatcher("../views/pay/notify_url.jsp");
-		rd.forward(request, response);
-	}
 	
 }

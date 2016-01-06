@@ -185,8 +185,8 @@
 	<body>
 		<div class="bg" id="bg">
 			<div class="headerClass">
-				<div class="pay">1.确认订单</div>
-				<div class="order">2.支付</div>
+				<div class="a">1.确认订单</div>
+				<div class="b">2.支付</div>
 				<div class="clear"></div>
 			</div>
 			<div class="hrs"></div>
@@ -231,8 +231,9 @@
 				
 			</div>
 			<div class="next">
-					<a href="#" style="width:100%;padding-top:8px;padding-bottom:8px;text-align:center;margin:0px;background-color:#2294ff;text-decoration:none;display:block;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;"
-						onclick="bookOrders();">下一步，支付</a>
+				<a href="#" style="width:100%;padding-top:8px;padding-bottom:8px;text-align:center;margin:0px;
+					background-color:#2294ff;color:#fff;text-decoration:none;display:block;border-radius:4px;
+					-webkit-border-radius:4px;-moz-border-radius:4px;"onclick="bookOrders();">下一步，支付</a>
 		    </div>
 		    </form> 
 		</div>
@@ -240,7 +241,7 @@
 			<div id="return" style="border-bottom:1px solid rgb(203, 203, 203);margin:6px 0px;padding-bottom:0px;padding-left:12px;">
 			<a style="display:block;color:black;" href="javascript:void(0);" onclick="returnsBook();">
 			     <font size='14px;' style="float:left;margin:0px;padding:0px;"><</font>  
-			     <p style="float:left;margin:0px;margin-top:20px;">收货地址管理</p>
+			     <p style="float:left;padding:0;margin-top:18px;margin-left:20px">收货地址管理</p>
 				 <div style="clear:both;"></div>
 			</a>
 			</div>

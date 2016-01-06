@@ -22,7 +22,8 @@ $("#do_login").click(function (){
 								location.href="${root}/WXOrder/orderManage";									
 							}
 							if(aim==2){
-								location.href="${root}/"
+								var ids=${ids};
+								location.href="${root}/wxsales/toBookOrders?ids="+ids;
 							}
 							if(aim==3){
 								location.href="${root}/WXUser/userCenter"

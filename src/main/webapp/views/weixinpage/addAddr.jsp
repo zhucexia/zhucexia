@@ -17,6 +17,7 @@
 		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
 		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+		<link rel="stylesheet" type="text/css" href="${root}/static/css/weixin/weixin.css"/>
 		<title>
 			收货地址管理
 		</title>
@@ -98,10 +99,9 @@
 				margin-right:20px;
 			}
 			div.manageFoot{
-				padding:6px;
 				width:100%;
-				position:fixed;
-				bottom:0px;
+				position:relative;
+				top:40px;
 				background-color:rgb(250, 250, 250);
 			}
 		</style>
@@ -310,8 +310,8 @@
 				</div>
 			</div>
 			<div class="manageFoot">
-				<input id="delete" type="button" value="取消" onclick="cancles();">
-				<input type="button" value="保存" onclick="submits();">
+				<a class="p_list_btn" style="position:absolute;width:80px;left:30px;" href="javascript:cancles();">取消</a>
+				<a class="p_list_btn" style="position:absolute;width:80px;right:30px;" href="javascript:submits();">保存</a>
 			</div>
 
 			</form>

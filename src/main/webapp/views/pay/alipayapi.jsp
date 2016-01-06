@@ -32,10 +32,10 @@
 	
 		//必填，不能修改
 		//服务器异步通知页面路径
-		String notify_url = basePath + "/payment/notify";
+		String notify_url = "http://120.55.165.22:8080/views/pay/notify_url.jsp";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 		//页面跳转同步通知页面路径
-		String return_url = basePath + "/payment/return";
+		String return_url = "http://120.55.165.22:8080/views/pay/return_url.jsp";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 		//商户订单号
 		String out_trade_no = (String) request.getAttribute("WIDout_trade_no");
