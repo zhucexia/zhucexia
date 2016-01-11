@@ -30,7 +30,7 @@ p{font-size: 16px;padding-top:15px;color:#555;margin: 0;text-align: center;}
 .p_list_btn{padding:9px 0;width:100%;font-size:16px;background-color:#2294ff;text-align:center;text-decoration:blink;color:#fff;display:inline-block;border-radius:3px;}
 .bottom{position:fixed;bottom:0;left:0;width:100%;height:45px;background:#F6F6F6;border:1px solid #CDCDCD;}
 .bottom_nav{padding:0;margin:0;}
-.bottom_nav_btn{float:left;margin:0;width:33%;height:46px;line-height:46px;text-align:center;border-right:1px solid #CDCDCD;list-style-type:none; }
+.bottom_nav_btn{float:left;margin:0;padding:0;width:33%;height:46px;line-height:46px;text-align:center;border-right:1px solid #CDCDCD;list-style-type:none; }
 .bottom_nav_btn a{text-decoration:blink;position:relative;color:#555;width:100%;display:inline-block;}
 .bottom_nav .cur a{color:#2294ff !important}
 .head{width:100%;height:58px;}

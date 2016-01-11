@@ -27,8 +27,7 @@
 			</div>
 			<div class="head_p">注册侠  你创业的梦想由我来守护</div>
 		</div>
-	</div>
-	<div class="order">
+		<div class="order">
 		<div class="order_head">
 			<div class="order_code">
 				<span>订单编号:</span>${order.order_no}
@@ -51,7 +50,7 @@
 						<span>订单状态:</span>待付款
 					</div>
 				</c:if>
-				<c:if test="${order.payment_state==1 and order.order_state==1 }">
+				<c:if test="${order.payment_state==1 and order.order_state==1}">
 					<div >
 						<span>订单状态:</span>处理中
 					</div>
@@ -62,29 +61,135 @@
 					</div>
 				</c:if>
 				<c:if test="${order.order_state==9 }">
-					<div >
+					<div>
 						<span>订单状态:</span>已取消
 					</div>
 				</c:if>
 			</c:if>
-			<c:if test="${item.payment_code=='cash_on_delivery'}">
-				<c:if test="${item.order_state==1 }">
+			<c:if test="${order.payment_code=='cash_on_delivery'}">
+				<c:if test="${order.order_state==1 }">
 					<div >
 						<span>订单状态:</span>处理中
 					</div>
 				</c:if>
-				<c:if test="${item.payment_state==1 and item.order_state==2 }">
+				<c:if test="${order.payment_state==1 and order.order_state==2 }">
 					<div >
 						<span>订单状态:</span>交易完成
 					</div>
 				</c:if>
-				<c:if test="${ item.order_state==9 }">
+				<c:if test="${ order.order_state==9 }">
 					<div >
 						<span>订单状态:</span>已取消
 					</div>
 				</c:if>
 			</c:if>
 		</div>
+		<div>
+			<c:if test="${order.payment_code!='cash_on_delivery' or (empty order.payment_code)}">
+				<c:if test="${order.payment_state==0 and order.order_state==1}">
+					<div class="order_btn">
+						<a href="${root}/details/querryOrderDetail?id=${order.id}" target="_blank">立即付款</a>
+						<a class="cancle_order" href="javascript:;">取消订单</a>
+					</div>
+				</c:if>
+				<c:if test="${order.payment_state==1 and order.order_state==1}">
+					<div class="order_btn">
+						<a class="complete_order" href="javascript:;">确认完成</a>
+						<a class="cancle_order" href="javascript:;">取消订单</a>
+					</div>
+				</c:if>
+				<c:if test="${order.payment_state==1 and order.order_state==2 }">
+					<div class="order_btn">
+						<a href="${root}/details/querryOrderDetail?id=${order.id}" target="_blank">查看详情</a>
+						<a class="del_order" href="javascript:void(0)">删除订单</a>
+					</div>
+				</c:if>
+				<c:if test="${order.order_state==9 }">
+					<div class="order_btn">
+						<a href="${root}/details/querryOrderDetail?id=${order.id}" target="_blank">查看详情</a>
+						<a class="del_order" href="javascript:void(0)">删除订单</a>
+					</div>
+				</c:if>
+			</c:if>
+			<c:if test="${order.payment_code=='cash_on_delivery'}">
+				<c:if test="${order.order_state==1 }">
+					<div class="order_btn">
+						<a class="complete_order" href="javascript:;">确认完成</a>
+						<a class="cancle_order" href="javascript:;">取消订单</a>
+					</div>
+				</c:if>
+				<c:if test="${order.payment_state==1 and order.order_state==2 }">
+					<div class="order_btn">
+						<a href="${root}/details/querryOrderDetail?id=${order.id}" target="_blank">查看详情</a>
+						<a class="del_order" href="javascript:void(0)">删除订单</a>
+					</div>
+				</c:if>
+				<c:if test="${ order.order_state==9 }">
+					<div class="order_btn"> 
+						<a href="${root}/details/querryOrderDetail?id=${order.id}" target="_blank">查看详情</a>
+						<a class="del_order" href="javascript:void(0)">删除订单</a>
+					</div>
+				</c:if>
+			</c:if>
+		</div>
 	</div>
-</body>
-</html>
+	</div>
+	
+	<style type="text/css">
+		.order_btn{position:relative;height:30px;}
+		.order_btn a{position:absolute;text-decoration:none;color:#477FFF;top:10px;}
+		.order_btn a:nth-child(1){left:10px;}
+		.order_btn a:nth-child(2){right:10px;}
+	</style>
+	<script type="text/javascript">
+		$(".cancle_order").click(function(){
+			var id=${order.id};
+			$.ajax({
+				url:"${root}/WXOrder/cancleOrder",
+				data:{"id":id},
+				type:"post",
+				success:function(data){
+					if(data==0){
+						location.reload();
+					}
+					if(data==1){
+						alert("取消订单失败，请稍后重试");
+					}
+				}
+			});
+		});
+		$(".complete_order").click(function(){
+			var id=${order.id};
+			$.ajax({
+				url:"${root}/WXOrder/completeOrder",
+				data:{"id":id},
+				type:"post",
+				success:function(data){
+					if(data==0){
+						location.reload();
+					}
+					if(data==1){
+						alert("订单确认完成失败，请好厚重试");
+					}
+				}
+			});
+		});
+		$(".del_order").click(function(){
+			var id=${order.id};
+			alert(id);
+			$.ajax({
+				url:"${root}/WXOrder/delOrder",
+				data:{"id":id},
+				type:"post",
+				success:function(data){
+					if(data==0){
+						location.href="${root}/WXOrder/orderManage"
+					}
+					if(data==1){
+						alert("删除订单失败，请稍后重试");
+					}
+				}
+			});
+		});
+	</script>
+<jsp:include page="/views/weixinpage/foot.jsp"/>

@@ -10,16 +10,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.jdom.JDOMException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.alibaba.fastjson.JSON;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.alibaba.fastjson.JSON;
 import com.keji50.zhucexia.dao.po.CustomerAddrPo;
 import com.keji50.zhucexia.dao.po.CustomerPo;
 import com.keji50.zhucexia.dao.po.GoodPo;
@@ -222,7 +223,7 @@ public class WXOrderController {
 		String signature = Sha1Util.getSha1((signValue));
 		request.setAttribute("signature", signature);
 		return "";
-	}
+}
 	@RequestMapping("/orderDetail")
 	public String orderDetail(HttpServletRequest request,HttpServletResponse response){
 		int id=Integer.parseInt(request.getParameter("id"));

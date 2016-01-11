@@ -35,8 +35,8 @@
 			<span>${good.apply_condition}</span>
 			<hr/>
 		</div>
-		<div style="98%">
-			<img src="jiading1.jpg" style="width:80%;margin:auto auto;"/>
+		<div style="width:98%;margin:0 auto;">
+			<img src="${root}/static/images/header/jiading1.jpg" style="width:100%;"/>
 		</div>
 		<span class="content">服务介绍</span>
 		<hr style="margin-top:1%;"/>
@@ -59,7 +59,9 @@
 		</ul>	
 	</div>
 	<script type="text/javascript">
-		$(".good_detail p img").css("width","100%");
+		window.onload=function(){
+			$(".good_detail img").css("width","100%");
+		}
 		/*免费下单购买套餐*/
 		function placeOrder(){
 			var ids=$("#ids").val();
