@@ -155,29 +155,54 @@
 										
 									}
 									uls.appendChild(area);
-								
 								}
-							
-							
 							}
 							uls.appendChild(cit);
 						}
-						
 					}
 					b.id=data[i].id;
 					ul.appendChild(b);
 			}
 			}
+			
 			function returnsBook(){
 				document.getElementById("div1").style.display="none";
 				document.getElementById("bg").style.display="block";
 			}
 			/*提交定单信息*/
 			function bookOrders(){
-				/*验证表单信息*/
-				
-				/*提交表单信息*/
-				$("#form1").submit();
+				var area=$("#area").val();
+				var areaId=$("#areaId").val();
+				var goodId=${goodPo.id};
+				var order_money=${goodPo.price_market};
+				var address=$("#address").val();
+				var consignor=$("#consignor").val();
+				var telephone=$("#telephone").val();
+				var zipcode=$("#zipcode").val()
+				var flag=true;
+				if(area==null){
+					flag=false;
+				}
+				if(address==null){
+					flag=false;
+				}
+				if(consignor==null){
+					flag=false;
+				}
+				if(telephone==null){
+					flag=false;
+				}
+				if(flag){
+					$.ajax({
+						url:"${root}/WXOrder//buildOrders",
+						data:{"area":area,"areaId":areaId,"address":address,"consignor":consignor,"telephone":telephone,
+							"zipcode":zipcode,"goodId":goodId,"order_money":order_money},
+						type:"post",
+						success:function(){
+							location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7eb46e5ce64de326&redirect_uri=https%3A%2F%2Fwww.zhucexia.com%2FWXOrder%2FmakeSurePrice&response_type=code&scope=snsapi_base&state="+goodId+"#wechat_redirect";
+						}
+					});
+				}
 				
 			}
 		</script>		
@@ -205,7 +230,6 @@
 				</li>
 			</ul>
 			<div class="address">填写地址信息</div>
-			<form action="${root}/WXOrder/buildOrders" method="post" id="form1">
 			<div>
 				<ul class="addr">			
 					<li>
@@ -215,13 +239,13 @@
 						<input type="hidden" name="order_money" value="${goodPo.price_market }">
 					</li>
 					<li>
-						<input  type="text" placeholder="街道地址" name="address"/>
+						<input  type="text" placeholder="街道地址" id="address" name="address"/>
 					</li>
 					<li>
-						<input type="text" placeholder="姓名" name="consignor" />
+						<input type="text" placeholder="姓名" id="consignor" name="consignor" />
 					</li>
 					<li>
-						<input type="text" placeholder="联系电话" name="telephone"/>
+						<input type="text" placeholder="联系电话"id="telephone" name="telephone"/>
 					</li>
 					<li>
 						<input type="text" placeholder="邮编" id="zipcode" readonly="readonly" name="zipcode">
@@ -235,7 +259,6 @@
 					background-color:#2294ff;color:#fff;text-decoration:none;display:block;border-radius:4px;
 					-webkit-border-radius:4px;-moz-border-radius:4px;"onclick="bookOrders();">下一步，支付</a>
 		    </div>
-		    </form> 
 		</div>
 		<div id="div1" class="div1">
 			<div id="return" style="border-bottom:1px solid rgb(203, 203, 203);margin:6px 0px;padding-bottom:0px;padding-left:12px;">

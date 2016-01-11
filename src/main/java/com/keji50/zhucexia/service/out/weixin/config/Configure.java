@@ -15,9 +15,11 @@ public class Configure {
 	//JSAPI接口中获取openid，审核后在公众平台开启开发模式后可查看
 	public static String APPSECRET = "ec77fc986a7e456798e1cf8ed040a11f";
 	//重定向地址
-	public static String REDIRECT_URL = "http://XXXXXXXXXXXXXXXXXXX/callWeiXinPay";
+	public static String REDIRECT_URL = "http://www.zhucexia.com/WXOrder/makeSurePrice";
 	//异步回调地址
 	public static String NOTIFY_URL = "http://www.zhucexia/WXIndex/goodList";
 	//web回调地址
 	public static String WEB_NOTIFY_URL = "http://www.zhucexia/WXIndex/goodList";
+	//curl超时设置
+	public static int CURL_TIMEOUT = 30;	
 }

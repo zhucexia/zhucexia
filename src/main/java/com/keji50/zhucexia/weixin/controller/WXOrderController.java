@@ -12,6 +12,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import javax.annotation.Resource;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,7 +57,7 @@ public class WXOrderController {
 	}
 	/*生成订单*/
 	@RequestMapping("/buildOrders")
-	public String buildOrders(HttpServletRequest request){
+	public void buildOrders(HttpServletRequest request,HttpServletResponse response){
 		//获取当前登录用户信息
 		CustomerPo customer=new CustomerPo();
 		customer=(CustomerPo) request.getSession().getAttribute("customer");
@@ -92,6 +94,7 @@ public class WXOrderController {
 		/*添加订单信息*/
 		SalaOrderPo saleOrder=new SalaOrderPo();
 		saleOrder.setCustomerid(customer.getId());
+		saleOrder.setCustomername(customer.getUsername());
 		saleOrder.setOrdermoney(Float.parseFloat(order_money));
 		saleOrder.setTelephone(telephone);
 		saleOrder.setZipcode(zipcode);
@@ -101,8 +104,6 @@ public class WXOrderController {
 
 		request.setAttribute("id", flag);
 		/*判断是否数据插入成功*/
-		return "weixinpage/success";		
-
 	}
 	/*订单管理中心*/
 	@RequestMapping("/orderManage")
@@ -123,7 +124,7 @@ public class WXOrderController {
 	}
 	/*确认付款，，，*/
 	@RequestMapping("/makeSurePrice")
-	public String makeSurePrice(HttpServletRequest request,HttpServletResponse response) throws IOException, JDOMException{
+	public String makeSurePrice(HttpServletRequest request,HttpServletResponse response) throws IOException, JDOMException, ServletException{
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		System.out.println("code-======"+code+"===========state======"+state);
@@ -222,7 +223,7 @@ public class WXOrderController {
 		//这个签名.主要是给加载微信js使用.别和上面的搞混了.
 		String signature = Sha1Util.getSha1((signValue));
 		request.setAttribute("signature", signature);
-		return "";
+		return "weixinpage/success";
 	}
 
 	@RequestMapping("/orderDetail")
