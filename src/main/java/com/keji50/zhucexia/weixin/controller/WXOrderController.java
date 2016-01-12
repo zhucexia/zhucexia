@@ -223,7 +223,7 @@ public class WXOrderController {
 		//这个签名.主要是给加载微信js使用.别和上面的搞混了.
 		String signature = Sha1Util.getSha1((signValue));
 		request.setAttribute("signature", signature);
-		return "weixinpage/success";
+		return "";
 	}
 
 	@RequestMapping("/orderDetail")
@@ -238,7 +238,7 @@ public class WXOrderController {
 	@ResponseBody
 	public int delOrder(HttpServletRequest request,HttpServletResponse response){
 		int i;
-		String id=request.getParameter("id");
+		String id=request.getParameter("order_id");
 		int flag=orderService.delOrder(id);
 		if(flag>0){
 			return i=0;
@@ -251,7 +251,7 @@ public class WXOrderController {
 	@ResponseBody
 	public int cancleOrder(HttpServletRequest request,HttpServletResponse response){
 		int i;
-		String id=request.getParameter("id");
+		String id=request.getParameter("order_id");
 		int flag=orderService.cancleOrder(id);
 		if(flag>0){
 			return i=0;

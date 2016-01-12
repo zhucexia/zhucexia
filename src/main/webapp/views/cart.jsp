@@ -44,9 +44,8 @@
 						</td>
 						<td><span id="priceTotal">0.00</span>元</td>
 
-						<td><!--  <a href="http://localhost/static/table/123.xlsx" target="_self" class="cart-btn">提交材料</a>--> <a
-
-							href="javascript:;"  onclick="validateGood();" class="cart-btn">付款</a></td>
+						<td><!--  <a href="http://localhost/static/table/123.xlsx" target="_self" class="cart-btn">提交材料</a>--> 
+						<a	href="javascript:;"  onclick="validateGood();" class="cart-btn">付款</a></td>
 					</tr>
 				</tfoot>
 			</table>

@@ -103,8 +103,7 @@ public class PaymentController {
 				request.setAttribute("WIDsubject", "测试订单");                           // 订单名称
 				request.setAttribute("WIDtotal_fee", "0.01");                            // 订单金额
 				request.setAttribute("WIDbody", "测试订单描述");                           // 订单描述
-				request.setAttribute("WIDshow_url", "http://test/zhucexia/order/3");   // 订单地址
-				
+				request.setAttribute("WIDshow_url", "http://test/zhucexia/order/3");   // 订单地址				
 				return "pay/alipayapi";
 			} else {
 			// 货到付款	

@@ -194,12 +194,12 @@
 				}
 				if(flag){
 					$.ajax({
-						url:"${root}/WXOrder//buildOrders",
+						url:"${root}/WXOrder/buildOrders",
 						data:{"area":area,"areaId":areaId,"address":address,"consignor":consignor,"telephone":telephone,
 							"zipcode":zipcode,"goodId":goodId,"order_money":order_money},
 						type:"post",
 						success:function(){
-							location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7eb46e5ce64de326&redirect_uri=https%3A%2F%2Fwww.zhucexia.com%2FWXOrder%2FmakeSurePrice&response_type=code&scope=snsapi_base&state="+goodId+"#wechat_redirect";
+							location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7eb46e5ce64de326&redirect_uri=http%3A%2F%2Fwww.zhucexia.com%2FWXOrder%2FmakeSurePrice&response_type=code&scope=snsapi_base&state="+goodId+"#wechat_redirect";
 						}
 					});
 				}
