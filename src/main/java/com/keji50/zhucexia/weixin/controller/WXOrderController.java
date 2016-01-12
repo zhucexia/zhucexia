@@ -124,6 +124,7 @@ public class WXOrderController {
 	/*确认付款，，，*/
 	@RequestMapping("/makeSurePrice")
 	public String makeSurePrice(HttpServletRequest request,HttpServletResponse response) throws IOException, JDOMException{
+		
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		System.out.println("code-======"+code+"===========state======"+state);
@@ -222,7 +223,7 @@ public class WXOrderController {
 		//这个签名.主要是给加载微信js使用.别和上面的搞混了.
 		String signature = Sha1Util.getSha1((signValue));
 		request.setAttribute("signature", signature);
-		return "";
+		return "weixinpage/success";
 }
 	@RequestMapping("/orderDetail")
 	public String orderDetail(HttpServletRequest request,HttpServletResponse response){
