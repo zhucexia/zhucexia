@@ -64,7 +64,7 @@ public class WXOrderController {
 		/*获取传递的数据*/
 		//省，城，区
 		String area =request.getParameter("area");
-		String proCity=area.split(" ")[0]+" "+area.split(" ")[0];
+		String proCity=area.split(" ")[0]+" "+area.split(" ")[1];
 		String areas=area.split(" ")[2];
 		//省，城，区的id值
 		String areaId=request.getParameter("areaId");
@@ -217,13 +217,16 @@ public class WXOrderController {
 		request.setAttribute("signType", "MD5");        //加密格式
 		request.setAttribute("out_trade_no", out_trade_no);          //订单号
 		request.setAttribute("package", "prepay_id="+prepay_id);//预支付id ,就这样的格式.
-		String url = "http://xxxxxxxxxx/control/wxPayment";
+		String url = request.getScheme()+"://www.zhucexia.com/"+request.getServletPath()+"?"+request.getQueryString();
+				//"http://www.zhucexia.com/WXOrder/makeSurePrice?state="+state;
 		String signValue = "jsapi_ticket="+ticket+"&noncestr="+noncestr+"&timestamp="+timestamp+"&url="+url;
 		System.out.println("url====="+signValue);
 		//这个签名.主要是给加载微信js使用.别和上面的搞混了.
 		String signature = Sha1Util.getSha1((signValue));
+		System.out.println("ticket:"+ticket+",noncestr:"+noncestr+"timestamp:"+timestamp);
+		System.out.println("signature:"+signature);
 		request.setAttribute("signature", signature);
-		return "";
+		return "weixinpage/success";
 	}
 
 	@RequestMapping("/orderDetail")

@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class Utils {
 
 	public static String getOut(HttpURLConnection conn) throws IOException{
@@ -34,7 +36,7 @@ public static String SendGET(String url,String param){
     //创建url
     URL realurl=new URL(url+"?"+param);
     //打开连接
-    URLConnection connection=realurl.openConnection();
+    HttpsURLConnection connection=(HttpsURLConnection)realurl.openConnection();
      // 设置通用的请求属性
              connection.setRequestProperty("accept", "*/*");
              connection.setRequestProperty("connection", "Keep-Alive");

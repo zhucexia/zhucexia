@@ -25,7 +25,6 @@
 				</script>
 		<script type="text/javascript" src="${root}/static/js/common/jquery-1.7.1.min.js">
 				</script>
-		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		<script type="text/javascript">
 			function createProvince(){
 				document.getElementById("div1").style.display="block";
