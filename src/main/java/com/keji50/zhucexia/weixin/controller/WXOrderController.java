@@ -228,7 +228,6 @@ public class WXOrderController {
 		request.setAttribute("signature", signature);
 		return "weixinpage/success";
 	}
-
 	@RequestMapping("/orderDetail")
 	public String orderDetail(HttpServletRequest request,HttpServletResponse response){
 		int id=Integer.parseInt(request.getParameter("id"));
